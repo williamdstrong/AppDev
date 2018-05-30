@@ -21,25 +21,25 @@ import com.liferay.osgi.util.ServiceTrackerFactory;
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
- * Provides the remote service utility for Foo. This utility wraps
- * {@link com.liferay.training.amf.registration.service.impl.FooServiceImpl} and is the
+ * Provides the remote service utility for Registration. This utility wraps
+ * {@link com.liferay.training.amf.registration.service.impl.RegistrationServiceImpl} and is the
  * primary access point for service operations in application layer code running
  * on a remote server. Methods of this service are expected to have security
  * checks based on the propagated JAAS credentials because this service can be
  * accessed remotely.
  *
  * @author William Strong
- * @see FooService
- * @see com.liferay.training.amf.registration.service.base.FooServiceBaseImpl
- * @see com.liferay.training.amf.registration.service.impl.FooServiceImpl
+ * @see RegistrationService
+ * @see com.liferay.training.amf.registration.service.base.RegistrationServiceBaseImpl
+ * @see com.liferay.training.amf.registration.service.impl.RegistrationServiceImpl
  * @generated
  */
 @ProviderType
-public class FooServiceUtil {
+public class RegistrationServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this class directly. Add custom service methods to {@link com.liferay.training.amf.registration.service.impl.FooServiceImpl} and rerun ServiceBuilder to regenerate this class.
+	 * Never modify this class directly. Add custom service methods to {@link com.liferay.training.amf.registration.service.impl.RegistrationServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 
 	/**
@@ -51,9 +51,10 @@ public class FooServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static FooService getService() {
+	public static RegistrationService getService() {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<FooService, FooService> _serviceTracker = ServiceTrackerFactory.open(FooService.class);
+	private static ServiceTracker<RegistrationService, RegistrationService> _serviceTracker =
+		ServiceTrackerFactory.open(RegistrationService.class);
 }

@@ -5,7 +5,11 @@ import amf.registration.web.constants.AmfRegistrationWebPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import javax.portlet.Portlet;
+import javax.portlet.RenderRequest;
+import javax.servlet.Registration;
 
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -26,4 +30,14 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class AmfRegistrationWebPortlet extends MVCPortlet {
+
+	public void foo(RenderRequest r) {
+		ThemeDisplay themeDisplay = (ThemeDisplay)r.getAttribute(WebKeys.THEME_DISPLAY);
+
+//		themeDisplay.getUser().getuser
+
+
+
+//		Registration registration = Registration
+	}
 }

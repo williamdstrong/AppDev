@@ -18,7 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 /**
  * Provides the HTTP utility for the
- * {@link com.liferay.training.amf.registration.service.FooServiceUtil} service utility. The
+ * {@link com.liferay.training.amf.registration.service.RegistrationServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
  * {@link com.liferay.portal.kernel.security.auth.HttpPrincipal} parameter.
@@ -39,11 +39,11 @@ import aQute.bnd.annotation.ProviderType;
  * </p>
  *
  * @author William Strong
- * @see FooServiceSoap
+ * @see RegistrationServiceSoap
  * @see com.liferay.portal.kernel.security.auth.HttpPrincipal
- * @see com.liferay.training.amf.registration.service.FooServiceUtil
+ * @see com.liferay.training.amf.registration.service.RegistrationServiceUtil
  * @generated
  */
 @ProviderType
-public class FooServiceHttp {
+public class RegistrationServiceHttp {
 }

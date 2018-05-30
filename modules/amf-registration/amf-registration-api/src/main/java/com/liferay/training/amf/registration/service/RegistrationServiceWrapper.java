@@ -19,17 +19,17 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
- * Provides a wrapper for {@link FooService}.
+ * Provides a wrapper for {@link RegistrationService}.
  *
  * @author William Strong
- * @see FooService
+ * @see RegistrationService
  * @generated
  */
 @ProviderType
-public class FooServiceWrapper implements FooService,
-	ServiceWrapper<FooService> {
-	public FooServiceWrapper(FooService fooService) {
-		_fooService = fooService;
+public class RegistrationServiceWrapper implements RegistrationService,
+	ServiceWrapper<RegistrationService> {
+	public RegistrationServiceWrapper(RegistrationService registrationService) {
+		_registrationService = registrationService;
 	}
 
 	/**
@@ -39,18 +39,18 @@ public class FooServiceWrapper implements FooService,
 	*/
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
-		return _fooService.getOSGiServiceIdentifier();
+		return _registrationService.getOSGiServiceIdentifier();
 	}
 
 	@Override
-	public FooService getWrappedService() {
-		return _fooService;
+	public RegistrationService getWrappedService() {
+		return _registrationService;
 	}
 
 	@Override
-	public void setWrappedService(FooService fooService) {
-		_fooService = fooService;
+	public void setWrappedService(RegistrationService registrationService) {
+		_registrationService = registrationService;
 	}
 
-	private FooService _fooService;
+	private RegistrationService _registrationService;
 }

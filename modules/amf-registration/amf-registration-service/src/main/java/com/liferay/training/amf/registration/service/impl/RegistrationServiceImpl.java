@@ -14,26 +14,26 @@
 
 package com.liferay.training.amf.registration.service.impl;
 
-import com.liferay.training.amf.registration.service.base.FooServiceBaseImpl;
+import com.liferay.training.amf.registration.service.base.RegistrationServiceBaseImpl;
 
 /**
- * The implementation of the foo remote service.
+ * The implementation of the registration remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.training.amf.registration.service.FooService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.training.amf.registration.service.RegistrationService} interface.
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
  * </p>
  *
  * @author William Strong
- * @see FooServiceBaseImpl
- * @see com.liferay.training.amf.registration.service.FooServiceUtil
+ * @see RegistrationServiceBaseImpl
+ * @see com.liferay.training.amf.registration.service.RegistrationServiceUtil
  */
-public class FooServiceImpl extends FooServiceBaseImpl {
+public class RegistrationServiceImpl extends RegistrationServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use {@link com.liferay.training.amf.registration.service.FooServiceUtil} to access the foo remote service.
+	 * Never reference this class directly. Always use {@link com.liferay.training.amf.registration.service.RegistrationServiceUtil} to access the registration remote service.
 	 */
 }

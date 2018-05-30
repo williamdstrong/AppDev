@@ -26,28 +26,28 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 /**
- * Provides the remote service interface for Foo. Methods of this
+ * Provides the remote service interface for Registration. Methods of this
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
  * @author William Strong
- * @see FooServiceUtil
- * @see com.liferay.training.amf.registration.service.base.FooServiceBaseImpl
- * @see com.liferay.training.amf.registration.service.impl.FooServiceImpl
+ * @see RegistrationServiceUtil
+ * @see com.liferay.training.amf.registration.service.base.RegistrationServiceBaseImpl
+ * @see com.liferay.training.amf.registration.service.impl.RegistrationServiceImpl
  * @generated
  */
 @AccessControlled
 @JSONWebService
 @OSGiBeanProperties(property =  {
-	"json.web.service.context.name=amf", "json.web.service.context.path=Foo"}, service = FooService.class)
+	"json.web.service.context.name=amf", "json.web.service.context.path=Registration"}, service = RegistrationService.class)
 @ProviderType
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
-public interface FooService extends BaseService {
+public interface RegistrationService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link FooServiceUtil} to access the foo remote service. Add custom service methods to {@link com.liferay.training.amf.registration.service.impl.FooServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link RegistrationServiceUtil} to access the registration remote service. Add custom service methods to {@link com.liferay.training.amf.registration.service.impl.RegistrationServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
