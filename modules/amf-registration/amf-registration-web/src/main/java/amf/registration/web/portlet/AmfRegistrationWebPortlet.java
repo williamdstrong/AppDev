@@ -5,12 +5,17 @@ import amf.registration.web.constants.AmfRegistrationWebPortletKeys;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.servlet.Registration;
 
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
+
+import java.io.IOError;
+import java.io.IOException;
 
 /**
  * @author liferay
@@ -31,13 +36,14 @@ import org.osgi.service.component.annotations.Component;
 )
 public class AmfRegistrationWebPortlet extends MVCPortlet {
 
-	public void foo(RenderRequest r) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)r.getAttribute(WebKeys.THEME_DISPLAY);
+	public void doView(
+	        RenderRequest renderRequest, RenderResponse renderResponse)
+            throws IOException, PortletException {
 
-//		themeDisplay.getUser().getuser
+		ThemeDisplay themeDisplay =
+                (ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
+        super.doView(renderRequest, renderResponse);
 
-
-//		Registration registration = Registration
 	}
 }

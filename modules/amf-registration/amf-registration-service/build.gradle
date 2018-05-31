@@ -10,4 +10,4 @@ buildService {
 	apiDir = "../amf-registration-api/src/main/java"
 }
 
-group = "amf.registration"
+group = "com.liferay.training.amf.registration"

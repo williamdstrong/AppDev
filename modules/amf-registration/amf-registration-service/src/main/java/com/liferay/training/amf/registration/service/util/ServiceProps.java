@@ -12,7 +12,7 @@
  * details.
  */
 
-package amf.registration.service.util;
+package com.liferay.training.amf.registration.service.util;
 
 import aQute.bnd.annotation.ProviderType;
 

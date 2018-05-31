@@ -45,10 +45,7 @@ public class RegistrationLocalServiceImpl
      *
      * Never reference this class directly. Always use {@link com.liferay.training.amf.registration.service.RegistrationLocalServiceUtil} to access the registration local service.
      */
-    private Address address;
     private User user;
-    private Contact contact;
-
 
     public void addRegistration(
             String firstName,
@@ -174,8 +171,9 @@ public class RegistrationLocalServiceImpl
         user.setReminderQueryQuestion(securityQuestion);
         user.setReminderQueryAnswer(securityQuestionAnswer);
 
-        this.user = user;
+        user.persist();
 
+        this.user = user;
     }
 
     private void createAddress(
@@ -210,8 +208,6 @@ public class RegistrationLocalServiceImpl
         }
 
         address.persist();
-
-        this.address = address;
     }
 
     private void createPhone(String phoneNumber) {
@@ -221,6 +217,8 @@ public class RegistrationLocalServiceImpl
 
         phone.setUserId(this.user.getUserId());
         phone.setNumber(phoneNumber);
+
+        phone.persist();
     }
 
     @ServiceReference(type = PhoneService.class)
