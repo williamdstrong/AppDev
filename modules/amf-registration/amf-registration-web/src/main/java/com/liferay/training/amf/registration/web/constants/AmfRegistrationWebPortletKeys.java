@@ -1,4 +1,4 @@
-package amf.registration.web.constants;
+package com.liferay.training.amf.registration.web.constants;
 
 /**
  * @author liferay

@@ -33,6 +33,11 @@ public class RegistrationLocalServiceWrapper implements RegistrationLocalService
 		_registrationLocalService = registrationLocalService;
 	}
 
+	@Override
+	public boolean usernameIsUnique(java.lang.String username) {
+		return _registrationLocalService.usernameIsUnique(username);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*

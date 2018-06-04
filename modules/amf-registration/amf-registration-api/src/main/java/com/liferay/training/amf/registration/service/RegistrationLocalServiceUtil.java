@@ -41,6 +41,9 @@ public class RegistrationLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.training.amf.registration.service.impl.RegistrationLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static boolean usernameIsUnique(java.lang.String username) {
+		return getService().usernameIsUnique(username);
+	}
 
 	/**
 	* Returns the OSGi service identifier.

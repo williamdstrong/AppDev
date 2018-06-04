@@ -19,7 +19,6 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.*;
-import com.liferay.portal.kernel.service.*;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -45,6 +44,7 @@ public interface RegistrationLocalService extends BaseLocalService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link RegistrationLocalServiceUtil} to access the registration local service. Add custom service methods to {@link com.liferay.training.amf.registration.service.impl.RegistrationLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public boolean usernameIsUnique(java.lang.String username);
 
 	/**
 	* Returns the OSGi service identifier.

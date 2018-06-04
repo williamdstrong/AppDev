@@ -1,6 +1,6 @@
-package amf.registration.web.portlet;
+package com.liferay.training.amf.registration.web.portlet;
 
-import amf.registration.web.constants.AmfRegistrationWebPortletKeys;
+import com.liferay.training.amf.registration.web.constants.AmfRegistrationWebPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
@@ -8,13 +8,14 @@ import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.Registration;
 
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.training.amf.registration.service.RegistrationLocalService;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
 
-import java.io.IOError;
 import java.io.IOException;
 
 /**
@@ -25,7 +26,7 @@ import java.io.IOException;
 	property = {
 		"com.liferay.portlet.display-category=category.sample",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=amf-registration-web Portlet",
+		"javax.portlet.display-name=AMF Registration",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + AmfRegistrationWebPortletKeys.AmfRegistrationWeb,
@@ -40,10 +41,19 @@ public class AmfRegistrationWebPortlet extends MVCPortlet {
 	        RenderRequest renderRequest, RenderResponse renderResponse)
             throws IOException, PortletException {
 
+
+
 		ThemeDisplay themeDisplay =
                 (ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+
+        boolean userIsLoggedIn = themeDisplay.isSignedIn();
+
+        renderRequest.setAttribute("userIsLoggedIn", userIsLoggedIn);
+        renderRequest.setAttribute("errors", AmfRegistrationWebUtil.setInitialErrors());
 
         super.doView(renderRequest, renderResponse);
 
 	}
+	@Reference(cardinality = ReferenceCardinality.MANDATORY)
+	protected RegistrationLocalService _registrationLocalService;
 }

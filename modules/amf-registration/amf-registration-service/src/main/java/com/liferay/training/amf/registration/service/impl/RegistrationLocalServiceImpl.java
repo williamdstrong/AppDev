@@ -16,7 +16,9 @@ package com.liferay.training.amf.registration.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.*;
-import com.liferay.portal.kernel.service.*;
+import com.liferay.portal.kernel.service.PhoneService;
+import com.liferay.portal.kernel.service.RegionService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.training.amf.registration.service.base.RegistrationLocalServiceBaseImpl;
@@ -46,6 +48,15 @@ public class RegistrationLocalServiceImpl
      * Never reference this class directly. Always use {@link com.liferay.training.amf.registration.service.RegistrationLocalServiceUtil} to access the registration local service.
      */
     private User user;
+
+    public boolean usernameIsUnique(String username) {
+        try {
+            userLocalService.getUserByScreenName(20115, username);
+        } catch (PortalException e) {
+            return true;
+        }
+        return false;
+    }
 
     public void addRegistration(
             String firstName,
@@ -113,7 +124,10 @@ public class RegistrationLocalServiceImpl
         Locale locale = Locale.US;
 
         long creatorUserId = 0;
-        long companyId = 0;
+
+        // Since there is only one company we can hard code it.
+
+        long companyId = 20115;
         boolean autoPassword = false;
         boolean autoScreenName = false;
         long facebookId = 0;
@@ -174,6 +188,7 @@ public class RegistrationLocalServiceImpl
         user.persist();
 
         this.user = user;
+
     }
 
     private void createAddress(
@@ -201,7 +216,7 @@ public class RegistrationLocalServiceImpl
         // state name is invalid.
         List<Region> regions = regionService.getRegions(19);
         for (Region region : regions) {
-            if (region.getName() == state) {
+            if (region.getName().contentEquals(state)) {
                 address.setRegionId(region.getRegionId());
                 break;
             }
@@ -219,6 +234,7 @@ public class RegistrationLocalServiceImpl
         phone.setNumber(phoneNumber);
 
         phone.persist();
+
     }
 
     @ServiceReference(type = PhoneService.class)
