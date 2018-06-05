@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="com.liferay.training.amf.monitor.model.adminMonitor">
+	<model name="com.liferay.training.amf.monitor.model.AdminMonitor">
 		<field name="monitorId" type="long" />
 		<field name="dateTime" type="Date" />
 		<field name="eventType" type="String" />
 		<field name="userId" type="long" />
-		<field name="ipAddress" type="long" />
+		<field name="ipAddress" type="String" />
 	</model>
 </model-hints>
