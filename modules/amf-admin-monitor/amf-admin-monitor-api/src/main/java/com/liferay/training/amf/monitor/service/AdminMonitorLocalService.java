@@ -81,8 +81,6 @@ public interface AdminMonitorLocalService extends BaseLocalService,
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public AdminMonitor addAdminMonitor(User user, java.lang.String eventType);
-
 	/**
 	* Adds the admin monitor to the database. Also notifies the appropriate model listeners.
 	*
@@ -91,6 +89,10 @@ public interface AdminMonitorLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public AdminMonitor addAdminMonitor(AdminMonitor adminMonitor);
+
+	public AdminMonitor addAdminMonitorCreationEvent(User user);
+
+	public AdminMonitor addAdminMonitorLoginEvent(User user);
 
 	/**
 	* Creates a new admin monitor with the primary key. Does not add the admin monitor to the database.
@@ -210,6 +212,12 @@ public interface AdminMonitorLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<AdminMonitor> getAdminMonitors(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AdminMonitor> getCreationEvents();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AdminMonitor> getLoginEvents();
 
 	/**
 	* Returns the number of rows matching the dynamic query.

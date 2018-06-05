@@ -21,7 +21,6 @@ import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
@@ -34,16 +33,13 @@ import com.liferay.portal.kernel.util.StringPool;
 
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import com.liferay.training.amf.monitor.model.AdminMonitorModel;
-import com.liferay.training.amf.monitor.model.AdminMonitorSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,7 +55,6 @@ import java.util.Map;
  * @see AdminMonitorModel
  * @generated
  */
-@JSON(strict = true)
 @ProviderType
 public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 	implements AdminMonitorModel {
@@ -99,50 +94,11 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.training.amf.monitor.service.util.ServiceProps.get(
 				"value.object.finder.cache.enabled.com.liferay.training.amf.monitor.model.AdminMonitor"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
-
-	/**
-	 * Converts the soap model instance into a normal model instance.
-	 *
-	 * @param soapModel the soap model instance to convert
-	 * @return the normal model instance
-	 */
-	public static AdminMonitor toModel(AdminMonitorSoap soapModel) {
-		if (soapModel == null) {
-			return null;
-		}
-
-		AdminMonitor model = new AdminMonitorImpl();
-
-		model.setMonitorId(soapModel.getMonitorId());
-		model.setDateTime(soapModel.getDateTime());
-		model.setEventType(soapModel.getEventType());
-		model.setUserId(soapModel.getUserId());
-		model.setIpAddress(soapModel.getIpAddress());
-
-		return model;
-	}
-
-	/**
-	 * Converts the soap model instances into normal model instances.
-	 *
-	 * @param soapModels the soap model instances to convert
-	 * @return the normal model instances
-	 */
-	public static List<AdminMonitor> toModels(AdminMonitorSoap[] soapModels) {
-		if (soapModels == null) {
-			return null;
-		}
-
-		List<AdminMonitor> models = new ArrayList<AdminMonitor>(soapModels.length);
-
-		for (AdminMonitorSoap soapModel : soapModels) {
-			models.add(toModel(soapModel));
-		}
-
-		return models;
-	}
-
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.training.amf.monitor.service.util.ServiceProps.get(
+				"value.object.column.bitmask.enabled.com.liferay.training.amf.monitor.model.AdminMonitor"),
+			true);
+	public static final long EVENTTYPE_COLUMN_BITMASK = 1L;
+	public static final long MONITORID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.training.amf.monitor.service.util.ServiceProps.get(
 				"lock.expiration.time.com.liferay.training.amf.monitor.model.AdminMonitor"));
 
@@ -228,7 +184,6 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 		}
 	}
 
-	@JSON
 	@Override
 	public long getMonitorId() {
 		return _monitorId;
@@ -239,7 +194,6 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 		_monitorId = monitorId;
 	}
 
-	@JSON
 	@Override
 	public Date getDateTime() {
 		return _dateTime;
@@ -250,7 +204,6 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 		_dateTime = dateTime;
 	}
 
-	@JSON
 	@Override
 	public String getEventType() {
 		if (_eventType == null) {
@@ -263,10 +216,19 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	@Override
 	public void setEventType(String eventType) {
+		_columnBitmask |= EVENTTYPE_COLUMN_BITMASK;
+
+		if (_originalEventType == null) {
+			_originalEventType = _eventType;
+		}
+
 		_eventType = eventType;
 	}
 
-	@JSON
+	public String getOriginalEventType() {
+		return GetterUtil.getString(_originalEventType);
+	}
+
 	@Override
 	public long getUserId() {
 		return _userId;
@@ -293,7 +255,6 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 	public void setUserUuid(String userUuid) {
 	}
 
-	@JSON
 	@Override
 	public String getIpAddress() {
 		if (_ipAddress == null) {
@@ -307,6 +268,10 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 	@Override
 	public void setIpAddress(String ipAddress) {
 		_ipAddress = ipAddress;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -401,6 +366,11 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	@Override
 	public void resetOriginalValues() {
+		AdminMonitorModelImpl adminMonitorModelImpl = this;
+
+		adminMonitorModelImpl._originalEventType = adminMonitorModelImpl._eventType;
+
+		adminMonitorModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -499,7 +469,9 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 	private long _monitorId;
 	private Date _dateTime;
 	private String _eventType;
+	private String _originalEventType;
 	private long _userId;
 	private String _ipAddress;
+	private long _columnBitmask;
 	private AdminMonitor _escapedModel;
 }

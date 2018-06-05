@@ -1,0 +1,1 @@
+create index IX_A8F1A06E on AMF_AdminMonitor (eventType[$COLUMN_LENGTH:75$]);

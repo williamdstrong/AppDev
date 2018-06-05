@@ -2,6 +2,5 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean class="com.liferay.training.amf.monitor.service.impl.AdminMonitorLocalServiceImpl" id="com.liferay.training.amf.monitor.service.AdminMonitorLocalService" />
-	<bean class="com.liferay.training.amf.monitor.service.impl.AdminMonitorServiceImpl" id="com.liferay.training.amf.monitor.service.AdminMonitorService" />
 	<bean class="com.liferay.training.amf.monitor.service.persistence.impl.AdminMonitorPersistenceImpl" id="com.liferay.training.amf.monitor.service.persistence.AdminMonitorPersistence" parent="basePersistence" />
 </beans>

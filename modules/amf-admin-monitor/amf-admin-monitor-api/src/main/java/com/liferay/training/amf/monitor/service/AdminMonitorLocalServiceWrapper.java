@@ -65,12 +65,6 @@ public class AdminMonitorLocalServiceWrapper implements AdminMonitorLocalService
 		return _adminMonitorLocalService.getPersistedModel(primaryKeyObj);
 	}
 
-	@Override
-	public com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitor(
-		com.liferay.portal.kernel.model.User user, java.lang.String eventType) {
-		return _adminMonitorLocalService.addAdminMonitor(user, eventType);
-	}
-
 	/**
 	* Adds the admin monitor to the database. Also notifies the appropriate model listeners.
 	*
@@ -81,6 +75,18 @@ public class AdminMonitorLocalServiceWrapper implements AdminMonitorLocalService
 	public com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitor(
 		com.liferay.training.amf.monitor.model.AdminMonitor adminMonitor) {
 		return _adminMonitorLocalService.addAdminMonitor(adminMonitor);
+	}
+
+	@Override
+	public com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitorCreationEvent(
+		com.liferay.portal.kernel.model.User user) {
+		return _adminMonitorLocalService.addAdminMonitorCreationEvent(user);
+	}
+
+	@Override
+	public com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitorLoginEvent(
+		com.liferay.portal.kernel.model.User user) {
+		return _adminMonitorLocalService.addAdminMonitorLoginEvent(user);
 	}
 
 	/**
@@ -241,6 +247,16 @@ public class AdminMonitorLocalServiceWrapper implements AdminMonitorLocalService
 	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAdminMonitors(
 		int start, int end) {
 		return _adminMonitorLocalService.getAdminMonitors(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents() {
+		return _adminMonitorLocalService.getCreationEvents();
+	}
+
+	@Override
+	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents() {
+		return _adminMonitorLocalService.getLoginEvents();
 	}
 
 	/**

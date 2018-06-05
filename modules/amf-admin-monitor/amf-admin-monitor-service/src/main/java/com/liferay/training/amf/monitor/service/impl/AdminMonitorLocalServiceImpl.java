@@ -18,7 +18,11 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import com.liferay.training.amf.monitor.service.base.AdminMonitorLocalServiceBaseImpl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the admin monitor local service.
@@ -37,11 +41,27 @@ import java.util.Date;
 public class AdminMonitorLocalServiceImpl
 	extends AdminMonitorLocalServiceBaseImpl {
 
-	public AdminMonitor addAdminMonitor(User user, String eventType) {
+	public AdminMonitor addAdminMonitorCreationEvent(User user) {
+		String eventType = "CREATE";
+		return addAdminMonitor(user, eventType);
+	}
+
+	public AdminMonitor addAdminMonitorLoginEvent(User user) {
+		String eventType = "LOGIN";
+		return addAdminMonitor(user, eventType);
+	}
+
+	private AdminMonitor addAdminMonitor(User user, String eventType) {
+
+		String ip;
+		if (eventType.equalsIgnoreCase("create")) {
+			ip = "0.0.0.0";
+		}
+		else {
+			ip = user.getLastLoginIP();
+		}
 
 		long id = user.getUserId();
-
-		String ip = user.getLastLoginIP();
 
 		Date date = _getNow();
 
@@ -57,7 +77,19 @@ public class AdminMonitorLocalServiceImpl
 		return adminMonitor;
 	}
 
-	private Date _getNow() {
+	public List<AdminMonitor> getLoginEvents() {
+		return findByEventType("LOGIN");
+	}
+
+	public List<AdminMonitor> getCreationEvents() {
+		return findByEventType("CREATE");
+	}
+
+	private List<AdminMonitor> findByEventType(String s) {
+		return adminMonitorPersistence.findByEventType(s);
+	}
+
+	private static Date _getNow() {
 		return new Date();
 	}
 

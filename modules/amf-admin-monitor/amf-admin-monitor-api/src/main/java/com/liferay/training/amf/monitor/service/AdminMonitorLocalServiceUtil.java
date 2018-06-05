@@ -68,11 +68,6 @@ public class AdminMonitorLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitor(
-		com.liferay.portal.kernel.model.User user, java.lang.String eventType) {
-		return getService().addAdminMonitor(user, eventType);
-	}
-
 	/**
 	* Adds the admin monitor to the database. Also notifies the appropriate model listeners.
 	*
@@ -82,6 +77,16 @@ public class AdminMonitorLocalServiceUtil {
 	public static com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitor(
 		com.liferay.training.amf.monitor.model.AdminMonitor adminMonitor) {
 		return getService().addAdminMonitor(adminMonitor);
+	}
+
+	public static com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitorCreationEvent(
+		com.liferay.portal.kernel.model.User user) {
+		return getService().addAdminMonitorCreationEvent(user);
+	}
+
+	public static com.liferay.training.amf.monitor.model.AdminMonitor addAdminMonitorLoginEvent(
+		com.liferay.portal.kernel.model.User user) {
+		return getService().addAdminMonitorLoginEvent(user);
 	}
 
 	/**
@@ -230,6 +235,14 @@ public class AdminMonitorLocalServiceUtil {
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAdminMonitors(
 		int start, int end) {
 		return getService().getAdminMonitors(start, end);
+	}
+
+	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents() {
+		return getService().getCreationEvents();
+	}
+
+	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents() {
+		return getService().getLoginEvents();
 	}
 
 	/**
