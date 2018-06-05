@@ -1,5 +1,7 @@
 package com.liferay.training.amf.monitor.portlet.portlet;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.training.amf.monitor.portlet.constants.AmfAdminMonitorWebPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -25,5 +27,5 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = Portlet.class
 )
-public class AmfAdminMonitorWebPortlet extends MVCPortlet {
+public class AdminMonitorPortlet extends MVCPortlet {
 }
