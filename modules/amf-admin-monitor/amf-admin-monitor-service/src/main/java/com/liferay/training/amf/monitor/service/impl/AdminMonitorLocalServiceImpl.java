@@ -18,9 +18,6 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import com.liferay.training.amf.monitor.service.base.AdminMonitorLocalServiceBaseImpl;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
