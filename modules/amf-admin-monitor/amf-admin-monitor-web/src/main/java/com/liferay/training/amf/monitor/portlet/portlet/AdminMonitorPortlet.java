@@ -2,7 +2,7 @@ package com.liferay.training.amf.monitor.portlet.portlet;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.training.amf.monitor.portlet.constants.AmfAdminMonitorWebPortletKeys;
+import com.liferay.training.amf.monitor.portlet.constants.AdminMonitorPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.display-name=amf-admin-monitor-web Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.name=" + AmfAdminMonitorWebPortletKeys.AmfAdminMonitorWeb,
+		"javax.portlet.name=" + AdminMonitorPortletKeys.AmfAdminMonitorWeb,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user"
 	},
