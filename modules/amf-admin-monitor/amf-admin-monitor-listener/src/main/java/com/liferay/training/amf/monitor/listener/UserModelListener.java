@@ -20,19 +20,15 @@ import org.osgi.service.component.annotations.Reference;
  * Provides the AdminMonitor service with User registrations, logins, and updates.
  *
  * @author William Strong
+ *
  * @see com.liferay.training.amf.impl.AdminMonitorLocalServiceImpl
  */
 public class UserModelListener
-        extends BaseModelListener<User> {
+		extends BaseModelListener<User> {
 
     @Override
     public void onAfterCreate(User user) throws ModelListenerException {
-        try {
-            String eventType = "create";
-            adminMonitorLocalService.addAdminMonitor(user, eventType);
-        } catch (Exception e) {
-            // TODO log or something
-        }
+        adminMonitorLocalService.addAdminMonitorCreationEvent(user);
         super.onAfterCreate(user);
     }
 
