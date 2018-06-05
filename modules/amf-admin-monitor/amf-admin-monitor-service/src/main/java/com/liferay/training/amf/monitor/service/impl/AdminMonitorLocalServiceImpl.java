@@ -40,17 +40,31 @@ public class AdminMonitorLocalServiceImpl
 
 	public AdminMonitor addAdminMonitorCreationEvent(User user) {
 		String eventType = "CREATE";
+
 		return addAdminMonitor(user, eventType);
 	}
 
 	public AdminMonitor addAdminMonitorLoginEvent(User user) {
 		String eventType = "LOGIN";
+
 		return addAdminMonitor(user, eventType);
 	}
 
-	private AdminMonitor addAdminMonitor(User user, String eventType) {
+	public List<AdminMonitor> getCreationEvents() {
+		return findByEventType("CREATE");
+	}
 
+	public List<AdminMonitor> getLoginEvents() {
+		return findByEventType("LOGIN");
+	}
+
+	private static Date _getNow() {
+		return new Date();
+	}
+
+	private AdminMonitor addAdminMonitor(User user, String eventType) {
 		String ip;
+
 		if (eventType.equalsIgnoreCase("create")) {
 			ip = "0.0.0.0";
 		}
@@ -63,7 +77,8 @@ public class AdminMonitorLocalServiceImpl
 		Date date = _getNow();
 
 		long adminMonitorId = counterLocalService.increment();
-		AdminMonitor adminMonitor = adminMonitorLocalService.createAdminMonitor(adminMonitorId);
+		AdminMonitor adminMonitor = adminMonitorLocalService.createAdminMonitor(
+			adminMonitorId);
 
 		adminMonitor.setDateTime(date);
 		adminMonitor.setEventType(eventType);
@@ -74,20 +89,8 @@ public class AdminMonitorLocalServiceImpl
 		return adminMonitor;
 	}
 
-	public List<AdminMonitor> getLoginEvents() {
-		return findByEventType("LOGIN");
-	}
-
-	public List<AdminMonitor> getCreationEvents() {
-		return findByEventType("CREATE");
-	}
-
 	private List<AdminMonitor> findByEventType(String s) {
 		return adminMonitorPersistence.findByEventType(s);
-	}
-
-	private static Date _getNow() {
-		return new Date();
 	}
 
 }

@@ -27,11 +27,13 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public class AdminMonitorImpl extends AdminMonitorBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a admin monitor model instance should use the {@link com.liferay.training.amf.monitor.model.AdminMonitor} interface instead.
 	 */
 	public AdminMonitorImpl() {
 	}
+
 }

@@ -6,26 +6,26 @@
 	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
 	<entity local-service="true" name="AdminMonitor"  remote-service="false">
 
-        <!-- PK -->
+		<!-- PK -->
 
-        <column name="monitorId" type="long" primary="true" />
+		<column name="monitorId" primary="true" type="long" />
 
-        <!-- Audit fields -->
+		<!-- Audit fields -->
 
-        <column name="dateTime" type="Date" />
+		<column name="dateTime" type="Date" />
 
-        <!-- eventType will be either a registration or a login -->
+		<!-- eventType will be either a registration or a login -->
 
-        <column name="eventType" type="String" />
-        <column name="userId" type="long" />
-        <column name="ipAddress" type="String" />
+		<column name="eventType" type="String" />
+		<column name="userId" type="long" />
+		<column name="ipAddress" type="String" />
 
-        <finder name="EventType" return-type="Collection">
-            <finder-column name="eventType"></finder-column>
-        </finder>
-        
-    </entity>
-    <exceptions>
-        <exception>NoSuchEventType</exception>
-    </exceptions>
+		<finder name="EventType" return-type="Collection">
+			<finder-column name="eventType"></finder-column>
+		</finder>
+
+	</entity>
+	<exceptions>
+		<exception>NoSuchEventType</exception>
+	</exceptions>
 </service-builder>
