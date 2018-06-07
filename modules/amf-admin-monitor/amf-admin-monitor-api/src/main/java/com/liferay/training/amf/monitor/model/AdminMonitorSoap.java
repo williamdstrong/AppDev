@@ -23,9 +23,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services.
+ * This class is used by SOAP remote services, specifically {@link com.liferay.training.amf.monitor.service.http.AdminMonitorServiceSoap}.
  *
  * @author Brian Wing Shun Chan
+ * @see com.liferay.training.amf.monitor.service.http.AdminMonitorServiceSoap
  * @generated
  */
 @ProviderType

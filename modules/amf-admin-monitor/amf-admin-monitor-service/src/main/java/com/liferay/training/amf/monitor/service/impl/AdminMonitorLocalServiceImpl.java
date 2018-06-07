@@ -37,7 +37,11 @@ import java.util.List;
  */
 public class AdminMonitorLocalServiceImpl
 	extends AdminMonitorLocalServiceBaseImpl {
-
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never reference this class directly. Always use {@link com.liferay.training.amf.monitor.service.AdminMonitorLocalServiceUtil} to access the admin monitor local service.
+	 */
 	public AdminMonitor addAdminMonitorCreationEvent(User user) {
 		String eventType = "CREATE";
 
@@ -48,6 +52,10 @@ public class AdminMonitorLocalServiceImpl
 		String eventType = "LOGIN";
 
 		return addAdminMonitor(user, eventType);
+	}
+
+	public List<AdminMonitor> getAllEvents() {
+		return getAdminMonitors(0, getAdminMonitorsCount());
 	}
 
 	public List<AdminMonitor> getCreationEvents() {
@@ -78,7 +86,7 @@ public class AdminMonitorLocalServiceImpl
 
 		long adminMonitorId = counterLocalService.increment();
 		AdminMonitor adminMonitor = adminMonitorLocalService.createAdminMonitor(
-			adminMonitorId);
+				adminMonitorId);
 
 		adminMonitor.setDateTime(date);
 		adminMonitor.setEventType(eventType);
@@ -88,6 +96,8 @@ public class AdminMonitorLocalServiceImpl
 
 		return adminMonitor;
 	}
+
+	public enum EventTypes { CREATE, LOGIN };
 
 	private List<AdminMonitor> findByEventType(String s) {
 		return adminMonitorPersistence.findByEventType(s);
