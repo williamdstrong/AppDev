@@ -1,23 +1,54 @@
 package com.liferay.training.amf.monitor.portlet.util;
 
+import com.liferay.portal.kernel.exception.NoSuchUserException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
-import com.liferay.training.amf.monitor.service.AdminMonitorLocalService;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
+import com.liferay.training.amf.monitor.service.AdminMonitorLocalServiceUtil;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class AdminMonitorUtil {
+public class AdminMonitorPortletUtil {
 
-	public enum EventTypes {
-		String create = "create";
-		String 
+	public static List<FormattedAdminMonitor> getResults(String eventType) throws PortalException {
+		List<FormattedAdminMonitor> formattedAdminMonitors = new LinkedList<>();
+		try {
+			if (eventType.equalsIgnoreCase("create")) {
+				formattedAdminMonitors =
+						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getCreationEvents());
+			}
+			else if (eventType.equalsIgnoreCase("login")) {
+				formattedAdminMonitors =
+						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getLoginEvents());
+			}
+			else if (eventType.equalsIgnoreCase("all")) {
+				formattedAdminMonitors =
+						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getAllEvents());
+			}
+		} catch (NoSuchUserException e) {
+			return formattedAdminMonitors;
+		}
+		return formattedAdminMonitors;
 	}
 
-	public int getSize(String eventType) {
-		return 100;
+	public static List<FormattedAdminMonitor> subList(List<FormattedAdminMonitor> adminMonitors, int start, int end) {
+		if (adminMonitors.isEmpty()) {
+			return adminMonitors;
+		}
+		else {
+			return ListUtil.subList(adminMonitors, start, end);
+		}
 	}
 
-	@Reference(cardinality = ReferenceCardinality.MANDATORY)
-	protected AdminMonitorLocalService _adminMonitorLocalService;
+	public static List<FormattedAdminMonitor> formattedAdminMonitorList(List<AdminMonitor> adminMonitors) throws PortalException {
+
+		List<FormattedAdminMonitor> formattedAdminMonitors = new LinkedList<>();
+
+		for (AdminMonitor adminMonitor : adminMonitors) {
+			formattedAdminMonitors.add(new FormattedAdminMonitor(adminMonitor));
+		}
+
+		return formattedAdminMonitors;
+	}
 }

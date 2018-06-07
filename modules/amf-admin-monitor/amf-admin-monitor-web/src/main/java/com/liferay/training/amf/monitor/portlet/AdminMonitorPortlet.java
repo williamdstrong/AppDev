@@ -1,7 +1,5 @@
-package com.liferay.training.amf.monitor.portlet.portlet;
+package com.liferay.training.amf.monitor.portlet;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.training.amf.monitor.portlet.constants.AdminMonitorPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
