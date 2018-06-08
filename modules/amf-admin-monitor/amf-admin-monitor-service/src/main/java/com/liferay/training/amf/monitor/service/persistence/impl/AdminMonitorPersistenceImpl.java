@@ -97,7 +97,8 @@ public class AdminMonitorPersistenceImpl extends BasePersistenceImpl<AdminMonito
 			AdminMonitorModelImpl.FINDER_CACHE_ENABLED, AdminMonitorImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByEventType",
 			new String[] { String.class.getName() },
-			AdminMonitorModelImpl.EVENTTYPE_COLUMN_BITMASK);
+			AdminMonitorModelImpl.EVENTTYPE_COLUMN_BITMASK |
+			AdminMonitorModelImpl.DATETIME_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_EVENTTYPE = new FinderPath(AdminMonitorModelImpl.ENTITY_CACHE_ENABLED,
 			AdminMonitorModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByEventType",
@@ -646,7 +647,8 @@ public class AdminMonitorPersistenceImpl extends BasePersistenceImpl<AdminMonito
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByE_U",
 			new String[] { String.class.getName(), Long.class.getName() },
 			AdminMonitorModelImpl.EVENTTYPE_COLUMN_BITMASK |
-			AdminMonitorModelImpl.USERID_COLUMN_BITMASK);
+			AdminMonitorModelImpl.USERID_COLUMN_BITMASK |
+			AdminMonitorModelImpl.DATETIME_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_E_U = new FinderPath(AdminMonitorModelImpl.ENTITY_CACHE_ENABLED,
 			AdminMonitorModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByE_U",
@@ -1230,7 +1232,8 @@ public class AdminMonitorPersistenceImpl extends BasePersistenceImpl<AdminMonito
 			AdminMonitorModelImpl.FINDER_CACHE_ENABLED, AdminMonitorImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUser",
 			new String[] { Long.class.getName() },
-			AdminMonitorModelImpl.USERID_COLUMN_BITMASK);
+			AdminMonitorModelImpl.USERID_COLUMN_BITMASK |
+			AdminMonitorModelImpl.DATETIME_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_USER = new FinderPath(AdminMonitorModelImpl.ENTITY_CACHE_ENABLED,
 			AdminMonitorModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUser",

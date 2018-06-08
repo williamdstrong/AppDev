@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -88,8 +89,8 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	public static final String TABLE_SQL_CREATE = "create table AMF_AdminMonitor (monitorId LONG not null primary key,dateTime DATE null,eventType VARCHAR(75) null,userId LONG,ipAddress VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table AMF_AdminMonitor";
-	public static final String ORDER_BY_JPQL = " ORDER BY adminMonitor.monitorId ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY AMF_AdminMonitor.monitorId ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY adminMonitor.dateTime DESC";
+	public static final String ORDER_BY_SQL = " ORDER BY AMF_AdminMonitor.dateTime DESC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -104,7 +105,7 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 			true);
 	public static final long EVENTTYPE_COLUMN_BITMASK = 1L;
 	public static final long USERID_COLUMN_BITMASK = 2L;
-	public static final long MONITORID_COLUMN_BITMASK = 4L;
+	public static final long DATETIME_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -252,6 +253,8 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	@Override
 	public void setDateTime(Date dateTime) {
+		_columnBitmask = -1L;
+
 		_dateTime = dateTime;
 	}
 
@@ -380,17 +383,17 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	@Override
 	public int compareTo(AdminMonitor adminMonitor) {
-		long primaryKey = adminMonitor.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = DateUtil.compareTo(getDateTime(), adminMonitor.getDateTime());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
