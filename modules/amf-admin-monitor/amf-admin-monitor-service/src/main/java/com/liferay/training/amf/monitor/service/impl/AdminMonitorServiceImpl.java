@@ -91,6 +91,5 @@ public class AdminMonitorServiceImpl extends AdminMonitorServiceBaseImpl {
 			long userId = serviceContext.getUserId();
 			return adminMonitorLocalService.getLoginUserEvents(userId);
 		}
-		return adminMonitorLocalService.getLoginEvents();
 	}
 }
