@@ -58,6 +58,10 @@ public class AdminMonitorLocalServiceImpl
 		return getAdminMonitors(0, getAdminMonitorsCount());
 	}
 
+	public List<AdminMonitor> getAllUserEvents(userId) {
+		return findByUser(userId);
+	}
+
 	public List<AdminMonitor> getCreationEvents() {
 		return findByEventType("CREATE");
 	}
@@ -110,6 +114,14 @@ public class AdminMonitorLocalServiceImpl
 
 	private List<AdminMonitor> findByEventType(String s) {
 		return adminMonitorPersistence.findByEventType(s);
+	}
+
+	private List<AdminMonitor> findByE_U(String s, long l) {
+		return adminMonitorPersistence.findByE_U(s, l);
+	}
+
+	private List<AdminMonitor> findByUser(long l) {
+		return adminMonitorPersistence.findByUser(l);
 	}
 
 }
