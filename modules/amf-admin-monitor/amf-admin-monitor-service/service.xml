@@ -31,6 +31,9 @@
 			<finder-column name="userId"></finder-column>
 		</finder>
 
+		<order by="desc">
+			<order-column name="dateTime"></order-column>
+		</order>
 
 	</entity>
 	<exceptions>
