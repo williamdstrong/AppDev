@@ -6,7 +6,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
-import com.liferay.training.amf.monitor.service.AdminMonitorLocalServiceUtil;
+import com.liferay.training.amf.monitor.service.AdminMonitorServiceUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,15 +18,15 @@ public class AdminMonitorPortletUtil {
 		try {
 			if (eventType.equalsIgnoreCase("create")) {
 				formattedAdminMonitors =
-						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getCreationEvents());
+						formattedAdminMonitorList(AdminMonitorServiceUtil.getCreationEvents());
 			}
 			else if (eventType.equalsIgnoreCase("login")) {
 				formattedAdminMonitors =
-						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getLoginEvents());
+						formattedAdminMonitorList(AdminMonitorServiceUtil.getLoginEvents());
 			}
 			else if (eventType.equalsIgnoreCase("all")) {
 				formattedAdminMonitors =
-						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getAllEvents());
+						formattedAdminMonitorList(AdminMonitorServiceUtil.getAllEvents());
 			}
 		} catch (NoSuchUserException e) {
 			_log.error("User does not exist");
