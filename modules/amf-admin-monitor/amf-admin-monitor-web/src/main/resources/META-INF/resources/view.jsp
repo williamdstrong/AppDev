@@ -1,4 +1,3 @@
-<%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %>
 <%@ include file="/init.jsp" %>
 
 <liferay-ui:tabs names='All,Registration,Login' param="tabs3" refresh="false" type="tabs nav-tabs-default">

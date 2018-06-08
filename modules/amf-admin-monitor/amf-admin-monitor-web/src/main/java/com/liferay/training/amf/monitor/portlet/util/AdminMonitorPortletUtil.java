@@ -13,20 +13,20 @@ import java.util.List;
 
 public class AdminMonitorPortletUtil {
 
-	public static List<FormattedAdminMonitor> getResults(String eventType, long groupId) throws PortalException {
+	public static List<FormattedAdminMonitor> getResults(String eventType, long groupId, long userId) throws PortalException {
 		List<FormattedAdminMonitor> formattedAdminMonitors = new LinkedList<>();
 		try {
 			if (eventType.equalsIgnoreCase("create")) {
 				formattedAdminMonitors =
-						formattedAdminMonitorList(AdminMonitorServiceUtil.getCreationEvents());
+						formattedAdminMonitorList(AdminMonitorServiceUtil.getCreationEvents(groupId, userId));
 			}
 			else if (eventType.equalsIgnoreCase("login")) {
 				formattedAdminMonitors =
-						formattedAdminMonitorList(AdminMonitorServiceUtil.getLoginEvents());
+						formattedAdminMonitorList(AdminMonitorServiceUtil.getLoginEvents(groupId, userId));
 			}
 			else if (eventType.equalsIgnoreCase("all")) {
 				formattedAdminMonitors =
-						formattedAdminMonitorList(AdminMonitorServiceUtil.getAllEvents());
+						formattedAdminMonitorList(AdminMonitorServiceUtil.getAllEvents(groupId, userId));
 			}
 		} catch (NoSuchUserException e) {
 			_log.error("User does not exist");

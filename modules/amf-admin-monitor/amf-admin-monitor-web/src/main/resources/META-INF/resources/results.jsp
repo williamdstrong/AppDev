@@ -2,7 +2,7 @@
 
 <p>${eventType}</p>
 
-<c:set var="results" value="${Util.getResults(eventType, groupId)}" />
+<c:set var="results" value="${util.getResults(eventType, groupId, userId)}" />
 
 <liferay-ui:search-container
         total="${results.size()}"
@@ -12,7 +12,7 @@
         emptyResultsMessage="There appear to be no users...">
 
     <liferay-ui:search-container-results
-            results="${Util.subList(results, searchContainer.start, searchContainer.end)}" />
+            results="${util.subList(results, searchContainer.start, searchContainer.end)}" />
 
     <liferay-ui:search-container-row className="eventMonitor">
         <liferay-ui:search-container-column-text property="dateTime" />
