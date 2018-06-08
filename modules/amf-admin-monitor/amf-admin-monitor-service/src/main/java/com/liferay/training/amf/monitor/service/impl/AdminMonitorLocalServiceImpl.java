@@ -62,9 +62,18 @@ public class AdminMonitorLocalServiceImpl
 		return findByEventType("CREATE");
 	}
 
+	public List<AdminMonitor> getCreationUserEvents(long userId) {
+		return findByE_U("CREATE", userId);
+	}
+
 	public List<AdminMonitor> getLoginEvents() {
 		return findByEventType("LOGIN");
 	}
+
+	public List<AdminMonitor> getLoginUserEvents(long userId) {
+		return findByE_U("LOGIN", userId);
+	}
+
 
 	private static Date _getNow() {
 		return new Date();

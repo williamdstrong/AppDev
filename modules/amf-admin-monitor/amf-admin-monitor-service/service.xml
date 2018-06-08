@@ -23,6 +23,11 @@
 		<finder name="EventType" return-type="Collection">
 			<finder-column name="eventType"></finder-column>
 		</finder>
+		<finder name="E_U" return-type="Collection">
+			<finder-column name="eventType"></finder-column>
+			<finder-column name="userId"></finder-column>
+		</finder>
+
 
 	</entity>
 	<exceptions>
