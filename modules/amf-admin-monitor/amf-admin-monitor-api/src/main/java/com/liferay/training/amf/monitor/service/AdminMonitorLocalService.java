@@ -217,6 +217,9 @@ public interface AdminMonitorLocalService extends BaseLocalService,
 	public List<AdminMonitor> getAllEvents();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AdminMonitor> getAllUserEvents(long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<AdminMonitor> getCreationEvents();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

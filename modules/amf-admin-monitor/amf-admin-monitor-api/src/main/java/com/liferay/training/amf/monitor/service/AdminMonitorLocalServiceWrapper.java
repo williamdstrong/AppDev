@@ -255,6 +255,12 @@ public class AdminMonitorLocalServiceWrapper implements AdminMonitorLocalService
 	}
 
 	@Override
+	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllUserEvents(
+		long userId) {
+		return _adminMonitorLocalService.getAllUserEvents(userId);
+	}
+
+	@Override
 	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents() {
 		return _adminMonitorLocalService.getCreationEvents();
 	}

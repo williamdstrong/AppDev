@@ -58,7 +58,7 @@ public class AdminMonitorLocalServiceImpl
 		return getAdminMonitors(0, getAdminMonitorsCount());
 	}
 
-	public List<AdminMonitor> getAllUserEvents(userId) {
+	public List<AdminMonitor> getAllUserEvents(long userId) {
 		return findByUser(userId);
 	}
 

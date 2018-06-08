@@ -241,6 +241,11 @@ public class AdminMonitorLocalServiceUtil {
 		return getService().getAllEvents();
 	}
 
+	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllUserEvents(
+		long userId) {
+		return getService().getAllUserEvents(userId);
+	}
+
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents() {
 		return getService().getCreationEvents();
 	}
