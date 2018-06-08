@@ -27,10 +27,12 @@ public class MainRenderCommand implements MVCRenderCommand {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
 
+		long groupId = themeDisplay.getScopeGroupId();
 		AdminMonitorPortletUtil adminMonitorPortletUtil = new AdminMonitorPortletUtil();
 		ListUtil listUtil = new ListUtil();
-		request.setAttribute("ListUtil", listUtil);
-		request.setAttribute("Util", adminMonitorPortletUtil);
+		request.setAttribute("groupId", groupId);
+		request.setAttribute("listUtil", listUtil);
+		request.setAttribute("util", adminMonitorPortletUtil);
 
 		return "/view.jsp";
 	}

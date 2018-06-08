@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AdminMonitorPortletUtil {
 
-	public static List<FormattedAdminMonitor> getResults(String eventType) throws PortalException {
+	public static List<FormattedAdminMonitor> getResults(String eventType, long groupId) throws PortalException {
 		List<FormattedAdminMonitor> formattedAdminMonitors = new LinkedList<>();
 		try {
 			if (eventType.equalsIgnoreCase("create")) {

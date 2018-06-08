@@ -45,7 +45,7 @@ public class AdminMonitorServiceImpl extends AdminMonitorServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.monitor.service.AdminMonitorServiceUtil} to access the admin monitor remote service.
 	 */
 
-	public List<AdminMonitor> getAllEvents() throws PortalException {
+	public List<AdminMonitor> getAllEvents(long groupId, long userId) throws PortalException {
 
 		try {
 			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_ALL_DATA");
@@ -53,42 +53,33 @@ public class AdminMonitorServiceImpl extends AdminMonitorServiceBaseImpl {
 			return adminMonitorLocalService.getAllEvents();
 		}
 		catch (PrincipalException.MustHavePermission e) {
-			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_USER_DATA");
-
-			ServiceContext serviceContext = new ServiceContext();
-			long userId = serviceContext.getUserId();
+			AdminMonitorPermissionChecker.check(getPermissionChecker(), groupId, "GET_USER_DATA");
 			return adminMonitorLocalService.getAllUserEvents(userId);
 		}
 	}
 
-	public List<AdminMonitor> getCreationEvents() throws PortalException {
+	public List<AdminMonitor> getCreationEvents(long groupId, long userId) throws PortalException {
 
 		try {
-			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_ALL_DATA");
+			AdminMonitorPermissionChecker.check(getPermissionChecker(), groupId, "GET_ALL_DATA");
 
 			return adminMonitorLocalService.getCreationEvents();
 		}
 		catch (PrincipalException.MustHavePermission e) {
-			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_USER_DATA");
-
-			ServiceContext serviceContext = new ServiceContext();
-			long userId = serviceContext.getUserId();
+			AdminMonitorPermissionChecker.check(getPermissionChecker(), groupId, "GET_USER_DATA");
 			return adminMonitorLocalService.getCreationUserEvents(userId);
 		}
 	}
 
-	public List<AdminMonitor> getLoginEvents() throws PortalException {
+	public List<AdminMonitor> getLoginEvents(long groupId, long userId) throws PortalException {
 
 		try {
-			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_ALL_DATA");
+			AdminMonitorPermissionChecker.check(getPermissionChecker(), groupId, "GET_ALL_DATA");
 
 			return adminMonitorLocalService.getLoginEvents();
 		}
 		catch (PrincipalException.MustHavePermission e) {
-			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_USER_DATA");
-
-			ServiceContext serviceContext = new ServiceContext();
-			long userId = serviceContext.getUserId();
+			AdminMonitorPermissionChecker.check(getPermissionChecker(), groupId, "GET_USER_DATA");
 			return adminMonitorLocalService.getLoginUserEvents(userId);
 		}
 	}

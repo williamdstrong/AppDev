@@ -2,7 +2,7 @@
 
 <p>${eventType}</p>
 
-<c:set var="results" value="${Util.getResults(eventType)}" />
+<c:set var="results" value="${Util.getResults(eventType, groupId)}" />
 
 <liferay-ui:search-container
         total="${results.size()}"

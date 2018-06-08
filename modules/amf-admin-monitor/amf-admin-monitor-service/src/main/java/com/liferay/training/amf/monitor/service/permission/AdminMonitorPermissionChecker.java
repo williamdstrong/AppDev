@@ -4,7 +4,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.BaseModelPermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import org.osgi.service.component.annotations.Component;
 
@@ -16,11 +15,8 @@ import org.osgi.service.component.annotations.Component;
 public class AdminMonitorPermissionChecker implements BaseModelPermissionChecker {
 
 	public static void check(
-			PermissionChecker permissionChecker, String actionId)
+			PermissionChecker permissionChecker, long groupId, String actionId)
 		throws PortalException {
-
-		ServiceContext serviceContext = new ServiceContext();
-		long groupId = serviceContext.getScopeGroupId();
 
 		 if (!_hasPermission(permissionChecker, groupId, actionId)) {
 			// Handle by returning a no go.
@@ -38,7 +34,7 @@ public class AdminMonitorPermissionChecker implements BaseModelPermissionChecker
 	public void checkBaseModel(PermissionChecker permissionChecker, long groupId, long primaryKey, String actionId)
 			throws PortalException {
 
-		check(permissionChecker, actionId);
+		check(permissionChecker, groupId, actionId);
 
 	}
 }
