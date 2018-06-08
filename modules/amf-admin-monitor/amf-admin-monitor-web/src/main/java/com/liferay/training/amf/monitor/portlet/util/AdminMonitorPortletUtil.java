@@ -2,6 +2,8 @@ package com.liferay.training.amf.monitor.portlet.util;
 
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import com.liferay.training.amf.monitor.service.AdminMonitorLocalServiceUtil;
@@ -27,6 +29,7 @@ public class AdminMonitorPortletUtil {
 						formattedAdminMonitorList(AdminMonitorLocalServiceUtil.getAllEvents());
 			}
 		} catch (NoSuchUserException e) {
+			_log.error("User does not exist");
 			return formattedAdminMonitors;
 		}
 		return formattedAdminMonitors;
@@ -51,4 +54,6 @@ public class AdminMonitorPortletUtil {
 
 		return formattedAdminMonitors;
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(AdminMonitorPortletUtil.class.getName());
 }
