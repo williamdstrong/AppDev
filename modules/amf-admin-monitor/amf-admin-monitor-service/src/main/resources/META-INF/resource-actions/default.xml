@@ -3,7 +3,7 @@
 
 <resource-action-mapping>
     <model-resource>
-        <model-name>com.liferay.training.amf.monitor.model.AdminMonitor</model-name>
+        <model-name>com.liferay.training.amf.monitor</model-name>
         <portlet-ref>
             <portlet-name>
                 EventMonitor
