@@ -220,7 +220,13 @@ public interface AdminMonitorLocalService extends BaseLocalService,
 	public List<AdminMonitor> getCreationEvents();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AdminMonitor> getCreationUserEvents(long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<AdminMonitor> getLoginEvents();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<AdminMonitor> getLoginUserEvents(long userId);
 
 	/**
 	* Returns the number of rows matching the dynamic query.

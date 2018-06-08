@@ -56,7 +56,8 @@ import com.liferay.training.amf.monitor.service.AdminMonitorServiceUtil;
 @ProviderType
 public class AdminMonitorServiceHttp {
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllEvents(
-		HttpPrincipal httpPrincipal) {
+		HttpPrincipal httpPrincipal)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(AdminMonitorServiceUtil.class,
 					"getAllEvents", _getAllEventsParameterTypes0);
@@ -69,6 +70,10 @@ public class AdminMonitorServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -82,7 +87,8 @@ public class AdminMonitorServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents(
-		HttpPrincipal httpPrincipal) {
+		HttpPrincipal httpPrincipal)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(AdminMonitorServiceUtil.class,
 					"getCreationEvents", _getCreationEventsParameterTypes1);
@@ -95,6 +101,10 @@ public class AdminMonitorServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -108,7 +118,8 @@ public class AdminMonitorServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents(
-		HttpPrincipal httpPrincipal) {
+		HttpPrincipal httpPrincipal)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(AdminMonitorServiceUtil.class,
 					"getLoginEvents", _getLoginEventsParameterTypes2);
@@ -121,6 +132,10 @@ public class AdminMonitorServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 

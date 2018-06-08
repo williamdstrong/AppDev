@@ -103,7 +103,8 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 				"value.object.column.bitmask.enabled.com.liferay.training.amf.monitor.model.AdminMonitor"),
 			true);
 	public static final long EVENTTYPE_COLUMN_BITMASK = 1L;
-	public static final long MONITORID_COLUMN_BITMASK = 2L;
+	public static final long USERID_COLUMN_BITMASK = 2L;
+	public static final long MONITORID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -288,6 +289,14 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	@Override
 	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
 		_userId = userId;
 	}
 
@@ -305,6 +314,10 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 	@Override
 	public void setUserUuid(String userUuid) {
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
 	}
 
 	@JSON
@@ -423,6 +436,10 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 
 		adminMonitorModelImpl._originalEventType = adminMonitorModelImpl._eventType;
 
+		adminMonitorModelImpl._originalUserId = adminMonitorModelImpl._userId;
+
+		adminMonitorModelImpl._setOriginalUserId = false;
+
 		adminMonitorModelImpl._columnBitmask = 0;
 	}
 
@@ -524,6 +541,8 @@ public class AdminMonitorModelImpl extends BaseModelImpl<AdminMonitor>
 	private String _eventType;
 	private String _originalEventType;
 	private long _userId;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
 	private String _ipAddress;
 	private long _columnBitmask;
 	private AdminMonitor _escapedModel;

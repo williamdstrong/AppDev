@@ -43,17 +43,20 @@ public class AdminMonitorServiceWrapper implements AdminMonitorService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllEvents() {
+	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllEvents()
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _adminMonitorService.getAllEvents();
 	}
 
 	@Override
-	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents() {
+	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents()
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _adminMonitorService.getCreationEvents();
 	}
 
 	@Override
-	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents() {
+	public java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents()
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _adminMonitorService.getLoginEvents();
 	}
 
