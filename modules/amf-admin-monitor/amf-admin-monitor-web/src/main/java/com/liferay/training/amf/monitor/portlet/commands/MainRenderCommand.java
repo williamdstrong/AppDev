@@ -20,7 +20,7 @@ import java.util.List;
 @Component(
 	immediate = true,
 	property = {
-			"javax.portlet.name=" + AdminMonitorPortletKeys.AmfAdminMonitorWeb,
+			"javax.portlet.name=" + AdminMonitorPortletKeys.EVENT_MONITOR,
 			"mvc.command.name=/"
 	},
 	service = MVCRenderCommand.class

@@ -5,6 +5,6 @@ package com.liferay.training.amf.monitor.portlet.constants;
  */
 public class AdminMonitorPortletKeys {
 
-	public static final String AmfAdminMonitorWeb = "AdminMonitorWeb";
+	public static final String EVENT_MONITOR = "EventMonitor";
 
 }
