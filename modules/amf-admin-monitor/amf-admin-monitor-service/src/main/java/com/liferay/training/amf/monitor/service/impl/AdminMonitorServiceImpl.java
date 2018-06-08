@@ -14,6 +14,7 @@
 
 package com.liferay.training.amf.monitor.service.impl;
 
+import com.liferay.portal.kernel.service.permission.GroupPermissionUtil;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import com.liferay.training.amf.monitor.service.base.AdminMonitorServiceBaseImpl;
 
@@ -41,6 +42,8 @@ public class AdminMonitorServiceImpl extends AdminMonitorServiceBaseImpl {
 	 */
 
 	public List<AdminMonitor> getAllEvents() {
+
+//		GroupPermissionUtil.check(getPermissionChecker(),,
 		return adminMonitorLocalService.getAllEvents();
 	}
 

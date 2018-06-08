@@ -3,7 +3,7 @@
 
 <resource-action-mapping>
     <model-resource>
-        <model-name>com.liferay.training.amf.monitor</model-name>
+        <model-name>com.liferay.training.amf.monitor.model.AdminMonitor</model-name>
         <portlet-ref>
             <portlet-name>
                 AdminMonitorWeb
@@ -14,6 +14,13 @@
             <action-key>GET_USER_DATA</action-key>
             <action-key>GET_ALL_DATA</action-key>
         </supports>
+        <site-member-defaults>
+            <action-key>GET_USER_DATA</action-key>
+        </site-member-defaults>
+        <guest-unsupported>
+            <action-key>GET_USER_DATA</action-key>
+            <action-key>GET_ALL_DATA</action-key>
+        </guest-unsupported>
     </permissions>
     </model-resource>
 </resource-action-mapping>

@@ -260,6 +260,73 @@ public class AdminMonitorUtil {
 	}
 
 	/**
+	* Returns all the admin monitors that the user has permission to view where eventType = &#63;.
+	*
+	* @param eventType the event type
+	* @return the matching admin monitors that the user has permission to view
+	*/
+	public static List<AdminMonitor> filterFindByEventType(
+		java.lang.String eventType) {
+		return getPersistence().filterFindByEventType(eventType);
+	}
+
+	/**
+	* Returns a range of all the admin monitors that the user has permission to view where eventType = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link AdminMonitorModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param eventType the event type
+	* @param start the lower bound of the range of admin monitors
+	* @param end the upper bound of the range of admin monitors (not inclusive)
+	* @return the range of matching admin monitors that the user has permission to view
+	*/
+	public static List<AdminMonitor> filterFindByEventType(
+		java.lang.String eventType, int start, int end) {
+		return getPersistence().filterFindByEventType(eventType, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the admin monitors that the user has permissions to view where eventType = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link AdminMonitorModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param eventType the event type
+	* @param start the lower bound of the range of admin monitors
+	* @param end the upper bound of the range of admin monitors (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching admin monitors that the user has permission to view
+	*/
+	public static List<AdminMonitor> filterFindByEventType(
+		java.lang.String eventType, int start, int end,
+		OrderByComparator<AdminMonitor> orderByComparator) {
+		return getPersistence()
+				   .filterFindByEventType(eventType, start, end,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the admin monitors before and after the current admin monitor in the ordered set of admin monitors that the user has permission to view where eventType = &#63;.
+	*
+	* @param monitorId the primary key of the current admin monitor
+	* @param eventType the event type
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next admin monitor
+	* @throws NoSuchAdminMonitorException if a admin monitor with the primary key could not be found
+	*/
+	public static AdminMonitor[] filterFindByEventType_PrevAndNext(
+		long monitorId, java.lang.String eventType,
+		OrderByComparator<AdminMonitor> orderByComparator)
+		throws com.liferay.training.amf.monitor.exception.NoSuchAdminMonitorException {
+		return getPersistence()
+				   .filterFindByEventType_PrevAndNext(monitorId, eventType,
+			orderByComparator);
+	}
+
+	/**
 	* Removes all the admin monitors where eventType = &#63; from the database.
 	*
 	* @param eventType the event type
@@ -276,6 +343,16 @@ public class AdminMonitorUtil {
 	*/
 	public static int countByEventType(java.lang.String eventType) {
 		return getPersistence().countByEventType(eventType);
+	}
+
+	/**
+	* Returns the number of admin monitors that the user has permission to view where eventType = &#63;.
+	*
+	* @param eventType the event type
+	* @return the number of matching admin monitors that the user has permission to view
+	*/
+	public static int filterCountByEventType(java.lang.String eventType) {
+		return getPersistence().filterCountByEventType(eventType);
 	}
 
 	/**
