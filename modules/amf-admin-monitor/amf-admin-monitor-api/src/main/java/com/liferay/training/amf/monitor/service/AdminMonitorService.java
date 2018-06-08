@@ -63,11 +63,14 @@ public interface AdminMonitorService extends BaseService {
 	public java.lang.String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<AdminMonitor> getAllEvents() throws PortalException;
+	public List<AdminMonitor> getAllEvents(long groupId, long userId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<AdminMonitor> getCreationEvents() throws PortalException;
+	public List<AdminMonitor> getCreationEvents(long groupId, long userId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<AdminMonitor> getLoginEvents() throws PortalException;
+	public List<AdminMonitor> getLoginEvents(long groupId, long userId)
+		throws PortalException;
 }

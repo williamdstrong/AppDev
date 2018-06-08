@@ -65,11 +65,11 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class AdminMonitorServiceSoap {
-	public static com.liferay.training.amf.monitor.model.AdminMonitorSoap[] getAllEvents()
-		throws RemoteException {
+	public static com.liferay.training.amf.monitor.model.AdminMonitorSoap[] getAllEvents(
+		long groupId, long userId) throws RemoteException {
 		try {
 			java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> returnValue =
-				AdminMonitorServiceUtil.getAllEvents();
+				AdminMonitorServiceUtil.getAllEvents(groupId, userId);
 
 			return com.liferay.training.amf.monitor.model.AdminMonitorSoap.toSoapModels(returnValue);
 		}
@@ -80,11 +80,11 @@ public class AdminMonitorServiceSoap {
 		}
 	}
 
-	public static com.liferay.training.amf.monitor.model.AdminMonitorSoap[] getCreationEvents()
-		throws RemoteException {
+	public static com.liferay.training.amf.monitor.model.AdminMonitorSoap[] getCreationEvents(
+		long groupId, long userId) throws RemoteException {
 		try {
 			java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> returnValue =
-				AdminMonitorServiceUtil.getCreationEvents();
+				AdminMonitorServiceUtil.getCreationEvents(groupId, userId);
 
 			return com.liferay.training.amf.monitor.model.AdminMonitorSoap.toSoapModels(returnValue);
 		}
@@ -95,11 +95,11 @@ public class AdminMonitorServiceSoap {
 		}
 	}
 
-	public static com.liferay.training.amf.monitor.model.AdminMonitorSoap[] getLoginEvents()
-		throws RemoteException {
+	public static com.liferay.training.amf.monitor.model.AdminMonitorSoap[] getLoginEvents(
+		long groupId, long userId) throws RemoteException {
 		try {
 			java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> returnValue =
-				AdminMonitorServiceUtil.getLoginEvents();
+				AdminMonitorServiceUtil.getLoginEvents(groupId, userId);
 
 			return com.liferay.training.amf.monitor.model.AdminMonitorSoap.toSoapModels(returnValue);
 		}

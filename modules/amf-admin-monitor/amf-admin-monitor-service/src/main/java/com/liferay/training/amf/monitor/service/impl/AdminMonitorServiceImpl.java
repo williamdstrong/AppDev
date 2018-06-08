@@ -48,7 +48,7 @@ public class AdminMonitorServiceImpl extends AdminMonitorServiceBaseImpl {
 	public List<AdminMonitor> getAllEvents(long groupId, long userId) throws PortalException {
 
 		try {
-			AdminMonitorPermissionChecker.check(getPermissionChecker(), "GET_ALL_DATA");
+			AdminMonitorPermissionChecker.check(getPermissionChecker(), groupId, "GET_ALL_DATA");
 
 			return adminMonitorLocalService.getAllEvents();
 		}

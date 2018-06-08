@@ -56,13 +56,14 @@ import com.liferay.training.amf.monitor.service.AdminMonitorServiceUtil;
 @ProviderType
 public class AdminMonitorServiceHttp {
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllEvents(
-		HttpPrincipal httpPrincipal)
+		HttpPrincipal httpPrincipal, long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(AdminMonitorServiceUtil.class,
 					"getAllEvents", _getAllEventsParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
+					userId);
 
 			Object returnObj = null;
 
@@ -87,13 +88,14 @@ public class AdminMonitorServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents(
-		HttpPrincipal httpPrincipal)
+		HttpPrincipal httpPrincipal, long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(AdminMonitorServiceUtil.class,
 					"getCreationEvents", _getCreationEventsParameterTypes1);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
+					userId);
 
 			Object returnObj = null;
 
@@ -118,13 +120,14 @@ public class AdminMonitorServiceHttp {
 	}
 
 	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents(
-		HttpPrincipal httpPrincipal)
+		HttpPrincipal httpPrincipal, long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(AdminMonitorServiceUtil.class,
 					"getLoginEvents", _getLoginEventsParameterTypes2);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(methodKey, groupId,
+					userId);
 
 			Object returnObj = null;
 
@@ -149,11 +152,13 @@ public class AdminMonitorServiceHttp {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(AdminMonitorServiceHttp.class);
-	private static final Class<?>[] _getAllEventsParameterTypes0 = new Class[] {  };
+	private static final Class<?>[] _getAllEventsParameterTypes0 = new Class[] {
+			long.class, long.class
+		};
 	private static final Class<?>[] _getCreationEventsParameterTypes1 = new Class[] {
-			
+			long.class, long.class
 		};
 	private static final Class<?>[] _getLoginEventsParameterTypes2 = new Class[] {
-			
+			long.class, long.class
 		};
 }

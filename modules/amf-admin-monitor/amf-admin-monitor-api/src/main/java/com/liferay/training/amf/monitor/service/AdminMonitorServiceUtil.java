@@ -51,19 +51,22 @@ public class AdminMonitorServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllEvents()
+	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getAllEvents(
+		long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getAllEvents();
+		return getService().getAllEvents(groupId, userId);
 	}
 
-	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents()
+	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getCreationEvents(
+		long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getCreationEvents();
+		return getService().getCreationEvents(groupId, userId);
 	}
 
-	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents()
+	public static java.util.List<com.liferay.training.amf.monitor.model.AdminMonitor> getLoginEvents(
+		long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getLoginEvents();
+		return getService().getLoginEvents(groupId, userId);
 	}
 
 	public static AdminMonitorService getService() {
