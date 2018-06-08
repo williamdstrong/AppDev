@@ -6,7 +6,7 @@
         <model-name>com.liferay.training.amf.monitor.model.AdminMonitor</model-name>
         <portlet-ref>
             <portlet-name>
-                AdminMonitorWeb
+                EventMonitor
             </portlet-name>
         </portlet-ref>
     <permissions>
