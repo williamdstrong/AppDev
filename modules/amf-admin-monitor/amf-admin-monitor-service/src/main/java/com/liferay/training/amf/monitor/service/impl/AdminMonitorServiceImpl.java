@@ -16,8 +16,6 @@ package com.liferay.training.amf.monitor.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 import com.liferay.training.amf.monitor.service.base.AdminMonitorServiceBaseImpl;
 import com.liferay.training.amf.monitor.service.permission.AdminMonitorPermissionChecker;
