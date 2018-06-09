@@ -1,7 +1,3 @@
-
-
-<p>${eventType}</p>
-
 <c:set var="results" value="${util.getResults(eventType, groupId, userId)}" />
 
 <liferay-ui:search-container
@@ -15,11 +11,11 @@
             results="${util.subList(results, searchContainer.start, searchContainer.end)}" />
 
     <liferay-ui:search-container-row className="eventMonitor">
-        <liferay-ui:search-container-column-text property="dateTime" />
-        <liferay-ui:search-container-column-text property="username" />
-        <liferay-ui:search-container-column-text property="userId" />
-        <liferay-ui:search-container-column-text property="ipAddress" />
-        <liferay-ui:search-container-column-text property="eventType" />
+        <liferay-ui:search-container-column-text property="dateTime" name="Date and Time"/>
+        <liferay-ui:search-container-column-text property="username" name="User" />
+        <liferay-ui:search-container-column-text property="userId" name="User ID"/>
+        <liferay-ui:search-container-column-text property="ipAddress" name="IP Address"/>
+        <liferay-ui:search-container-column-text property="eventType" name="Event Type"/>
 
     </liferay-ui:search-container-row>
     <liferay-ui:search-iterator markupView="lexicon" />

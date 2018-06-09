@@ -1,6 +1,11 @@
 <%@ include file="/init.jsp" %>
 
-<liferay-ui:tabs names='All,Registration,Login' param="tabs3" refresh="false" type="tabs nav-tabs-default">
+<liferay-portlet:renderURL var="portletURL">
+    <liferay-portlet:param name="tabs" value="${tabs}"/>
+</liferay-portlet:renderURL>
+
+<liferay-ui:tabs
+        names="all,registration,login" param="tabs" refresh="true" type="tabs nav-tabs-default" url="${portletURL}">
 
     <liferay-ui:section>
         <c:set var="eventType" value="all" />
