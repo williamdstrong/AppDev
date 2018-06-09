@@ -5,6 +5,8 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.training.amf.monitor.model.AdminMonitor;
 
+import java.text.SimpleDateFormat;
+
 
 public class FormattedAdminMonitor {
 
@@ -35,16 +37,24 @@ public class FormattedAdminMonitor {
 
 	private void extractData() throws PortalException {
 
-		dateTime = baseAdminMonitor.getDateTime().toString();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY:MM:DD HH:MM:SS");
+
+		dateTime = dateFormat.format(baseAdminMonitor.getDateTime());
 		ipAddress = baseAdminMonitor.getIpAddress();
 		long userIdLong = baseAdminMonitor.getUserId();
-		userId = Long.toString(userIdLong);
+		userId = "(" + Long.toString(userIdLong) + ")";
 
 		username = getUsername(userIdLong);
 
 
 
 		eventType = baseAdminMonitor.getEventType();
+		if (eventType.equalsIgnoreCase("create")) {
+			eventType = "Registration";
+		}
+		else if (eventType.equalsIgnoreCase("login")) {
+			eventType = "Login";
+		}
 	}
 
 	private String getUsername(long userId) throws PortalException {
