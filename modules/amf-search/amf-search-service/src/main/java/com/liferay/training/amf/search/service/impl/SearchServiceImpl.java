@@ -12,15 +12,17 @@
  * details.
  */
 
-package com.liferay.training.search.service.impl;
+package com.liferay.training.amf.search.service.impl;
 
-import com.liferay.training.search.service.base.SearchServiceBaseImpl;
+import com.liferay.training.amf.search.service.SearchService;
+import com.liferay.training.amf.search.service.SearchServiceUtil;
+import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
 
 /**
  * The implementation of the search remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.training.search.service.SearchService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link SearchService} interface.
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -28,7 +30,7 @@ import com.liferay.training.search.service.base.SearchServiceBaseImpl;
  *
  * @author Brian Wing Shun Chan
  * @see SearchServiceBaseImpl
- * @see com.liferay.training.search.service.SearchServiceUtil
+ * @see SearchServiceUtil
  */
 public class SearchServiceImpl extends SearchServiceBaseImpl {
 	/*

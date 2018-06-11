@@ -12,13 +12,14 @@
  * details.
  */
 
-package com.liferay.training.search.service.http;
+package com.liferay.training.amf.search.service.http;
 
 import aQute.bnd.annotation.ProviderType;
+import com.liferay.training.amf.search.service.SearchServiceUtil;
 
 /**
  * Provides the HTTP utility for the
- * {@link com.liferay.training.search.service.SearchServiceUtil} service utility. The
+ * {@link SearchServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it requires an additional
  * {@link com.liferay.portal.kernel.security.auth.HttpPrincipal} parameter.
@@ -41,7 +42,7 @@ import aQute.bnd.annotation.ProviderType;
  * @author Brian Wing Shun Chan
  * @see SearchServiceSoap
  * @see com.liferay.portal.kernel.security.auth.HttpPrincipal
- * @see com.liferay.training.search.service.SearchServiceUtil
+ * @see SearchServiceUtil
  * @generated
  */
 @ProviderType
