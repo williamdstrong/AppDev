@@ -20,6 +20,6 @@ public class MainRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
 
-		return "view.jsp";
+		return "/view.jsp";
 	}
 }

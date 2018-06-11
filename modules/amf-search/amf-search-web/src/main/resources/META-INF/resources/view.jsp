@@ -2,7 +2,7 @@
 
 <portlet:actionURL name="/submit" var="submitURL" />
 
-<liferay-ui:form name="form" action="${submitURL}" method="post">
-    <liferay-ui:input name="zip" type="text" label="Zip Code" />
-    <liferay-ui:button type="submit" value="submit" />
-</liferay-ui:form>
+<aui:form name="form" action="${submitURL}" method="post">
+    <aui:input name="zip" type="text" label="Zip Code" />
+    <aui:button type="submit" value="submit" />
+</aui:form>

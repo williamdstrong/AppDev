@@ -48,12 +48,12 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link com.liferay.training.a,fsearch.service.SearchServiceUtil} to access the search remote service.
 	 */
 
-	public List<User> findUsersByZip(String zip) throws PortalException {
+	public List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
 		// TODO validation
 		// TODO permissions
 
 		// Use dynamic query that finds all entries with a particular zip code.
-		List<Long> userIds = getUserIdsByZip(zip);
+		List<Long> userIds = getUserIdsByZip(zip, start, end);
 		List<User> users = null;
 		for (Long l : userIds) {
 			users.add(userLocalService.getUser(l));
@@ -61,7 +61,7 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 		return users;
 	}
 
-	private List<Long> getUserIdsByZip(String zip) {
+	private List<Long> getUserIdsByZip(String zip, int start, int end) {
 
 		Session session = null;
 		try {
@@ -72,7 +72,7 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 							.add(RestrictionsFactoryUtil.eq("zip", zip))
 							.setProjection(ProjectionFactoryUtil.property("userId"));
 
-			return addressPersistence.findWithDynamicQuery(zipQuery);
+			return addressPersistence.findWithDynamicQuery(zipQuery, start, end);
 		}
 		// TODO find out what errors may be thrown.
 		// Ideas: cannot open session, no data found
