@@ -14,9 +14,18 @@
 
 package com.liferay.training.amf.search.service.impl;
 
+import com.liferay.portal.kernel.dao.orm.*;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.SearchServiceUtil;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The implementation of the search remote service.
@@ -38,4 +47,43 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.training.search.service.SearchServiceUtil} to access the search remote service.
 	 */
+
+	public List<User> findUsersByZip(String zip) throws PortalException {
+		// TODO validation
+		// TODO permissions
+
+		// Use dynamic query that finds all entries with a particular zip code.
+		List<Long> userIds = getUserIdsByZip(zip);
+		List<User> users = null;
+		for (Long l : userIds) {
+			users.add(userLocalService.getUser(l));
+		}
+		return users;
+	}
+
+	private List<Long> getUserIdsByZip(String zip) {
+
+		Session session = null;
+		try {
+			session = addressPersistence.openSession();
+
+			DynamicQuery zipQuery =
+					DynamicQueryFactoryUtil.forClass(Address.class)
+							.add(RestrictionsFactoryUtil.eq("zip", zip))
+							.setProjection(ProjectionFactoryUtil.property("userId"));
+
+			return addressPersistence.findWithDynamicQuery(zipQuery);
+		}
+		// TODO find out what errors may be thrown.
+		// Ideas: cannot open session, no data found
+		catch (ORMException e) {
+			_log.error("Cannot get address data.");
+			return new LinkedList<>();
+		}
+		finally {
+			addressPersistence.closeSession(session);
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SearchService.class.getName());
 }
