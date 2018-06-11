@@ -1,5 +1,5 @@
 Bundle-Name: amf-search-api
-Bundle-SymbolicName: com.liferay.training.search.api
+Bundle-SymbolicName: com.liferay.training.amf.search.api
 Bundle-Version: 1.0.0
 Export-Package:\
 	com.liferay.training.search.exception,\

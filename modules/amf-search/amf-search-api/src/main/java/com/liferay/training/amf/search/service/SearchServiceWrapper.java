@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.training.search.service;
+package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
 
