@@ -22,7 +22,7 @@ import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Provides the remote service utility for Search. This utility wraps
- * {@link com.liferay.training.search.service.impl.SearchServiceImpl} and is the
+ * {@link com.liferay.training.amf.search.service.impl.SearchServiceImpl} and is the
  * primary access point for service operations in application layer code running
  * on a remote server. Methods of this service are expected to have security
  * checks based on the propagated JAAS credentials because this service can be
@@ -30,8 +30,8 @@ import org.osgi.util.tracker.ServiceTracker;
  *
  * @author Brian Wing Shun Chan
  * @see SearchService
- * @see com.liferay.training.search.service.base.SearchServiceBaseImpl
- * @see com.liferay.training.search.service.impl.SearchServiceImpl
+ * @see com.liferay.training.amf.search.service.base.SearchServiceBaseImpl
+ * @see com.liferay.training.amf.search.service.impl.SearchServiceImpl
  * @generated
  */
 @ProviderType
@@ -39,7 +39,7 @@ public class SearchServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this class directly. Add custom service methods to {@link com.liferay.training.search.service.impl.SearchServiceImpl} and rerun ServiceBuilder to regenerate this class.
+	 * Never modify this class directly. Add custom service methods to {@link com.liferay.training.amf.search.service.impl.SearchServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
 
 	/**
@@ -49,6 +49,12 @@ public class SearchServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
+		java.lang.String zip)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().findUsersByZip(zip);
 	}
 
 	public static SearchService getService() {

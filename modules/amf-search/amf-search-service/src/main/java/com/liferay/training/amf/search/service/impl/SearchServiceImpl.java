@@ -45,7 +45,7 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use {@link com.liferay.training.search.service.SearchServiceUtil} to access the search remote service.
+	 * Never reference this class directly. Always use {@link com.liferay.training.a,fsearch.service.SearchServiceUtil} to access the search remote service.
 	 */
 
 	public List<User> findUsersByZip(String zip) throws PortalException {

@@ -15,7 +15,13 @@
 package com.liferay.training.amf.search.service.http;
 
 import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import com.liferay.training.amf.search.service.SearchServiceUtil;
+
+import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
@@ -48,4 +54,19 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
  */
 @ProviderType
 public class SearchServiceSoap {
+	public static com.liferay.portal.kernel.model.User[] findUsersByZip(
+		java.lang.String zip) throws RemoteException {
+		try {
+			java.util.List<com.liferay.portal.kernel.model.User> returnValue = SearchServiceUtil.findUsersByZip(zip);
+
+			return returnValue.toArray(new com.liferay.portal.kernel.model.User[returnValue.size()]);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SearchServiceSoap.class);
 }

@@ -16,14 +16,18 @@ package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.dao.orm.*;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for Search. Methods of this
@@ -32,8 +36,8 @@ import com.liferay.portal.kernel.transaction.Transactional;
  *
  * @author Brian Wing Shun Chan
  * @see SearchServiceUtil
- * @see com.liferay.training.search.service.base.SearchServiceBaseImpl
- * @see com.liferay.training.search.service.impl.SearchServiceImpl
+ * @see com.liferay.training.amf.search.service.base.SearchServiceBaseImpl
+ * @see com.liferay.training.amf.search.service.impl.SearchServiceImpl
  * @generated
  */
 @AccessControlled
@@ -47,7 +51,7 @@ public interface SearchService extends BaseService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link SearchServiceUtil} to access the search remote service. Add custom service methods to {@link com.liferay.training.search.service.impl.SearchServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link SearchServiceUtil} to access the search remote service. Add custom service methods to {@link com.liferay.training.amf.search.service.impl.SearchServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
@@ -56,4 +60,7 @@ public interface SearchService extends BaseService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	public List<User> findUsersByZip(java.lang.String zip)
+		throws PortalException;
 }

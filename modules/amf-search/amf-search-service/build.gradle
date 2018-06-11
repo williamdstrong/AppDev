@@ -10,4 +10,4 @@ buildService {
 	apiDir = "../amf-search-api/src/main/java"
 }
 
-group = "com.liferay.training.search"
+group = "com.liferay.training.amf.search"
