@@ -61,6 +61,6 @@ public interface SearchService extends BaseService {
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
 
-	public List<User> findUsersByZip(java.lang.String zip)
+	public List<User> findUsersByZip(java.lang.String zip, int start, int end)
 		throws PortalException;
 }

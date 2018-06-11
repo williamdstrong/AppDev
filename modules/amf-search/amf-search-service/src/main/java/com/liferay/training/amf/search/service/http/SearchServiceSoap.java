@@ -55,9 +55,10 @@ import java.rmi.RemoteException;
 @ProviderType
 public class SearchServiceSoap {
 	public static com.liferay.portal.kernel.model.User[] findUsersByZip(
-		java.lang.String zip) throws RemoteException {
+		java.lang.String zip, int start, int end) throws RemoteException {
 		try {
-			java.util.List<com.liferay.portal.kernel.model.User> returnValue = SearchServiceUtil.findUsersByZip(zip);
+			java.util.List<com.liferay.portal.kernel.model.User> returnValue = SearchServiceUtil.findUsersByZip(zip,
+					start, end);
 
 			return returnValue.toArray(new com.liferay.portal.kernel.model.User[returnValue.size()]);
 		}

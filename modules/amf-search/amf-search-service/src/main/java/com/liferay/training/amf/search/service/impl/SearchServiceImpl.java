@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.training.amf.search.service.SearchService;
-import com.liferay.training.amf.search.service.SearchServiceUtil;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
 
 import java.util.LinkedList;
@@ -31,7 +30,7 @@ import java.util.List;
  * The implementation of the search remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link SearchService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.training.amf.search.service.SearchService} interface.
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -39,15 +38,14 @@ import java.util.List;
  *
  * @author Brian Wing Shun Chan
  * @see SearchServiceBaseImpl
- * @see SearchServiceUtil
+ * @see com.liferay.training.amf.search.service.SearchServiceUtil
  */
 public class SearchServiceImpl extends SearchServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use {@link com.liferay.training.a,fsearch.service.SearchServiceUtil} to access the search remote service.
+	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchServiceUtil} to access the search remote service.
 	 */
-
 	public List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
 		// TODO validation
 		// TODO permissions

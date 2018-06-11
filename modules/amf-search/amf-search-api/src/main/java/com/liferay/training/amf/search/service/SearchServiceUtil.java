@@ -52,9 +52,9 @@ public class SearchServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
-		java.lang.String zip)
+		java.lang.String zip, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().findUsersByZip(zip);
+		return getService().findUsersByZip(zip, start, end);
 	}
 
 	public static SearchService getService() {

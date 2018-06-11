@@ -56,13 +56,14 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
 @ProviderType
 public class SearchServiceHttp {
 	public static java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
-		HttpPrincipal httpPrincipal, java.lang.String zip)
+		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
 					"findUsersByZip", _findUsersByZipParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, zip);
+			MethodHandler methodHandler = new MethodHandler(methodKey, zip,
+					start, end);
 
 			Object returnObj = null;
 
@@ -88,6 +89,6 @@ public class SearchServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(SearchServiceHttp.class);
 	private static final Class<?>[] _findUsersByZipParameterTypes0 = new Class[] {
-			java.lang.String.class
+			java.lang.String.class, int.class, int.class
 		};
 }
