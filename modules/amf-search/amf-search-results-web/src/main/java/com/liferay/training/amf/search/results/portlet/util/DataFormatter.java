@@ -10,6 +10,9 @@ import java.util.List;
 public class DataFormatter {
 
 	public List<SearchData> getFormattedData(String zip, int start, int end) {
+		if (zip.isEmpty()) {
+			return new LinkedList<>();
+		}
 		List<User> users;
 		List<SearchData> searchData = new LinkedList<>();
 

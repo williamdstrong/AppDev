@@ -1,6 +1,6 @@
 <%@ include file="/init.jsp" %>
 
-<p>${zip}</p>
+<p>Search Results for ${zip}.</p>
 
 
 <liferay-ui:search-container
@@ -14,12 +14,11 @@
             results="${results.getFormattedData(zip, searchContainer.start, searchContainer.end)}" />
 
     <liferay-ui:search-container-row className="eventMonitor">
-        <liferay-ui:search-container-column-text property="dateTime" name="Date and Time"/>
-        <liferay-ui:search-container-column-text property="username" name="User" />
-        <liferay-ui:search-container-column-text property="userId" name="User ID"/>
-        <liferay-ui:search-container-column-text property="ipAddress" name="IP Address"/>
-        <liferay-ui:search-container-column-text property="eventType" name="Event Type"/>
+        <liferay-ui:search-container-column-text property="firstName" name="First Name"/>
+        <liferay-ui:search-container-column-text property="lastInitial" name="Last Initial" />
+        <liferay-ui:search-container-column-text property="screenName" name="Screen Name" />
+        <liferay-ui:search-container-column-text property="emailAddress" name="Email Address"/>
 
     </liferay-ui:search-container-row>
-    <liferay-ui:search-iterator markupview="lexicon" />
+    <liferay-ui:search-iterator />
 </liferay-ui:search-container>
