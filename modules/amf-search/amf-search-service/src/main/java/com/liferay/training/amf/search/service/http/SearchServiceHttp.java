@@ -55,12 +55,38 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
  */
 @ProviderType
 public class SearchServiceHttp {
+	public static long findUsersByZipCount(HttpPrincipal httpPrincipal,
+		java.lang.String zip) {
+		try {
+			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
+					"findUsersByZipCount", _findUsersByZipCountParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, zip);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	public static java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
 		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-					"findUsersByZip", _findUsersByZipParameterTypes0);
+					"findUsersByZip", _findUsersByZipParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, zip,
 					start, end);
@@ -88,7 +114,10 @@ public class SearchServiceHttp {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SearchServiceHttp.class);
-	private static final Class<?>[] _findUsersByZipParameterTypes0 = new Class[] {
+	private static final Class<?>[] _findUsersByZipCountParameterTypes0 = new Class[] {
+			java.lang.String.class
+		};
+	private static final Class<?>[] _findUsersByZipParameterTypes1 = new Class[] {
 			java.lang.String.class, int.class, int.class
 		};
 }

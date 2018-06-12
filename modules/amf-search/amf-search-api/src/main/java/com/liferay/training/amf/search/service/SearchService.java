@@ -63,4 +63,6 @@ public interface SearchService extends BaseService {
 
 	public List<User> findUsersByZip(java.lang.String zip, int start, int end)
 		throws PortalException;
+
+	public long findUsersByZipCount(java.lang.String zip);
 }

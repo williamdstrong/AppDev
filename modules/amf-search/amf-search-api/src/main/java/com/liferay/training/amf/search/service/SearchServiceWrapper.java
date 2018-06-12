@@ -50,6 +50,11 @@ public class SearchServiceWrapper implements SearchService,
 	}
 
 	@Override
+	public long findUsersByZipCount(java.lang.String zip) {
+		return _searchService.findUsersByZipCount(zip);
+	}
+
+	@Override
 	public SearchService getWrappedService() {
 		return _searchService;
 	}

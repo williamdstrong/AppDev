@@ -57,6 +57,10 @@ public class SearchServiceUtil {
 		return getService().findUsersByZip(zip, start, end);
 	}
 
+	public static long findUsersByZipCount(java.lang.String zip) {
+		return getService().findUsersByZipCount(zip);
+	}
+
 	public static SearchService getService() {
 		return _serviceTracker.getService();
 	}
