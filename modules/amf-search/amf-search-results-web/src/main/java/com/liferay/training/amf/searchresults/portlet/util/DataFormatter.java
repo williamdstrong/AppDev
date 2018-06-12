@@ -14,6 +14,10 @@ public class DataFormatter {
 	public List<SearchData> getFormattedData(String zip, int start, int end) {
 		List<User> users = null;
 		List<SearchData> searchData = new LinkedList<>();
+
+		// Get total size and set.
+		size = getSize(zip);
+
 		try {
 			users = getUsers(zip, start, end);
 		} catch (PortalException e) {
@@ -43,8 +47,17 @@ public class DataFormatter {
 		return u.getEmailAddress();
 	}
 
+	private long getSize(String zip) {
+		return SearchServiceUtil.findUsersByZipCount(zip);
+	}
+
 	private List<User> getUsers(String zip, int start, int end) throws PortalException {
 		return SearchServiceUtil.findUsersByZip(zip, start, end);
 	}
 
+	public long getSize() {
+		return size;
+	}
+
+	private long size;
 }

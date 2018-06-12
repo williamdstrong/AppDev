@@ -46,6 +46,13 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchServiceUtil} to access the search remote service.
 	 */
+	public long findUsersByZipCount(String zip) {
+		DynamicQuery zipQuery =
+					DynamicQueryFactoryUtil.forClass(Address.class)
+							.add(RestrictionsFactoryUtil.eq("zip", zip));
+		return addressPersistence.countWithDynamicQuery(zipQuery);
+	}
+
 	public List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
 		// TODO validation
 		// TODO permissions
@@ -69,7 +76,6 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 					DynamicQueryFactoryUtil.forClass(Address.class)
 							.add(RestrictionsFactoryUtil.eq("zip", zip))
 							.setProjection(ProjectionFactoryUtil.property("userId"));
-
 			return addressPersistence.findWithDynamicQuery(zipQuery, start, end);
 		}
 		// TODO find out what errors may be thrown.
