@@ -2,8 +2,8 @@ Bundle-Name: amf-search-api
 Bundle-SymbolicName: com.liferay.training.amf.search.api
 Bundle-Version: 1.0.0
 Export-Package:\
-	com.liferay.training.search.exception,\
-	com.liferay.training.search.model,\
-	com.liferay.training.search.service,\
-	com.liferay.training.search.service.persistence
+	com.liferay.training.amf.search.exception,\
+	com.liferay.training.amf.search.model,\
+	com.liferay.training.amf.search.service,\
+	com.liferay.training.amf.search.service.persistence
 -includeresource: META-INF/service.xml=../amf-search-service/service.xml
