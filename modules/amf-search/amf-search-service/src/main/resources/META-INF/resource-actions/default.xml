@@ -11,11 +11,8 @@
         </portlet-ref>
     <permissions>
         <supports>
-            <action-key>VIEW</action-key>
+            <action-key>USE_THIS_SERVICE</action-key>
         </supports>
-        <guest-unsupported>
-            <action-key>VIEW</action-key>
-        </guest-unsupported>
     </permissions>
     </model-resource>
 </resource-action-mapping>

@@ -1,9 +1,9 @@
-package com.liferay.training.amf.search.results.portlet.commands;
+package com.liferay.training.amf.search.portlet.commands;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.training.amf.search.results.constants.AmfSearchResultsPortletKeys;
-import com.liferay.training.amf.search.results.portlet.util.DataFormatter;
+import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
+import com.liferay.training.amf.search.portlet.util.DataFormatter;
 import org.osgi.service.component.annotations.Component;
 
 import javax.portlet.RenderRequest;
@@ -17,7 +17,7 @@ import javax.portlet.RenderResponse;
 		},
 		service = MVCRenderCommand.class
 )
-public class MainRenderCommand implements MVCRenderCommand {
+public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
@@ -28,7 +28,7 @@ public class MainRenderCommand implements MVCRenderCommand {
 		request.setAttribute("zip", zip);
 		request.setAttribute("results", dataFormatter);
 
-		return "/view.jsp";
+		return "/SearchResults.jsp";
 	}
 
 }

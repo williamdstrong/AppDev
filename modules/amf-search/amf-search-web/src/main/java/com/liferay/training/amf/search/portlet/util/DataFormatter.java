@@ -1,4 +1,4 @@
-package com.liferay.training.amf.search.results.portlet.util;
+package com.liferay.training.amf.search.portlet.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
@@ -17,7 +17,7 @@ public class DataFormatter {
 		List<SearchData> searchData = new LinkedList<>();
 
 		// Get total size and set.
-		size = getSize(zip);
+		size = _getSize(zip);
 
 		try {
 			users = getUsers(zip, start, end);
@@ -48,7 +48,7 @@ public class DataFormatter {
 		return u.getEmailAddress();
 	}
 
-	private long getSize(String zip) {
+	private long _getSize(String zip) {
 		return SearchServiceUtil.findUsersByZipCount(zip);
 	}
 
