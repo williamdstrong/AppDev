@@ -2,17 +2,16 @@
 
 <p>${zip}</p>
 
-<c:set var="results" value="${util.getResults(eventType, groupId, userId)}" />
 
 <liferay-ui:search-container
-        total="${results.size()}"
+        total="${results.getSize()}"
         var="searchContainer"
         delta="5"
         deltaConfigurable="true"
         emptyResultsMessage="There appear to be no users...">
 
     <liferay-ui:search-container-results
-            results="${util.subList(results, searchContainer.start, searchContainer.end)}" />
+            results="${results.getFormattedData(zip, searchContainer.start, searchContainer.end)}" />
 
     <liferay-ui:search-container-row className="eventMonitor">
         <liferay-ui:search-container-column-text property="dateTime" name="Date and Time"/>

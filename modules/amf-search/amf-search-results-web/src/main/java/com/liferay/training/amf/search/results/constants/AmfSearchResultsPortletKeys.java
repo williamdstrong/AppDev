@@ -1,4 +1,4 @@
-package com.liferay.training.amf.searchresults.constants;
+package com.liferay.training.amf.search.results.constants;
 
 /**
  * @author liferay

@@ -1,6 +1,6 @@
-package com.liferay.training.amf.search.portlet;
+package com.liferay.training.amf.search.input.portlet;
 
-import com.liferay.training.amf.search.constants.AmfSearchPortletKeys;
+import com.liferay.training.amf.search.input.constants.AmfSearchPortletKeys;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 

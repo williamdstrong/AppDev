@@ -1,9 +1,7 @@
-package com.liferay.training.amf.searchresults.portlet.util;
+package com.liferay.training.amf.search.results.portlet.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.SearchServiceUtil;
 
 import java.util.LinkedList;
@@ -12,7 +10,7 @@ import java.util.List;
 public class DataFormatter {
 
 	public List<SearchData> getFormattedData(String zip, int start, int end) {
-		List<User> users = null;
+		List<User> users;
 		List<SearchData> searchData = new LinkedList<>();
 
 		// Get total size and set.

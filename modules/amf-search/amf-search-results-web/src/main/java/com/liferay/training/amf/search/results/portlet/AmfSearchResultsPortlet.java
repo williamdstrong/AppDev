@@ -1,11 +1,11 @@
-package com.liferay.training.amf.searchresults.portlet;
+package com.liferay.training.amf.search.results.portlet;
 
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import javax.portlet.Portlet;
 
-import com.liferay.training.amf.searchresults.constants.AmfSearchResultsPortletKeys;
+import com.liferay.training.amf.search.results.constants.AmfSearchResultsPortletKeys;
 import org.osgi.service.component.annotations.Component;
 
 /**

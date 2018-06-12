@@ -1,4 +1,4 @@
-package com.liferay.training.amf.searchresults.portlet.util;
+package com.liferay.training.amf.search.results.portlet.util;
 
 public class SearchData {
 
