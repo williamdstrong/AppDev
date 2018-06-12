@@ -43,6 +43,18 @@ public class SearchServiceWrapper implements SearchService,
 	}
 
 	@Override
+	public java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
+		java.lang.String zip, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _searchService.findUsersByZip(zip, start, end);
+	}
+
+	@Override
+	public long findUsersByZipCount(java.lang.String zip) {
+		return _searchService.findUsersByZipCount(zip);
+	}
+
+	@Override
 	public SearchService getWrappedService() {
 		return _searchService;
 	}

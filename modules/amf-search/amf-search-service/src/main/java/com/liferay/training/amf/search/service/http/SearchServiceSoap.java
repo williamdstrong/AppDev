@@ -16,9 +16,16 @@ package com.liferay.training.amf.search.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import com.liferay.training.amf.search.service.SearchServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link com.liferay.training.amf.search.service.SearchServiceUtil} service utility. The
+ * {@link SearchServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -42,9 +49,39 @@ import aQute.bnd.annotation.ProviderType;
  *
  * @author Brian Wing Shun Chan
  * @see SearchServiceHttp
- * @see com.liferay.training.amf.search.service.SearchServiceUtil
+ * @see SearchServiceUtil
  * @generated
  */
 @ProviderType
 public class SearchServiceSoap {
+	public static long findUsersByZipCount(java.lang.String zip)
+		throws RemoteException {
+		try {
+			long returnValue = SearchServiceUtil.findUsersByZipCount(zip);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.portal.kernel.model.User[] findUsersByZip(
+		java.lang.String zip, int start, int end) throws RemoteException {
+		try {
+			java.util.List<com.liferay.portal.kernel.model.User> returnValue = SearchServiceUtil.findUsersByZip(zip,
+					start, end);
+
+			return returnValue.toArray(new com.liferay.portal.kernel.model.User[returnValue.size()]);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SearchServiceSoap.class);
 }
