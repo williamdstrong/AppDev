@@ -21,12 +21,15 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
 
+import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 import com.liferay.training.amf.search.exception.NoSearchQueryException;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
 import com.liferay.training.amf.search.dto.SearchData;
+import com.liferay.training.amf.search.service.permission.SearchServicePermissionChecker;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -52,7 +55,22 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchServiceUtil} to access the search remote service.
 	 */
 
-	public List<SearchData> findByZip(String zip, int start, int end) throws InvalidZipCodeException {
+	/**
+	 *
+	 * @param groupId
+	 * @param zip
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws InvalidZipCodeException thrown when the zip code provided is invalid (i.e. not 5 digits).
+	 * @throws PrincipalException thrown when the user does not have permission to access the user data requested.
+	 * @throws PortalException
+	 */
+	public List<SearchData> findByZip(long groupId, String zip, int start, int end)
+			throws PortalException {
+
+		SearchServicePermissionChecker.check(getPermissionChecker(), groupId, "USE_THIS_SERVICE");
+
 		validateZip(zip);
 		return getFormattedData(zip, start, end);
 	}
