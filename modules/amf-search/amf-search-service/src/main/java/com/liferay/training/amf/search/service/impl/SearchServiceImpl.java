@@ -22,6 +22,8 @@ import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
+import com.liferay.training.amf.search.service.util.DataFormatter;
+import com.liferay.training.amf.search.service.util.SearchData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,14 +48,73 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchServiceUtil} to access the search remote service.
 	 */
-	public long findUsersByZipCount(String zip) {
+	public List<SearchData> getFormattedData(String zip, int start, int end) {
+		if (zip.isEmpty()) {
+			return new LinkedList<>();
+		}
+		List<User> users;
+		List<SearchData> searchData = new LinkedList<>();
+
+		// Get total size and set.
+		size = (int)_getSize(zip);
+
+		try {
+			users = getUsers(zip, start, end);
+		} catch (PortalException e) {
+			return searchData;
+		}
+
+		for (User u : users) {
+			searchData.add(new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u)));
+		}
+		return searchData;
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	private String getFirstName(User u) {
+		return u.getFirstName();
+	}
+
+	private String getLastInitial(User u) {
+		String lastName = u.getLastName();
+		return String.valueOf(lastName.charAt(0));
+	}
+
+	private String getScreenName(User u) {
+		return u.getScreenName();
+	}
+
+	private String getEmailAddress(User u) {
+		return u.getEmailAddress();
+	}
+
+	private long _getSize(String zip) {
+		return findUsersByZipCount(zip);
+	}
+
+	private List<User> getUsers(String zip, int start, int end) throws PortalException {
+		return findUsersByZip(zip, start, end);
+	}
+
+	private long findUsersByZipCount(String zip) {
 		DynamicQuery zipQuery =
 				DynamicQueryFactoryUtil.forClass(Address.class)
 						.add(RestrictionsFactoryUtil.eq("zip", zip));
 		return addressPersistence.countWithDynamicQuery(zipQuery);
 	}
 
-	public List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
+	private List<SearchData> findByZip(String zip, int start, int end) {
+		DataFormatter dataFormatter = new DataFormatter();
+
+		List<SearchData> searchData =
+				dataFormatter.getFormattedData(zip, start, end);
+		int size =  (int)dataFormatter.getSize();
+	}
+
+	private List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
 		// TODO validation
 		// TODO permissions
 
@@ -89,6 +150,8 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 			addressPersistence.closeSession(session);
 		}
 	}
+
+	private int size;
 
 	private static Log _log = LogFactoryUtil.getLog(SearchService.class.getName());
 }
