@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
 import com.liferay.training.amf.search.dto.SearchData;
@@ -53,6 +54,18 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 		return getFormattedData(zip, start, end);
 	}
 
+	public long getSize() {
+		return size;
+	}
+
+	private boolean validateZip(String zip) {
+		Validator.isNotNull(zip);
+		Validator.isNumber(zip);
+
+	}
+
+
+
 	private List<SearchData> getFormattedData(String zip, int start, int end) {
 		if (zip.isEmpty()) {
 			return new LinkedList<>();
@@ -76,10 +89,6 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 //			searchData.add(new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u)));
 		}
 		return searchData;
-	}
-
-	public long getSize() {
-		return size;
 	}
 
 	private String getFirstName(User u) {
