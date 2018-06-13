@@ -63,9 +63,7 @@ public interface SearchService extends BaseService {
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<SearchData> getFormattedData(java.lang.String zip, int start,
-		int end);
+	public List<SearchData> findByZip(java.lang.String zip, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getSize();

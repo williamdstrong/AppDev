@@ -55,11 +55,11 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
  */
 @ProviderType
 public class SearchServiceHttp {
-	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> getFormattedData(
+	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> findByZip(
 		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end) {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-					"getFormattedData", _getFormattedDataParameterTypes0);
+					"findByZip", _findByZipParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, zip,
 					start, end);
@@ -85,7 +85,7 @@ public class SearchServiceHttp {
 	public static long getSize(HttpPrincipal httpPrincipal) {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-					"getSize", _getSizeParameterTypes1);
+					"getSize", _getSizeParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -108,8 +108,8 @@ public class SearchServiceHttp {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SearchServiceHttp.class);
-	private static final Class<?>[] _getFormattedDataParameterTypes0 = new Class[] {
+	private static final Class<?>[] _findByZipParameterTypes0 = new Class[] {
 			java.lang.String.class, int.class, int.class
 		};
-	private static final Class<?>[] _getSizeParameterTypes1 = new Class[] {  };
+	private static final Class<?>[] _getSizeParameterTypes2 = new Class[] {  };
 }

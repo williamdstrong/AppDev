@@ -51,9 +51,9 @@ public class SearchServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> getFormattedData(
+	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> findByZip(
 		java.lang.String zip, int start, int end) {
-		return getService().getFormattedData(zip, start, end);
+		return getService().findByZip(zip, start, end);
 	}
 
 	public static long getSize() {

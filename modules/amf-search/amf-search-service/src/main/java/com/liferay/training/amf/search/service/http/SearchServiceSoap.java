@@ -54,11 +54,11 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class SearchServiceSoap {
-	public static com.liferay.training.amf.search.service.util.SearchData[] getFormattedData(
+	public static com.liferay.training.amf.search.service.util.SearchData[] findByZip(
 		java.lang.String zip, int start, int end) throws RemoteException {
 		try {
 			java.util.List<com.liferay.training.amf.search.service.util.SearchData> returnValue =
-				SearchServiceUtil.getFormattedData(zip, start, end);
+				SearchServiceUtil.findByZip(zip, start, end);
 
 			return returnValue.toArray(new com.liferay.training.amf.search.service.util.SearchData[returnValue.size()]);
 		}

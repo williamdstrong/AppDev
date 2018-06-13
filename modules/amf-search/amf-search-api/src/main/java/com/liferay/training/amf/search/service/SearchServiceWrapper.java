@@ -43,9 +43,9 @@ public class SearchServiceWrapper implements SearchService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.training.amf.search.service.util.SearchData> getFormattedData(
+	public java.util.List<com.liferay.training.amf.search.service.util.SearchData> findByZip(
 		java.lang.String zip, int start, int end) {
-		return _searchService.getFormattedData(zip, start, end);
+		return _searchService.findByZip(zip, start, end);
 	}
 
 	@Override
