@@ -2,8 +2,11 @@ package com.liferay.training.amf.search.portlet.commands;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
+import com.liferay.training.amf.search.exception.InvalidZipCodeException;
+import com.liferay.training.amf.search.exception.NoSearchQueryException;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.dto.SearchData;
 import org.osgi.service.component.annotations.Component;
@@ -44,9 +47,12 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 		String zip = ParamUtil.getString(request, "zip", "");
 
 
-
-		searchContainer.setResults(_searchService.findByZip(zip, searchContainer.getStart(), searchContainer.getEnd()));
-		searchContainer.setTotal((int) _searchService.getSize());
+		try {
+			searchContainer.setResults(_searchService.findByZip(zip, searchContainer.getStart(), searchContainer.getEnd()));
+			searchContainer.setTotal((int) _searchService.getSize());
+		} catch (NoSearchQueryException | InvalidZipCodeException e) {
+			SessionErrors.add(request, "" );
+		}
 
 		request.setAttribute("searchContainer", searchContainer);
 
