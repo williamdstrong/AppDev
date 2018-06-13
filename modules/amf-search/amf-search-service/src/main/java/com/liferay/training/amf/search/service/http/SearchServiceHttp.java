@@ -85,7 +85,7 @@ public class SearchServiceHttp {
 	public static long getSize(HttpPrincipal httpPrincipal) {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-					"getSize", _getSizeParameterTypes2);
+					"getSize", _getSizeParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -111,5 +111,5 @@ public class SearchServiceHttp {
 	private static final Class<?>[] _findByZipParameterTypes0 = new Class[] {
 			java.lang.String.class, int.class, int.class
 		};
-	private static final Class<?>[] _getSizeParameterTypes2 = new Class[] {  };
+	private static final Class<?>[] _getSizeParameterTypes1 = new Class[] {  };
 }
