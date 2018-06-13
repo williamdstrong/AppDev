@@ -42,11 +42,21 @@ public class SearchServiceWrapper implements SearchService,
 		return _searchService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	* @param groupId
+	* @param zip
+	* @param start
+	* @param end
+	* @return
+	* @throws InvalidZipCodeException thrown when the zip code provided is invalid (i.e. not 5 digits).
+	* @throws PrincipalException thrown when the user does not have permission to access the user data requested.
+	* @throws PortalException
+	*/
 	@Override
 	public java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		java.lang.String zip, int start, int end)
-		throws com.liferay.training.amf.search.exception.InvalidZipCodeException {
-		return _searchService.findByZip(zip, start, end);
+		long groupId, java.lang.String zip, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _searchService.findByZip(groupId, zip, start, end);
 	}
 
 	@Override

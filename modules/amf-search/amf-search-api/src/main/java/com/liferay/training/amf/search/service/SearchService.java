@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import com.liferay.training.amf.search.dto.SearchData;
-import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 import com.liferay.training.amf.search.exception.NoSearchQueryException;
 
 import java.util.List;
@@ -65,8 +64,18 @@ public interface SearchService extends BaseService {
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
 
-	public List<SearchData> findByZip(java.lang.String zip, int start, int end)
-		throws InvalidZipCodeException;
+	/**
+	* @param groupId
+	* @param zip
+	* @param start
+	* @param end
+	* @return
+	* @throws InvalidZipCodeException thrown when the zip code provided is invalid (i.e. not 5 digits).
+	* @throws PrincipalException thrown when the user does not have permission to access the user data requested.
+	* @throws PortalException
+	*/
+	public List<SearchData> findByZip(long groupId, java.lang.String zip,
+		int start, int end) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getSize() throws NoSearchQueryException;

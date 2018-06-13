@@ -54,11 +54,22 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class SearchServiceSoap {
+	/**
+	* @param groupId
+	* @param zip
+	* @param start
+	* @param end
+	* @return
+	* @throws InvalidZipCodeException thrown when the zip code provided is invalid (i.e. not 5 digits).
+	* @throws PrincipalException thrown when the user does not have permission to access the user data requested.
+	* @throws PortalException
+	*/
 	public static com.liferay.training.amf.search.dto.SearchData[] findByZip(
-		java.lang.String zip, int start, int end) throws RemoteException {
+		long groupId, java.lang.String zip, int start, int end)
+		throws RemoteException {
 		try {
 			java.util.List<com.liferay.training.amf.search.dto.SearchData> returnValue =
-				SearchServiceUtil.findByZip(zip, start, end);
+				SearchServiceUtil.findByZip(groupId, zip, start, end);
 
 			return returnValue.toArray(new com.liferay.training.amf.search.dto.SearchData[returnValue.size()]);
 		}
