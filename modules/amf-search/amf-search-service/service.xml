@@ -11,5 +11,6 @@
 	</entity>
 	<exceptions>
 		<exception>InvalidZipCode</exception>
+        <exception>NoSearchQuery</exception>
 	</exceptions>
 </service-builder>

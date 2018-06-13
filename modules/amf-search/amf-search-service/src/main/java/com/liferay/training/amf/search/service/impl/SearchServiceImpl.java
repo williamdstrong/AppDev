@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
 
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
 import com.liferay.training.amf.search.dto.SearchData;
@@ -50,18 +51,25 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchServiceUtil} to access the search remote service.
 	 */
 
-	public List<SearchData> findByZip(String zip, int start, int end) {
+	public List<SearchData> findByZip(String zip, int start, int end) throws InvalidZipCodeException {
+		validateZip(zip);
 		return getFormattedData(zip, start, end);
 	}
 
-	public long getSize() {
-		return size;
+	public long getSize() throws NoSearchQuery {
+		if (size == null) {
+			throw new NoSearchQuery();
+		}
+		else {
+			return size;
+		}
 	}
 
-	private boolean validateZip(String zip) {
-		Validator.isNotNull(zip);
-		Validator.isNumber(zip);
-
+	private void validateZip(String zip) throws InvalidZipCodeException {
+		if( Validator.isNotNull(zip) &&
+		Validator.isNumber(zip) ) {
+			throw new InvalidZipCodeException(zip + "is an invalid zip code.");
+		}
 	}
 
 
@@ -160,7 +168,7 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 		}
 	}
 
-	private int size;
+	private Integer size;
 
 	private static Log _log = LogFactoryUtil.getLog(SearchService.class.getName());
 }
