@@ -22,7 +22,6 @@ import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
-import com.liferay.training.amf.search.service.util.DataFormatter;
 import com.liferay.training.amf.search.service.util.SearchData;
 
 import java.util.LinkedList;
@@ -48,7 +47,12 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchServiceUtil} to access the search remote service.
 	 */
-	public List<SearchData> getFormattedData(String zip, int start, int end) {
+
+	public List<SearchData> findByZip(String zip, int start, int end) {
+		return getFormattedData(zip, start, end);
+	}
+
+	private List<SearchData> getFormattedData(String zip, int start, int end) {
 		if (zip.isEmpty()) {
 			return new LinkedList<>();
 		}
@@ -104,14 +108,6 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 				DynamicQueryFactoryUtil.forClass(Address.class)
 						.add(RestrictionsFactoryUtil.eq("zip", zip));
 		return addressPersistence.countWithDynamicQuery(zipQuery);
-	}
-
-	private List<SearchData> findByZip(String zip, int start, int end) {
-		DataFormatter dataFormatter = new DataFormatter();
-
-		List<SearchData> searchData =
-				dataFormatter.getFormattedData(zip, start, end);
-		int size =  (int)dataFormatter.getSize();
 	}
 
 	private List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
