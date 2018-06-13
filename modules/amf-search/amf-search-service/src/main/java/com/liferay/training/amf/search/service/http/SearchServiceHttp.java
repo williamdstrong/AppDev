@@ -56,7 +56,8 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
 @ProviderType
 public class SearchServiceHttp {
 	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end) {
+		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end)
+		throws com.liferay.training.amf.search.exception.InvalidZipCodeException {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
 					"findByZip", _findByZipParameterTypes0);
@@ -70,6 +71,10 @@ public class SearchServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof com.liferay.training.amf.search.exception.InvalidZipCodeException) {
+					throw (com.liferay.training.amf.search.exception.InvalidZipCodeException)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
@@ -82,7 +87,8 @@ public class SearchServiceHttp {
 		}
 	}
 
-	public static long getSize(HttpPrincipal httpPrincipal) {
+	public static long getSize(HttpPrincipal httpPrincipal)
+		throws NoSearchQuery {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
 					"getSize", _getSizeParameterTypes1);
@@ -95,6 +101,10 @@ public class SearchServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
+				if (e instanceof NoSearchQuery) {
+					throw (NoSearchQuery)e;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 

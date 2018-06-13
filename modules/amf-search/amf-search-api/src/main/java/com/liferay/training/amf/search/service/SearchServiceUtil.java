@@ -52,11 +52,12 @@ public class SearchServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		java.lang.String zip, int start, int end) {
+		java.lang.String zip, int start, int end)
+		throws com.liferay.training.amf.search.exception.InvalidZipCodeException {
 		return getService().findByZip(zip, start, end);
 	}
 
-	public static long getSize() {
+	public static long getSize() throws NoSearchQuery {
 		return getService().getSize();
 	}
 

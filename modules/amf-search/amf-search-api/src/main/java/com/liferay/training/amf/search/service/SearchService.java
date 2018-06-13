@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
 import com.liferay.training.amf.search.dto.SearchData;
+import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 
 import java.util.List;
 
@@ -63,8 +64,9 @@ public interface SearchService extends BaseService {
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
 
-	public List<SearchData> findByZip(java.lang.String zip, int start, int end);
+	public List<SearchData> findByZip(java.lang.String zip, int start, int end)
+		throws InvalidZipCodeException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getSize();
+	public long getSize() throws NoSearchQuery;
 }

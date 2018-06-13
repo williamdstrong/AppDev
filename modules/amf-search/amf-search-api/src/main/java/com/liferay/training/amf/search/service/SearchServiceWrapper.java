@@ -44,12 +44,13 @@ public class SearchServiceWrapper implements SearchService,
 
 	@Override
 	public java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		java.lang.String zip, int start, int end) {
+		java.lang.String zip, int start, int end)
+		throws com.liferay.training.amf.search.exception.InvalidZipCodeException {
 		return _searchService.findByZip(zip, start, end);
 	}
 
 	@Override
-	public long getSize() {
+	public long getSize() throws NoSearchQuery {
 		return _searchService.getSize();
 	}
 
