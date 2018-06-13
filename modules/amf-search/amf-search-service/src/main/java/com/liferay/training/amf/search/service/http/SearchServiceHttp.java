@@ -55,13 +55,39 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
  */
 @ProviderType
 public class SearchServiceHttp {
-	public static long findUsersByZipCount(HttpPrincipal httpPrincipal,
-		java.lang.String zip) {
+	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> getFormattedData(
+		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end) {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-					"findUsersByZipCount", _findUsersByZipCountParameterTypes0);
+					"getFormattedData", _getFormattedDataParameterTypes0);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey, zip);
+			MethodHandler methodHandler = new MethodHandler(methodKey, zip,
+					start, end);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (java.util.List<com.liferay.training.amf.search.service.util.SearchData>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static long getSize(HttpPrincipal httpPrincipal) {
+		try {
+			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
+					"getSize", _getSizeParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
 
 			Object returnObj = null;
 
@@ -81,43 +107,9 @@ public class SearchServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
-		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-					"findUsersByZip", _findUsersByZipParameterTypes1);
-
-			MethodHandler methodHandler = new MethodHandler(methodKey, zip,
-					start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception e) {
-				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
-					throw (com.liferay.portal.kernel.exception.PortalException)e;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(e);
-			}
-
-			return (java.util.List<com.liferay.portal.kernel.model.User>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException se) {
-			_log.error(se, se);
-
-			throw se;
-		}
-	}
-
 	private static Log _log = LogFactoryUtil.getLog(SearchServiceHttp.class);
-	private static final Class<?>[] _findUsersByZipCountParameterTypes0 = new Class[] {
-			java.lang.String.class
-		};
-	private static final Class<?>[] _findUsersByZipParameterTypes1 = new Class[] {
+	private static final Class<?>[] _getFormattedDataParameterTypes0 = new Class[] {
 			java.lang.String.class, int.class, int.class
 		};
+	private static final Class<?>[] _getSizeParameterTypes1 = new Class[] {  };
 }

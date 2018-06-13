@@ -20,12 +20,14 @@ import com.liferay.portal.kernel.dao.orm.*;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import com.liferay.training.amf.search.service.util.SearchData;
 
 import java.util.List;
 
@@ -61,8 +63,10 @@ public interface SearchService extends BaseService {
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
 
-	public List<User> findUsersByZip(java.lang.String zip, int start, int end)
-		throws PortalException;
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<SearchData> getFormattedData(java.lang.String zip, int start,
+		int end);
 
-	public long findUsersByZipCount(java.lang.String zip);
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getSize();
 }

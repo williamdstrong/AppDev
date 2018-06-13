@@ -54,12 +54,13 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class SearchServiceSoap {
-	public static long findUsersByZipCount(java.lang.String zip)
-		throws RemoteException {
+	public static com.liferay.training.amf.search.service.util.SearchData[] getFormattedData(
+		java.lang.String zip, int start, int end) throws RemoteException {
 		try {
-			long returnValue = SearchServiceUtil.findUsersByZipCount(zip);
+			java.util.List<com.liferay.training.amf.search.service.util.SearchData> returnValue =
+				SearchServiceUtil.getFormattedData(zip, start, end);
 
-			return returnValue;
+			return returnValue.toArray(new com.liferay.training.amf.search.service.util.SearchData[returnValue.size()]);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -68,13 +69,11 @@ public class SearchServiceSoap {
 		}
 	}
 
-	public static com.liferay.portal.kernel.model.User[] findUsersByZip(
-		java.lang.String zip, int start, int end) throws RemoteException {
+	public static long getSize() throws RemoteException {
 		try {
-			java.util.List<com.liferay.portal.kernel.model.User> returnValue = SearchServiceUtil.findUsersByZip(zip,
-					start, end);
+			long returnValue = SearchServiceUtil.getSize();
 
-			return returnValue.toArray(new com.liferay.portal.kernel.model.User[returnValue.size()]);
+			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

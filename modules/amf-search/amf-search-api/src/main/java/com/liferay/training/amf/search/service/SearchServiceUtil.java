@@ -51,14 +51,13 @@ public class SearchServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static java.util.List<com.liferay.portal.kernel.model.User> findUsersByZip(
-		java.lang.String zip, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().findUsersByZip(zip, start, end);
+	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> getFormattedData(
+		java.lang.String zip, int start, int end) {
+		return getService().getFormattedData(zip, start, end);
 	}
 
-	public static long findUsersByZipCount(java.lang.String zip) {
-		return getService().findUsersByZipCount(zip);
+	public static long getSize() {
+		return getService().getSize();
 	}
 
 	public static SearchService getService() {
