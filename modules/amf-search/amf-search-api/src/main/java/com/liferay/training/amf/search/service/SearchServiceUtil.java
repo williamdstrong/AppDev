@@ -57,7 +57,8 @@ public class SearchServiceUtil {
 		return getService().findByZip(zip, start, end);
 	}
 
-	public static long getSize() throws NoSearchQuery {
+	public static long getSize()
+		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
 		return getService().getSize();
 	}
 

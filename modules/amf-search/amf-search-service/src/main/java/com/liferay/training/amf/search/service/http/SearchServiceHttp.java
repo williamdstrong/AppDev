@@ -88,7 +88,7 @@ public class SearchServiceHttp {
 	}
 
 	public static long getSize(HttpPrincipal httpPrincipal)
-		throws NoSearchQuery {
+		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
 					"getSize", _getSizeParameterTypes1);
@@ -101,8 +101,8 @@ public class SearchServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception e) {
-				if (e instanceof NoSearchQuery) {
-					throw (NoSearchQuery)e;
+				if (e instanceof com.liferay.training.amf.search.exception.NoSearchQueryException) {
+					throw (com.liferay.training.amf.search.exception.NoSearchQueryException)e;
 				}
 
 				throw new com.liferay.portal.kernel.exception.SystemException(e);

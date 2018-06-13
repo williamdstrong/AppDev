@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.model.User;
 
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.training.amf.search.exception.InvalidZipCodeException;
+import com.liferay.training.amf.search.exception.NoSearchQueryException;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
 import com.liferay.training.amf.search.dto.SearchData;
@@ -56,9 +57,9 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 		return getFormattedData(zip, start, end);
 	}
 
-	public long getSize() throws NoSearchQuery {
+	public long getSize() throws NoSearchQueryException {
 		if (size == null) {
-			throw new NoSearchQuery();
+			throw new NoSearchQueryException();
 		}
 		else {
 			return size;

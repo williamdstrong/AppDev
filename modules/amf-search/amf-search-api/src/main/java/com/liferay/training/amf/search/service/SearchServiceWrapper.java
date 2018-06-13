@@ -50,7 +50,8 @@ public class SearchServiceWrapper implements SearchService,
 	}
 
 	@Override
-	public long getSize() throws NoSearchQuery {
+	public long getSize()
+		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
 		return _searchService.getSize();
 	}
 
