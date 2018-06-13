@@ -17,7 +17,7 @@ public class DataFormatter {
 		List<SearchData> searchData = new LinkedList<>();
 
 		// Get total size and set.
-		size = _getSize(zip);
+		size = (int)_getSize(zip);
 
 		try {
 			users = getUsers(zip, start, end);
@@ -29,6 +29,10 @@ public class DataFormatter {
 			searchData.add(new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u)));
 		}
 		return searchData;
+	}
+
+	public long getSize() {
+		return size;
 	}
 
 	private String getFirstName(User u) {
@@ -56,9 +60,5 @@ public class DataFormatter {
 		return SearchServiceUtil.findUsersByZip(zip, start, end);
 	}
 
-	public long getSize() {
-		return size;
-	}
-
-	private long size;
+	private int size;
 }
