@@ -1,13 +1,13 @@
 package com.liferay.training.amf.search.portlet.commands;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
-import com.liferay.portal.kernel.dao.search.SearchContainerResults;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
-import com.liferay.training.amf.search.portlet.util.DataFormatter;
-import com.liferay.training.amf.search.portlet.util.SearchData;
+import com.liferay.training.amf.search.service.SearchService;
+import com.liferay.training.amf.search.dto.SearchData;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
@@ -36,20 +36,17 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 		headerNames.add("Screen Name");
 		headerNames.add("Email Address");
 
-		SearchContainer<SearchData> searchContainer = new SearchContainer<SearchData>(
+		SearchContainer<SearchData> searchContainer = new SearchContainer<>(
 						request, iteratorURL, headerNames,  "There are no users...");
 		searchContainer.setDelta(5);
 		searchContainer.setDeltaConfigurable(true);
 
 		String zip = ParamUtil.getString(request, "zip", "");
-		DataFormatter dataFormatter = new DataFormatter();
 
-		List<SearchData> searchData =
-				dataFormatter.getFormattedData(zip, searchContainer.getStart(),searchContainer.getEnd());
-		int size =  (int)dataFormatter.getSize();
 
-		searchContainer.setResults(searchData);
-		searchContainer.setTotal(size);
+
+		searchContainer.setResults(_searchService.findByZip(zip, searchContainer.getStart(), searchContainer.getEnd()));
+		searchContainer.setTotal((int) _searchService.getSize());
 
 		request.setAttribute("searchContainer", searchContainer);
 
@@ -58,4 +55,6 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 		return "/SearchResults.jsp";
 	}
 
+	@Reference
+	private SearchService _searchService;
 }

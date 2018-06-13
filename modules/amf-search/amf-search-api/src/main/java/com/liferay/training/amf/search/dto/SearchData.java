@@ -1,4 +1,4 @@
-package com.liferay.training.amf.search.service.util;
+package com.liferay.training.amf.search.dto;
 
 public class SearchData {
 

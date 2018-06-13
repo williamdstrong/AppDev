@@ -20,9 +20,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
+
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
-import com.liferay.training.amf.search.service.util.SearchData;
+import com.liferay.training.amf.search.dto.SearchData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,8 +69,11 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 			return searchData;
 		}
 
+		SearchData a;
 		for (User u : users) {
-			searchData.add(new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u)));
+			SearchData s = new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u));
+			searchData.add(s);
+//			searchData.add(new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u)));
 		}
 		return searchData;
 	}

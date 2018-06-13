@@ -55,7 +55,7 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
  */
 @ProviderType
 public class SearchServiceHttp {
-	public static java.util.List<com.liferay.training.amf.search.service.util.SearchData> findByZip(
+	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
 		HttpPrincipal httpPrincipal, java.lang.String zip, int start, int end) {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
@@ -73,7 +73,7 @@ public class SearchServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.training.amf.search.service.util.SearchData>)returnObj;
+			return (java.util.List<com.liferay.training.amf.search.dto.SearchData>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);

@@ -4,5 +4,5 @@ Bundle-Version: 1.0.0
 Export-Package:\
 	com.liferay.training.amf.search.exception,\
 	com.liferay.training.amf.search.service,\
-	com.liferay.training.amf.search.service.util
+	com.liferay.training.amf.search.dto
 -includeresource: META-INF/service.xml=../amf-search-service/service.xml
