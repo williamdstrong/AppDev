@@ -83,10 +83,26 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	}
 
 	private void validateZip(String zip) throws InvalidZipCodeException {
-		if( !(Validator.isNotNull(zip) &&
-		Validator.isNumber(zip) )) {
-			throw new InvalidZipCodeException(zip + "is an invalid zip code.");
+		if (!Validator.isNotNull(zip)) {
+			throw new InvalidZipCodeException.Null();
 		}
+		if (!Validator.isNumber(zip)) {
+			throw new InvalidZipCodeException.NotANumber();
+		}
+		if (isFewerThanFiveDigits(zip)) {
+			throw new InvalidZipCodeException.TooFewDigits();
+		}
+		if (isGreaterThanFiveDigits(zip)) {
+			throw new InvalidZipCodeException.TooManyDigits();
+		}
+	}
+
+	private boolean isFewerThanFiveDigits(String zip) {
+		return zip.length() < 5;
+	}
+
+	private boolean isGreaterThanFiveDigits(String zip) {
+		return zip.length() > 5;
 	}
 
 
