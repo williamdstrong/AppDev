@@ -20,15 +20,13 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.User;
-
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.training.amf.search.dto.SearchData;
 import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 import com.liferay.training.amf.search.exception.NoSearchQueryException;
 import com.liferay.training.amf.search.service.SearchService;
 import com.liferay.training.amf.search.service.base.SearchServiceBaseImpl;
-import com.liferay.training.amf.search.dto.SearchData;
 import com.liferay.training.amf.search.service.permission.SearchServicePermissionChecker;
 
 import java.util.LinkedList;
@@ -44,7 +42,7 @@ import java.util.List;
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author William Strong
  * @see SearchServiceBaseImpl
  * @see com.liferay.training.amf.search.service.SearchServiceUtil
  */

@@ -17,7 +17,7 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author William Strong
  */
 @ProviderType
 public class InvalidZipCodeException extends PortalException {
