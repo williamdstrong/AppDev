@@ -13,6 +13,9 @@
         <supports>
             <action-key>USE_THIS_SERVICE</action-key>
         </supports>
+        <guest-unsupported>
+            <action-key>USE_THIS_SERVICE</action-key>
+        </guest-unsupported>
     </permissions>
     </model-resource>
 </resource-action-mapping>
