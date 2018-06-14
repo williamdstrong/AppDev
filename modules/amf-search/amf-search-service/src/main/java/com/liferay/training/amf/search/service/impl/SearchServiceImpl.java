@@ -105,8 +105,6 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 		return zip.length() > 5;
 	}
 
-
-
 	private List<SearchData> getFormattedData(String zip, int start, int end) {
 		if (zip.isEmpty()) {
 			return new LinkedList<>();
