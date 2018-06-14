@@ -163,10 +163,9 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 	}
 
 	private List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
-		// TODO validation
-		// TODO permissions
 
 		// Use dynamic query that finds all entries with a particular zip code.
+
 		List<Long> userIds = getUserIdsByZip(zip, start, end);
 		List<User> users = new LinkedList<>();
 		for (Long l : userIds) {
@@ -188,8 +187,6 @@ public class SearchServiceImpl extends SearchServiceBaseImpl {
 							.setProjection(ProjectionFactoryUtil.property("userId"));
 			return addressPersistence.findWithDynamicQuery(zipQuery, start, end);
 		}
-		// TODO find out what errors may be thrown.
-		// Ideas: cannot open session, no data found
 		catch (ORMException e) {
 			_log.error("Cannot get address data.");
 			return new LinkedList<>();
