@@ -14,7 +14,6 @@
 package com.liferay.training.amf.search.exception;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.exception.PortalException;
 
 /**
@@ -38,4 +37,27 @@ public class InvalidZipCodeException extends PortalException {
 		super(cause);
 	}
 
+	public static class TooManyDigits extends InvalidZipCodeException {
+
+		public TooManyDigits() {
+		}
+	}
+
+	public static class TooFewDigits extends InvalidZipCodeException {
+
+		public TooFewDigits() {
+		}
+	}
+
+	public static class NotANumber extends InvalidZipCodeException {
+
+		public NotANumber() {
+		}
+	}
+
+	public static class Null extends InvalidZipCodeException {
+
+		public Null() {
+		}
+	}
 }
