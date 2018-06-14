@@ -26,7 +26,7 @@ public class SearchServicePermissionChecker implements BaseModelPermissionChecke
 
 	private static boolean _hasPermission(
 			PermissionChecker permissionChecker, long groupId, String actionId) {
-		return permissionChecker.hasPermission(groupId, SearchService.class.getName(), 0, actionId);
+		return permissionChecker.hasPermission(groupId, "com.liferay.training.amf.search", 0, actionId);
 	}
 
 	@Override
