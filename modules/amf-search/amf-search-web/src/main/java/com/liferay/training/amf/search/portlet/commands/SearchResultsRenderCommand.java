@@ -5,14 +5,16 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
+import com.liferay.training.amf.search.dto.SearchData;
 import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 import com.liferay.training.amf.search.exception.NoSearchQueryException;
 import com.liferay.training.amf.search.service.SearchService;
-import com.liferay.training.amf.search.dto.SearchData;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -52,6 +54,9 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
 		long groupId = themeDisplay.getScopeGroupId();
+
+		SessionMessages.add(
+				request, PortalUtil.getPortletId(request) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
 		try {
 			searchContainer.setResults(
