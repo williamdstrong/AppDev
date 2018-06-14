@@ -2,11 +2,10 @@ package com.liferay.training.amf.search.portlet;
 
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-
-import javax.portlet.Portlet;
-
 import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
 import org.osgi.service.component.annotations.Component;
+
+import javax.portlet.*;
 
 /**
  * @author liferay
@@ -22,9 +21,18 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.name=" + AmfSearchResultsPortletKeys.AmfSearchResults,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
-		"javax.portlet.supported-public-render-parameter=zip"
+			"javax.portlet.supported-processing-event=zip"
 	},
 	service = Portlet.class
 )
 public class AmfSearchResultsPortlet extends MVCPortlet {
+
+	@ProcessEvent(qname = "zip")
+	public void setZip(EventRequest request, EventResponse response) {
+		Event event = request.getEvent();
+		String zip = (String) event.getValue();
+		response.setRenderParameter("zipSearch", zip);
+		response.setRenderParameter("eventFlag", "true");
+	}
+
 }

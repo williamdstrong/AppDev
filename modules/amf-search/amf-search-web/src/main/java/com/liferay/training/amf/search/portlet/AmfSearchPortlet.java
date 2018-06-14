@@ -1,12 +1,10 @@
 package com.liferay.training.amf.search.portlet;
 
-import com.liferay.training.amf.search.constants.AmfSearchPortletKeys;
-
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.training.amf.search.constants.AmfSearchPortletKeys;
+import org.osgi.service.component.annotations.Component;
 
 import javax.portlet.Portlet;
-
-import org.osgi.service.component.annotations.Component;
 
 /**
  * @author liferay
@@ -22,7 +20,7 @@ import org.osgi.service.component.annotations.Component;
 		"javax.portlet.name=" + AmfSearchPortletKeys.AmfSearch,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
-		"javax.portlet.supported-public-render-parameter=zip"
+			"javax.portlet.supported-publishing-event=zip"
 	},
 	service = Portlet.class
 )

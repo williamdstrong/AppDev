@@ -8,7 +8,7 @@ import org.osgi.service.component.annotations.Component;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import java.io.IOException;
+import javax.xml.namespace.QName;
 
 @Component(
 		immediate = true,
@@ -21,8 +21,10 @@ import java.io.IOException;
 public class SubmitActionCommand extends BaseMVCActionCommand {
 
 	@Override
-	public void doProcessAction(ActionRequest request, ActionResponse response) throws IOException {
+	public void doProcessAction(ActionRequest request, ActionResponse response) {
 		String zip = ParamUtil.getString(request, "zip");
-		response.setRenderParameter("zip", zip);
+
+		QName qName = new QName("zip");
+		response.setEvent(qName, zip);
 	}
 }

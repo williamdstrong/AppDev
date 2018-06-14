@@ -34,8 +34,22 @@ import java.util.List;
 )
 public class SearchResultsRenderCommand implements MVCRenderCommand {
 
+	private final String _emptyResultsMessage = "There are no users.";
+	private final int _delta = 5;
+
+	private String _zip;
+	private Boolean _eventFlag;
+
+	private void _setEventFlag() {
+		_eventFlag = true;
+	}
+
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
+
+		if (Boolean.parseBoolean(ParamUtil.getString(request, "eventFlag", "false"))) {
+			_setEventFlag();
+		}
 
 		PortletURL iteratorURL = response.createActionURL();
 
@@ -46,11 +60,13 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 		headerNames.add("Email Address");
 
 		SearchContainer<SearchData> searchContainer = new SearchContainer<>(
-						request, iteratorURL, headerNames,  "There are no users...");
-		searchContainer.setDelta(5);
+				request, iteratorURL, headerNames, _emptyResultsMessage);
 		searchContainer.setDeltaConfigurable(true);
 
-		String zip = ParamUtil.getString(request, "zip", "");
+		if (_eventFlag) {
+			_zip = ParamUtil.getString(request, "zipSearch");
+			_eventFlag = false;
+		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
 		long groupId = themeDisplay.getScopeGroupId();
@@ -60,7 +76,7 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 		try {
 			searchContainer.setResults(
-					_searchService.findByZip(groupId, zip, searchContainer.getStart(), searchContainer.getEnd()));
+					_searchService.findByZip(groupId, _zip, searchContainer.getStart(), searchContainer.getEnd()));
 			searchContainer.setTotal((int) _searchService.getSize());
 		} catch (NoSearchQueryException e) {
 			SessionErrors.add(request, "noSearch");
@@ -77,7 +93,9 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 		request.setAttribute("searchContainer", searchContainer);
 
-		request.setAttribute("zip", zip);
+		request.setAttribute("zip", _zip);
+
+
 
 		return "/SearchResults.jsp";
 	}
