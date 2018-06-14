@@ -1,9 +1,13 @@
 package com.liferay.training.amf.search.portlet.commands;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
 import com.liferay.training.amf.search.exception.InvalidZipCodeException;
 import com.liferay.training.amf.search.exception.NoSearchQueryException;
@@ -46,12 +50,24 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 		String zip = ParamUtil.getString(request, "zip", "");
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
+		long groupId = themeDisplay.getScopeGroupId();
 
 		try {
-			searchContainer.setResults(_searchService.findByZip(zip, searchContainer.getStart(), searchContainer.getEnd()));
+			searchContainer.setResults(
+					_searchService.findByZip(groupId, zip, searchContainer.getStart(), searchContainer.getEnd()));
 			searchContainer.setTotal((int) _searchService.getSize());
-		} catch (NoSearchQueryException | InvalidZipCodeException e) {
-			SessionErrors.add(request, "" );
+		} catch (NoSearchQueryException e) {
+			SessionErrors.add(request, "noSearch");
+			searchContainer.setEmptyResultsMessage("noSearch");
+		} catch (InvalidZipCodeException e){
+			SessionErrors.add(request, "invalidZip" );
+			searchContainer.setEmptyResultsMessage("invalidZip");
+		} catch (PrincipalException.MustHavePermission e) {
+			SessionErrors.add(request, "noPermission");
+			searchContainer.setEmptyResultsMessage("noPermission");
+		} catch (PortalException e) {
+			SessionErrors.add(request, "");
 		}
 
 		request.setAttribute("searchContainer", searchContainer);

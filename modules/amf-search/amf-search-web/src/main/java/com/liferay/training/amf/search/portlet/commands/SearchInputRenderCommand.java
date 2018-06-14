@@ -1,6 +1,7 @@
 package com.liferay.training.amf.search.portlet.commands;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.training.amf.search.constants.AmfSearchPortletKeys;
 import org.osgi.service.component.annotations.Component;
 
@@ -20,6 +21,7 @@ public class SearchInputRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
 
+		SessionMessages.clear(request);
 		return "/SearchInput.jsp";
 	}
 }

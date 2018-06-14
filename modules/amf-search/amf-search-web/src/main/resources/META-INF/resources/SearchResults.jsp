@@ -1,5 +1,9 @@
 <%@ include file="/init.jsp" %>
 
+<liferay-ui:error key="noSearch" message="noSearch" />
+<liferay-ui:error key="invalidZip" message="invalidZip" />
+<liferay-ui:error key="noPermission" message="noPermission"/>
+
 <p>Search Results for ${zip}.</p>
 
 <liferay-ui:search-container searchContainer="${searchContainer}">
