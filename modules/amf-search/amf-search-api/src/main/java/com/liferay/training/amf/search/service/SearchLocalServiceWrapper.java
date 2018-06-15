@@ -43,6 +43,19 @@ public class SearchLocalServiceWrapper implements SearchLocalService,
 	}
 
 	@Override
+	public java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
+		java.lang.String zip, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _searchLocalService.findByZip(zip, start, end);
+	}
+
+	@Override
+	public long getSize()
+		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
+		return _searchLocalService.getSize();
+	}
+
+	@Override
 	public SearchLocalService getWrappedService() {
 		return _searchLocalService;
 	}

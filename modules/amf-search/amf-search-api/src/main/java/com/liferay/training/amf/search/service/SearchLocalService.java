@@ -16,11 +16,18 @@ package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.dao.orm.*;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import com.liferay.training.amf.search.dto.SearchData;
+import com.liferay.training.amf.search.exception.NoSearchQueryException;
+
+import java.util.List;
 
 /**
  * Provides the local service interface for Search. Methods of this
@@ -50,4 +57,10 @@ public interface SearchLocalService extends BaseLocalService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	public List<SearchData> findByZip(java.lang.String zip, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getSize() throws NoSearchQueryException;
 }

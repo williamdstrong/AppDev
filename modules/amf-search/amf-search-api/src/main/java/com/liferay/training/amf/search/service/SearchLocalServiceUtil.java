@@ -51,6 +51,17 @@ public class SearchLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
+		java.lang.String zip, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().findByZip(zip, start, end);
+	}
+
+	public static long getSize()
+		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
+		return getService().getSize();
+	}
+
 	public static SearchLocalService getService() {
 		return _serviceTracker.getService();
 	}
