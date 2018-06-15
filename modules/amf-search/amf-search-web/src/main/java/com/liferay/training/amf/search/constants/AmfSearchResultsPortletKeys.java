@@ -6,5 +6,6 @@ package com.liferay.training.amf.search.constants;
 public class AmfSearchResultsPortletKeys {
 
 	public static final String AmfSearchResults = "SearchResults";
+	public static final String PORTLET_NAME = "Search Results";
 
 }

@@ -8,5 +8,5 @@
         <aui:validator name="maxLength" >5</aui:validator>
         <aui:validator name="minLength" >5</aui:validator>
     </aui:input>
-    <aui:button type="submit" value="submit" />
+    <aui:button type="submit" value="submit" label="submit" />
 </aui:form>

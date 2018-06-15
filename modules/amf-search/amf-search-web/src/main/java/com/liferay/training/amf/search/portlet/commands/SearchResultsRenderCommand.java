@@ -34,7 +34,7 @@ import java.util.List;
 )
 public class SearchResultsRenderCommand implements MVCRenderCommand {
 
-	private final String _emptyResultsMessage = "There are no users.";
+	private final String _emptyResultsMessage = "no-users";
 	private final int _delta = 5;
 
 	private String _zip;
@@ -44,28 +44,50 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 		_eventFlag = true;
 	}
 
+	private enum _errors {
+		NO_SEARCH("no-search"),
+		NOT_A_NUMBER("invalid-zip-not-a-number"),
+		TOO_MANY_DIGITS("invalid-zip-too-many-digits"),
+		TOO_FEW_DIGITS("invalid-zip-too-few-digits"),
+		NULL("invalid-zip-null"),
+		NO_PERMISSION("no-permission");
+
+		private String name;
+
+		_errors(String name) {
+			this.name = name;
+		}
+
+		public String getName() {
+			return name;
+		}
+	}
+
+	private final List<String> HEADER_NAMES = new LinkedList<String>() {{
+		add("first-name");
+		add("last-initial");
+		add("screen-name");
+		add("email-address");
+	}};
+
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
 
 		String eventFlagString = ParamUtil.getString(request, "eventFlag");
-		if (eventFlagString == null) {
+		if (eventFlagString.isEmpty()) {
 			return "/SearchInstructions.jsp";
 		}
 
-		if (Boolean.parseBoolean(ParamUtil.getString(request, "eventFlag", "false"))) {
+		if (Boolean.parseBoolean(eventFlagString)) {
 			_setEventFlag();
 		}
 
 		PortletURL iteratorURL = response.createActionURL();
 
-		List<String> headerNames = new LinkedList<>();
-		headerNames.add("First Name");
-		headerNames.add("Last Initial");
-		headerNames.add("Screen Name");
-		headerNames.add("Email Address");
+
 
 		SearchContainer<SearchData> searchContainer = new SearchContainer<>(
-				request, iteratorURL, headerNames, _emptyResultsMessage);
+				request, iteratorURL, HEADER_NAMES, _emptyResultsMessage);
 		searchContainer.setDeltaConfigurable(true);
 
 		if (_eventFlag) {
@@ -83,16 +105,32 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 			searchContainer.setResults(
 					_searchService.findByZip(groupId, _zip, searchContainer.getStart(), searchContainer.getEnd()));
 			searchContainer.setTotal((int) _searchService.getSize());
-		} catch (NoSearchQueryException e) {
-			SessionErrors.add(request, "noSearch");
-			searchContainer.setEmptyResultsMessage("noSearch");
-		} catch (InvalidZipCodeException e){
-			SessionErrors.add(request, "invalidZip" );
-			searchContainer.setEmptyResultsMessage("invalidZip");
-		} catch (PrincipalException.MustHavePermission e) {
-			SessionErrors.add(request, "noPermission");
-			searchContainer.setEmptyResultsMessage("noPermission");
-		} catch (PortalException e) {
+		}
+		catch (NoSearchQueryException e) {
+			SessionErrors.add(request, _errors.NO_SEARCH.getName());
+			searchContainer.setEmptyResultsMessage(_errors.NO_SEARCH.getName());
+		}
+		catch (InvalidZipCodeException.NotANumber e) {
+			SessionErrors.add(request, _errors.NOT_A_NUMBER.getName());
+			searchContainer.setEmptyResultsMessage(_errors.NOT_A_NUMBER.getName());
+		}
+		catch (InvalidZipCodeException.Null e) {
+			SessionErrors.add(request, _errors.NULL.getName());
+			searchContainer.setEmptyResultsMessage(_errors.NULL.getName());
+		}
+		catch (InvalidZipCodeException.TooFewDigits e) {
+			SessionErrors.add(request, _errors.TOO_FEW_DIGITS.getName());
+			searchContainer.setEmptyResultsMessage(_errors.TOO_FEW_DIGITS.getName());
+		}
+		catch (InvalidZipCodeException.TooManyDigits e) {
+			SessionErrors.add(request, _errors.TOO_MANY_DIGITS.getName());
+			searchContainer.setEmptyResultsMessage(_errors.TOO_MANY_DIGITS.getName());
+		}
+		catch (PrincipalException.MustHavePermission e) {
+			SessionErrors.add(request, _errors.NO_PERMISSION.getName());
+			searchContainer.setEmptyResultsMessage(_errors.NO_PERMISSION.getName());
+		}
+		catch (PortalException e) {
 			SessionErrors.add(request, "");
 		}
 
