@@ -47,6 +47,11 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
 
+		String eventFlagString = ParamUtil.getString(request, "eventFlag");
+		if (eventFlagString == null) {
+			return "/SearchInstructions.jsp";
+		}
+
 		if (Boolean.parseBoolean(ParamUtil.getString(request, "eventFlag", "false"))) {
 			_setEventFlag();
 		}
