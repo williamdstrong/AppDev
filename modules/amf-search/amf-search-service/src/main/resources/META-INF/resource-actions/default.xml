@@ -6,7 +6,7 @@
         <model-name>com.liferay.training.amf.search</model-name>
         <portlet-ref>
             <portlet-name>
-                SearchResults
+                com_liferay_training_amf_search_portlet_AmfSearchResults
             </portlet-name>
         </portlet-ref>
     <permissions>

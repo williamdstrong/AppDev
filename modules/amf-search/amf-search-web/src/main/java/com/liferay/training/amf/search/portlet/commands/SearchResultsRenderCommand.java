@@ -27,7 +27,7 @@ import java.util.List;
 @Component(
 		immediate = true,
 		property = {
-				"javax.portlet.name=" + AmfSearchResultsPortletKeys.AmfSearchResults,
+				"javax.portlet.name=" + AmfSearchResultsPortletKeys.AMF_SEARCH_RESULTS,
 				"mvc.command.name=/"
 		},
 		service = MVCRenderCommand.class

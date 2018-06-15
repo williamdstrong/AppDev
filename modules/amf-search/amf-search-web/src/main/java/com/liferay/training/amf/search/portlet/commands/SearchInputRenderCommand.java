@@ -11,7 +11,7 @@ import javax.portlet.RenderResponse;
 @Component(
 		immediate = true,
 		property = {
-				"javax.portlet.name=" + AmfSearchPortletKeys.AmfSearch,
+				"javax.portlet.name=" + AmfSearchPortletKeys.AMF_SEARCH,
 				"mvc.command.name=/"
 		},
 		service = MVCRenderCommand.class
