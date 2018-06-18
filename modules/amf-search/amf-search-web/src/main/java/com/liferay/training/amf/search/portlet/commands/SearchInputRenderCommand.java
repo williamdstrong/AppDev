@@ -5,7 +5,7 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.training.amf.search.constants.AmfSearchKeys;
+import com.liferay.training.amf.search.constants.PermissionKeys;
 import com.liferay.training.amf.search.constants.AmfSearchPortletKeys;
 import org.osgi.service.component.annotations.Component;
 
@@ -53,11 +53,10 @@ public class SearchInputRenderCommand implements MVCRenderCommand {
 		long groupId = _getGroupId(themeDisplay);
 
 		boolean hasPermission = permissionChecker.hasPermission(
-				groupId, AmfSearchPortletKeys.PORTLET_NAME, 0, AmfSearchKeys.canMakeSearch);
+				groupId, AmfSearchPortletKeys.PORTLET_NAME, 0, PermissionKeys.canMakeSearch);
 		if (!hasPermission) {
 			return "/NoPermission.jsp";
 		}
-
 
 		SessionMessages.clear(request);
 		return "/SearchInput.jsp";
