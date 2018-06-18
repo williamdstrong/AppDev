@@ -4,12 +4,14 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.training.amf.search.constants.AmfSearchKeys;
 import com.liferay.training.amf.search.constants.AmfSearchResultsPortletKeys;
 import com.liferay.training.amf.search.dto.SearchData;
 import com.liferay.training.amf.search.exception.InvalidZipCodeException;
@@ -18,6 +20,7 @@ import com.liferay.training.amf.search.service.SearchService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -27,7 +30,7 @@ import java.util.List;
 @Component(
 		immediate = true,
 		property = {
-				"javax.portlet.name=" + AmfSearchResultsPortletKeys.AMF_SEARCH_RESULTS,
+				"javax.portlet.name=" + AmfSearchResultsPortletKeys.PORTLET_NAME,
 				"mvc.command.name=/"
 		},
 		service = MVCRenderCommand.class
@@ -73,6 +76,16 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
 
+		ThemeDisplay themeDisplay = _getThemeDisplay(request);
+		long groupId = _getGroupId(themeDisplay);
+		PermissionChecker permissionChecker = _getPermissionChecker(themeDisplay);
+
+		boolean hasPermission = permissionChecker.hasPermission(
+				groupId, AmfSearchResultsPortletKeys.PORTLET_NAME, 0, AmfSearchKeys.canMakeSearch);
+		if (!hasPermission) {
+			return "/NoPermission.jsp";
+		}
+
 		String eventFlagString = ParamUtil.getString(request, "eventFlag");
 		if (eventFlagString.isEmpty()) {
 			return "/SearchInstructions.jsp";
@@ -84,8 +97,6 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 		PortletURL iteratorURL = response.createActionURL();
 
-
-
 		SearchContainer<SearchData> searchContainer = new SearchContainer<>(
 				request, iteratorURL, HEADER_NAMES, _emptyResultsMessage);
 		searchContainer.setDeltaConfigurable(true);
@@ -94,9 +105,6 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 			_zip = ParamUtil.getString(request, "zipSearch");
 			_eventFlag = false;
 		}
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
-		long groupId = themeDisplay.getScopeGroupId();
 
 		SessionMessages.add(
 				request, PortalUtil.getPortletId(request) + SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
@@ -141,6 +149,28 @@ public class SearchResultsRenderCommand implements MVCRenderCommand {
 
 
 		return "/SearchResults.jsp";
+	}
+
+		private static PermissionChecker _getPermissionChecker(ThemeDisplay themeDisplay) {
+		if (null == themeDisplay) {
+			throw new IllegalArgumentException("request is null");
+		}
+		return themeDisplay.getPermissionChecker();
+	}
+
+	private static long _getGroupId(ThemeDisplay themeDisplay) {
+		if (null == themeDisplay) {
+			throw new IllegalArgumentException("request is null");
+		}
+		return themeDisplay.getScopeGroupId();
+	}
+
+	private static ThemeDisplay _getThemeDisplay(PortletRequest request) {
+		if (null == request) {
+			throw new IllegalArgumentException("request is null");
+		}
+
+		return (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 	}
 
 	@Reference

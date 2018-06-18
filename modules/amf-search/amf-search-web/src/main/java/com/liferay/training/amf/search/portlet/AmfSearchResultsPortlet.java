@@ -15,10 +15,10 @@ import javax.portlet.*;
 	property = {
 		"com.liferay.portlet.display-category=category.sample",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=" + AmfSearchResultsPortletKeys.PORTLET_NAME,
+		"javax.portlet.display-name=" + AmfSearchResultsPortletKeys.PORTLET_DISPLAY_NAME,
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/SearchResults.jsp",
-		"javax.portlet.name=" + AmfSearchResultsPortletKeys.AMF_SEARCH_RESULTS,
+		"javax.portlet.name=" + AmfSearchResultsPortletKeys.PORTLET_NAME,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=power-user,user",
 			"javax.portlet.supported-processing-event=zip"

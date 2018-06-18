@@ -13,7 +13,7 @@ import javax.xml.namespace.QName;
 @Component(
 		immediate = true,
 		property = {
-				"javax.portlet.name=" + AmfSearchPortletKeys.AMF_SEARCH,
+				"javax.portlet.name=" + AmfSearchPortletKeys.PORTLET_NAME,
 				"mvc.command.name=/submit"
 		},
 		service = MVCActionCommand.class

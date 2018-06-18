@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.training.amf.search.constants.AmfSearchKeys;
 import com.liferay.training.amf.search.constants.AmfSearchPortletKeys;
 import org.osgi.service.component.annotations.Component;
 
@@ -15,15 +16,12 @@ import javax.portlet.RenderResponse;
 @Component(
 		immediate = true,
 		property = {
-				"javax.portlet.name=" + AmfSearchPortletKeys.AMF_SEARCH,
+				"javax.portlet.name=" + AmfSearchPortletKeys.PORTLET_NAME,
 				"mvc.command.name=/"
 		},
 		service = MVCRenderCommand.class
 )
 public class SearchInputRenderCommand implements MVCRenderCommand {
-
-	private static final String _portlet = "com_liferay_training_amf_search_portlet_AmfSearchPortlet";
-	private static final String _canMakeSearch = "CAN_MAKE_SEARCH";
 
 	private static PermissionChecker _getPermissionChecker(ThemeDisplay themeDisplay) {
 		if (null == themeDisplay) {
@@ -55,7 +53,7 @@ public class SearchInputRenderCommand implements MVCRenderCommand {
 		long groupId = _getGroupId(themeDisplay);
 
 		boolean hasPermission = permissionChecker.hasPermission(
-				groupId, _portlet, groupId, _canMakeSearch);
+				groupId, AmfSearchPortletKeys.PORTLET_NAME, 0, AmfSearchKeys.canMakeSearch);
 		if (!hasPermission) {
 			return "/NoPermission.jsp";
 		}
