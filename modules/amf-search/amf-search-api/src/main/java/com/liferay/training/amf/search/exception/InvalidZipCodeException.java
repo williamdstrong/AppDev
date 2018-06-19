@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -11,6 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.training.amf.search.exception;
 
 import aQute.bnd.annotation.ProviderType;
@@ -37,27 +38,32 @@ public class InvalidZipCodeException extends PortalException {
 		super(cause);
 	}
 
-	public static class TooManyDigits extends InvalidZipCodeException {
-
-		public TooManyDigits() {
-		}
-	}
-
-	public static class TooFewDigits extends InvalidZipCodeException {
-
-		public TooFewDigits() {
-		}
-	}
-
 	public static class NotANumber extends InvalidZipCodeException {
 
 		public NotANumber() {
 		}
+
 	}
 
 	public static class Null extends InvalidZipCodeException {
 
 		public Null() {
 		}
+
 	}
+
+	public static class TooFewDigits extends InvalidZipCodeException {
+
+		public TooFewDigits() {
+		}
+
+	}
+
+	public static class TooManyDigits extends InvalidZipCodeException {
+
+		public TooManyDigits() {
+		}
+
+	}
+
 }

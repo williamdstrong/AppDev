@@ -1,49 +1,69 @@
+/*
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.training.amf.search.dto;
 
+/**
+ * @author William Strong
+ */
 public class SearchData {
 
-	public SearchData(String firstName, String lastInitial, String screenName, String emailAddress) {
-		this.firstName = firstName;
-		this.lastInitial = lastInitial;
-		this.screenName = screenName;
-		this.emailAddress = emailAddress;
+	public String getEmailAddress() {
+		return _emailAddress;
 	}
 
 	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getScreenName() {
-		return screenName;
-	}
-
-	public void setScreenName(String screenName) {
-		this.screenName = screenName;
-	}
-
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+		return _firstName;
 	}
 
 	public String getLastInitial() {
+		return _lastInitial;
+	}
 
-		return lastInitial;
+	public String getScreenName() {
+		return _screenName;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		_emailAddress = emailAddress;
+	}
+
+	public void setFirstName(String firstName) {
+		_firstName = firstName;
 	}
 
 	public void setLastInitial(String lastInitial) {
-		this.lastInitial = lastInitial;
+		_lastInitial = lastInitial;
 	}
 
-	private String firstName;
-	private String lastInitial;
-	private String screenName;
-	private String emailAddress;
+	public void setScreenName(String screenName) {
+		_screenName = screenName;
+	}
+
+	private String _emailAddress;
+	private String _firstName;
+	private String _lastInitial;
+	private String _screenName;
+
+	public SearchData(
+		String firstName, String lastInitial, String screenName,
+		String emailAddress) {
+
+		_firstName = firstName;
+		_lastInitial = lastInitial;
+		_screenName = screenName;
+		_emailAddress = emailAddress;
+	}
+
 }

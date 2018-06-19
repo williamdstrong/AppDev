@@ -12,12 +12,16 @@
  * details.
  */
 
-dependencies {
-	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.0.0"
-	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "2.0.0"
-	compileOnly group: "javax.portlet", name: "portlet-api", version: "2.0"
-	compileOnly group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
-	compileOnly group: "jstl", name: "jstl", version: "1.2"
-	compileOnly group: "org.osgi", name: "osgi.cmpn", version: "6.0.0"
-	compileOnly project(":modules:amf-search:amf-search-api")
+package com.liferay.training.amf.search.portlet.constants;
+
+/**
+ * @author William Strong
+ */
+public class AmfSearchResultsPortletKeys {
+
+	public static final String PORTLET_DISPLAY_NAME = "AMF Search Results";
+
+	public static final String PORTLET_NAME =
+		"com_liferay_training_amf_search_portlet_AmfSearchResultsPortlet";
+
 }

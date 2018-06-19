@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -15,7 +15,6 @@
 package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -50,8 +49,7 @@ public class SearchLocalServiceWrapper implements SearchLocalService,
 	}
 
 	@Override
-	public long getSize()
-		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
+	public long get_size() {
 		return _searchLocalService.getSize();
 	}
 

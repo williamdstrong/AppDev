@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -14,7 +14,11 @@
 
 package com.liferay.training.amf.search.service.impl;
 
-import com.liferay.portal.kernel.dao.orm.*;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ORMException;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -40,143 +44,167 @@ import java.util.List;
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author William Strong
  * @see SearchLocalServiceBaseImpl
  * @see com.liferay.training.amf.search.service.SearchLocalServiceUtil
  */
 public class SearchLocalServiceImpl extends SearchLocalServiceBaseImpl {
-	private static Log _log = LogFactoryUtil.getLog(SearchService.class.getName());
-	private Integer size;
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
-	 *
+	 * <p>
 	 * Never reference this class directly. Always use {@link com.liferay.training.amf.search.service.SearchLocalServiceUtil} to access the search local service.
 	 */
 	public List<SearchData> findByZip(String zip, int start, int end)
-			throws PortalException {
+		throws PortalException {
 
-		validateZip(zip);
-		return getFormattedData(zip, start, end);
+		_validateZip(zip);
+
+		return _getFormattedData(zip, start, end);
 	}
 
-	public long getSize() throws NoSearchQueryException {
-		if (size == null) {
+	public long get_size() throws NoSearchQueryException {
+		if (_size == null) {
 			throw new NoSearchQueryException();
-		} else {
-			return size;
+		}
+		else {
+			return _size;
 		}
 	}
 
-	private void validateZip(String zip) throws InvalidZipCodeException {
-		if (!Validator.isNotNull(zip)) {
+	private List<User> _findUsersByZip(String zip, int start, int end)
+		throws PortalException {
+
+		// Use dynamic query that finds all entries with a particular zip code.
+
+		List<Long> userIds = _getUserIdsByZip(zip, start, end);
+		List<User> users = new LinkedList<>();
+
+		for (Long l : userIds) {
+			User u = userLocalService.getUser(l);
+
+			users.add(u);
+		}
+
+		return users;
+	}
+
+	private long _findUsersByZipCount(String zip) {
+		DynamicQuery zipQuery = DynamicQueryFactoryUtil.forClass(Address.class);
+
+		zipQuery.add(RestrictionsFactoryUtil.eq("zip", zip));
+
+		return addressLocalService.dynamicQueryCount(zipQuery);
+	}
+
+	private String _getEmailAddress(User u) {
+		return u.getEmailAddress();
+	}
+
+	private String _getFirstName(User u) {
+		return u.getFirstName();
+	}
+
+	private List<SearchData> _getFormattedData(String zip, int start, int end) {
+		if (zip.isEmpty()) {
+			return new LinkedList<>();
+		}
+
+		List<User> users;
+		List<SearchData> searchData = new LinkedList<>();
+
+		// Get total _size and set.
+
+		_size = (int) _getSize(zip);
+
+		try {
+			users = _getUsers(zip, start, end);
+		}
+		catch (PortalException pe) {
+			_log.error(pe);
+
+			return searchData;
+		}
+
+		for (User u : users) {
+			SearchData s = new SearchData(
+				_getFirstName(u), _getLastInitial(u), _getScreenName(u),
+				_getEmailAddress(u));
+
+			searchData.add(s);
+		}
+
+		return searchData;
+	}
+
+	private String _getLastInitial(User u) {
+		String lastName = u.getLastName();
+
+		return String.valueOf(lastName.charAt(0));
+	}
+
+	private String _getScreenName(User u) {
+		return u.getScreenName();
+	}
+
+	private long _getSize(String zip) {
+		return _findUsersByZipCount(zip);
+	}
+
+	private List<Long> _getUserIdsByZip(String zip, int start, int end) {
+		try {
+			DynamicQuery zipQuery = DynamicQueryFactoryUtil.forClass(
+				Address.class);
+
+			zipQuery.add(RestrictionsFactoryUtil.eq("zip", zip));
+			zipQuery.setProjection(ProjectionFactoryUtil.property("userId"));
+
+			return addressLocalService.dynamicQuery(zipQuery, start, end);
+		}
+		catch (ORMException orme) {
+			_log.error(orme);
+
+			return new LinkedList<>();
+		}
+	}
+
+	private List<User> _getUsers(String zip, int start, int end)
+		throws PortalException {
+
+		return _findUsersByZip(zip, start, end);
+	}
+
+	private boolean _isFewerThanFiveDigits(String zip) {
+		return zip.length() < 5;
+
+	}
+
+	private boolean _isGreaterThanFiveDigits(String zip) {
+		return zip.length() > 5;
+
+	}
+
+	private void _validateZip(String zip) throws InvalidZipCodeException {
+		if (Validator.isNull(zip)) {
 			throw new InvalidZipCodeException.Null();
 		}
+
 		if (!Validator.isNumber(zip)) {
 			throw new InvalidZipCodeException.NotANumber();
 		}
-		if (isFewerThanFiveDigits(zip)) {
+
+		if (_isFewerThanFiveDigits(zip)) {
 			throw new InvalidZipCodeException.TooFewDigits();
 		}
-		if (isGreaterThanFiveDigits(zip)) {
+
+		if (_isGreaterThanFiveDigits(zip)) {
 			throw new InvalidZipCodeException.TooManyDigits();
 		}
 	}
 
-	private boolean isFewerThanFiveDigits(String zip) {
-		return zip.length() < 5;
-	}
+	private static Log _log = LogFactoryUtil.getLog(
+		SearchService.class.getName());
 
-	private boolean isGreaterThanFiveDigits(String zip) {
-		return zip.length() > 5;
-	}
+	private Integer _size;
 
-	private List<SearchData> getFormattedData(String zip, int start, int end) {
-		if (zip.isEmpty()) {
-			return new LinkedList<>();
-		}
-		List<User> users;
-		List<SearchData> searchData = new LinkedList<>();
-
-		// Get total size and set.
-		size = (int) _getSize(zip);
-
-		try {
-			users = getUsers(zip, start, end);
-		} catch (PortalException e) {
-			return searchData;
-		}
-
-		SearchData a;
-		for (User u : users) {
-			SearchData s = new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u));
-			searchData.add(s);
-//			searchData.add(new SearchData(getFirstName(u), getLastInitial(u), getScreenName(u), getEmailAddress(u)));
-		}
-		return searchData;
-	}
-
-	private String getFirstName(User u) {
-		return u.getFirstName();
-	}
-
-	private String getLastInitial(User u) {
-		String lastName = u.getLastName();
-		return String.valueOf(lastName.charAt(0));
-	}
-
-	private String getScreenName(User u) {
-		return u.getScreenName();
-	}
-
-	private String getEmailAddress(User u) {
-		return u.getEmailAddress();
-	}
-
-	private long _getSize(String zip) {
-		return findUsersByZipCount(zip);
-	}
-
-	private List<User> getUsers(String zip, int start, int end) throws PortalException {
-		return findUsersByZip(zip, start, end);
-	}
-
-	private long findUsersByZipCount(String zip) {
-		DynamicQuery zipQuery =
-				DynamicQueryFactoryUtil.forClass(Address.class)
-						.add(RestrictionsFactoryUtil.eq("zip", zip));
-		return addressPersistence.countWithDynamicQuery(zipQuery);
-	}
-
-	private List<User> findUsersByZip(String zip, int start, int end) throws PortalException {
-
-		// Use dynamic query that finds all entries with a particular zip code.
-
-		List<Long> userIds = getUserIdsByZip(zip, start, end);
-		List<User> users = new LinkedList<>();
-		for (Long l : userIds) {
-			User u = userLocalService.getUser(l);
-			users.add(u);
-		}
-		return users;
-	}
-
-	private List<Long> getUserIdsByZip(String zip, int start, int end) {
-
-		Session session = null;
-		try {
-			session = addressPersistence.openSession();
-
-			DynamicQuery zipQuery =
-					DynamicQueryFactoryUtil.forClass(Address.class)
-							.add(RestrictionsFactoryUtil.eq("zip", zip))
-							.setProjection(ProjectionFactoryUtil.property("userId"));
-			return addressPersistence.findWithDynamicQuery(zipQuery, start, end);
-		} catch (ORMException e) {
-			_log.error("Cannot get address data.");
-			return new LinkedList<>();
-		} finally {
-			addressPersistence.closeSession(session);
-		}
-	}
 }
