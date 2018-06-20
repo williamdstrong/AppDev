@@ -30,8 +30,7 @@
         <column name="issueId" type="long" primary="true"/>
 
         <column name="issueNumber" type="int" />
-        <column name="title" type="String"/>
-        <column name="description" type="String"/>
+        <column name="journalFolderId" type="long" />
         <column name="issueDate" type="Date"/>
 
         <finder name="IssueNumber" return-type="Issue" unique="true">
@@ -40,6 +39,8 @@
         <finder name="Title" return-type="Issue" unique="true">
             <finder-column name="title" />
         </finder>
+
+        <reference entity="JournalFolder" package-path="com.liferay.journal" />
     </entity>
 
     <entity name="Author" local-service="true" remote-service="false">
