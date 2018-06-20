@@ -43,6 +43,12 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 		return _issueLocalService.addIssue(issue);
 	}
 
+	@Override
+	public com.liferay.training.amf.newsletter.model.Issue createIssue(
+		com.liferay.journal.model.JournalFolder journalFolder) {
+		return _issueLocalService.createIssue(journalFolder);
+	}
+
 	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.
 	*

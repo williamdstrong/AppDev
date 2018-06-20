@@ -18,7 +18,6 @@ import aQute.bnd.annotation.ProviderType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +34,6 @@ public class IssueSoap implements Serializable {
 		soapModel.setIssueId(model.getIssueId());
 		soapModel.setIssueNumber(model.getIssueNumber());
 		soapModel.setJournalFolderId(model.getJournalFolderId());
-		soapModel.setIssueDate(model.getIssueDate());
 
 		return soapModel;
 	}
@@ -112,16 +110,7 @@ public class IssueSoap implements Serializable {
 		_journalFolderId = journalFolderId;
 	}
 
-	public Date getIssueDate() {
-		return _issueDate;
-	}
-
-	public void setIssueDate(Date issueDate) {
-		_issueDate = issueDate;
-	}
-
 	private long _issueId;
 	private int _issueNumber;
 	private long _journalFolderId;
-	private Date _issueDate;
 }

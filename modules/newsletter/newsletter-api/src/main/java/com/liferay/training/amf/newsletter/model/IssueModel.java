@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * The base model interface for the Issue service. Represents a row in the &quot;AMF_Issue&quot; database table, with each column mapped to a property of this class.
@@ -99,20 +98,6 @@ public interface IssueModel extends BaseModel<Issue> {
 	 * @param journalFolderId the journal folder ID of this issue
 	 */
 	void setJournalFolderId(long journalFolderId);
-
-	/**
-	 * Returns the issue date of this issue.
-	 *
-	 * @return the issue date of this issue
-	 */
-	Date getIssueDate();
-
-	/**
-	 * Sets the issue date of this issue.
-	 *
-	 * @param issueDate the issue date of this issue
-	 */
-	void setIssueDate(Date issueDate);
 
 	@Override
 	boolean isNew();

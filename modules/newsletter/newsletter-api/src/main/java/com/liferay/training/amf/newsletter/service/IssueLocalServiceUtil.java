@@ -52,6 +52,11 @@ public class IssueLocalServiceUtil {
 		return getService().addIssue(issue);
 	}
 
+	public static com.liferay.training.amf.newsletter.model.Issue createIssue(
+		com.liferay.journal.model.JournalFolder journalFolder) {
+		return getService().createIssue(journalFolder);
+	}
+
 	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.
 	*

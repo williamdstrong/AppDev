@@ -15,6 +15,5 @@
 		<field name="issueId" type="long" />
 		<field name="issueNumber" type="int" />
 		<field name="journalFolderId" type="long" />
-		<field name="issueDate" type="Date" />
 	</model>
 </model-hints>

@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -57,7 +56,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 		attributes.put("issueId", getIssueId());
 		attributes.put("issueNumber", getIssueNumber());
 		attributes.put("journalFolderId", getJournalFolderId());
-		attributes.put("issueDate", getIssueDate());
 
 		return attributes;
 	}
@@ -81,12 +79,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 		if (journalFolderId != null) {
 			setJournalFolderId(journalFolderId);
 		}
-
-		Date issueDate = (Date)attributes.get("issueDate");
-
-		if (issueDate != null) {
-			setIssueDate(issueDate);
-		}
 	}
 
 	@Override
@@ -102,16 +94,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return _issue.getExpandoBridge();
-	}
-
-	/**
-	* Returns the issue date of this issue.
-	*
-	* @return the issue date of this issue
-	*/
-	@Override
-	public Date getIssueDate() {
-		return _issue.getIssueDate();
 	}
 
 	/**
@@ -203,16 +185,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_issue.setExpandoBridgeAttributes(serviceContext);
-	}
-
-	/**
-	* Sets the issue date of this issue.
-	*
-	* @param issueDate the issue date of this issue
-	*/
-	@Override
-	public void setIssueDate(Date issueDate) {
-		_issue.setIssueDate(issueDate);
 	}
 
 	/**

@@ -15,6 +15,7 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
+import com.liferay.journal.model.JournalFolder;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -67,6 +68,8 @@ public interface IssueLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	Issue addIssue(Issue issue);
+
+	Issue createIssue(JournalFolder journalFolder);
 
 	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.

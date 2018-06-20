@@ -24,7 +24,6 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.Date;
 
 /**
  * The cache model class for representing Issue in entity cache.
@@ -58,7 +57,7 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("{issueId=");
 		sb.append(issueId);
@@ -66,8 +65,6 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		sb.append(issueNumber);
 		sb.append(", journalFolderId=");
 		sb.append(journalFolderId);
-		sb.append(", issueDate=");
-		sb.append(issueDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -81,13 +78,6 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		issueImpl.setIssueNumber(issueNumber);
 		issueImpl.setJournalFolderId(journalFolderId);
 
-		if (issueDate == Long.MIN_VALUE) {
-			issueImpl.setIssueDate(null);
-		}
-		else {
-			issueImpl.setIssueDate(new Date(issueDate));
-		}
-
 		issueImpl.resetOriginalValues();
 
 		return issueImpl;
@@ -100,7 +90,6 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		issueNumber = objectInput.readInt();
 
 		journalFolderId = objectInput.readLong();
-		issueDate = objectInput.readLong();
 	}
 
 	@Override
@@ -111,11 +100,9 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		objectOutput.writeInt(issueNumber);
 
 		objectOutput.writeLong(journalFolderId);
-		objectOutput.writeLong(issueDate);
 	}
 
 	public long issueId;
 	public int issueNumber;
 	public long journalFolderId;
-	public long issueDate;
 }
