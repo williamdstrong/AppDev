@@ -14,6 +14,7 @@
 
 package com.liferay.training.amf.newsletter.service.impl;
 
+import com.liferay.journal.model.JournalFolder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.training.amf.newsletter.dto.NewsletterIssue;
 import com.liferay.training.amf.newsletter.model.Issue;
@@ -37,6 +38,14 @@ import java.util.List;
  * @see com.liferay.training.amf.newsletter.service.IssueLocalServiceUtil
  */
 public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
+
+	public Issue createIssue(JournalFolder journalFolder) {
+		long issueId = counterLocalService.increment();
+		Issue issue = createIssue(issueId);
+		issue.setJournalFolderId(journalFolder.getFolderId());
+		issuePersistence.update(issue);
+		return issue;
+	}
 
 	public Issue getIssue(long issueId) throws PortalException {
 		return issuePersistence.findByPrimaryKey(issueId);
@@ -62,9 +71,5 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 
 	private Issue getIssue(int issueNumber) throws PortalException {
 		return issuePersistence.findByIssueNumber(issueNumber);
-	}
-
-	private Issue getIssue(String issueTitle) throws PortalException {
-		return issuePersistence.findByTitle(issueTitle);
 	}
 }

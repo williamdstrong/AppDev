@@ -31,7 +31,6 @@
 
         <column name="issueNumber" type="int" />
         <column name="journalFolderId" type="long" />
-        <column name="issueDate" type="Date"/>
 
         <finder name="IssueNumber" return-type="Issue" unique="true">
             <finder-column name="issueNumber" />

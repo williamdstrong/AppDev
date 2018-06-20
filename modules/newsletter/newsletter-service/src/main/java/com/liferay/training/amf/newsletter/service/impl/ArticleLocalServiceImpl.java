@@ -54,10 +54,10 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 		throws PortalException, DocumentException {
 		JournalArticle journalArticle1 =
 			journalArticleLocalService.getLatestArticle(journalId);
-		return _createArticleServiceContext(journalArticle1);
+		return _createNewsletterArticle(journalArticle1);
 	}
 
-	private NewsletterArticle _createArticleServiceContext(
+	private NewsletterArticle _createNewsletterArticle(
 		JournalArticle journalArticle)
 		throws DocumentException {
 
