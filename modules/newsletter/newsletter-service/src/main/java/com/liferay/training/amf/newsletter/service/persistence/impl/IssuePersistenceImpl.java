@@ -15,7 +15,6 @@
 package com.liferay.training.amf.newsletter.service.persistence.impl;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -30,7 +29,6 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.spring.extender.service.ServiceReference;
-
 import com.liferay.training.amf.newsletter.exception.NoSuchIssueException;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.model.impl.IssueImpl;
@@ -38,16 +36,13 @@ import com.liferay.training.amf.newsletter.model.impl.IssueModelImpl;
 import com.liferay.training.amf.newsletter.service.persistence.IssuePersistence;
 
 import java.io.Serializable;
-
 import java.lang.reflect.InvocationHandler;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -281,231 +276,6 @@ public class IssuePersistenceImpl extends BasePersistenceImpl<Issue>
 	}
 
 	private static final String _FINDER_COLUMN_ISSUENUMBER_ISSUENUMBER_2 = "issue.issueNumber = ?";
-	public static final FinderPath FINDER_PATH_FETCH_BY_TITLE = new FinderPath(IssueModelImpl.ENTITY_CACHE_ENABLED,
-			IssueModelImpl.FINDER_CACHE_ENABLED, IssueImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByTitle",
-			new String[] { String.class.getName() },
-			IssueModelImpl.TITLE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_TITLE = new FinderPath(IssueModelImpl.ENTITY_CACHE_ENABLED,
-			IssueModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTitle",
-			new String[] { String.class.getName() });
-
-	/**
-	 * Returns the issue where title = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
-	 *
-	 * @param title the title
-	 * @return the matching issue
-	 * @throws NoSuchIssueException if a matching issue could not be found
-	 */
-	@Override
-	public Issue findByTitle(String title) throws NoSuchIssueException {
-		Issue issue = fetchByTitle(title);
-
-		if (issue == null) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("title=");
-			msg.append(title);
-
-			msg.append("}");
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
-			}
-
-			throw new NoSuchIssueException(msg.toString());
-		}
-
-		return issue;
-	}
-
-	/**
-	 * Returns the issue where title = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param title the title
-	 * @return the matching issue, or <code>null</code> if a matching issue could not be found
-	 */
-	@Override
-	public Issue fetchByTitle(String title) {
-		return fetchByTitle(title, true);
-	}
-
-	/**
-	 * Returns the issue where title = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param title the title
-	 * @param retrieveFromCache whether to retrieve from the finder cache
-	 * @return the matching issue, or <code>null</code> if a matching issue could not be found
-	 */
-	@Override
-	public Issue fetchByTitle(String title, boolean retrieveFromCache) {
-		Object[] finderArgs = new Object[] { title };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = finderCache.getResult(FINDER_PATH_FETCH_BY_TITLE,
-					finderArgs, this);
-		}
-
-		if (result instanceof Issue) {
-			Issue issue = (Issue)result;
-
-			if (!Objects.equals(title, issue.getTitle())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_ISSUE_WHERE);
-
-			boolean bindTitle = false;
-
-			if (title == null) {
-				query.append(_FINDER_COLUMN_TITLE_TITLE_1);
-			}
-			else if (title.equals("")) {
-				query.append(_FINDER_COLUMN_TITLE_TITLE_3);
-			}
-			else {
-				bindTitle = true;
-
-				query.append(_FINDER_COLUMN_TITLE_TITLE_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (bindTitle) {
-					qPos.add(title);
-				}
-
-				List<Issue> list = q.list();
-
-				if (list.isEmpty()) {
-					finderCache.putResult(FINDER_PATH_FETCH_BY_TITLE,
-						finderArgs, list);
-				}
-				else {
-					Issue issue = list.get(0);
-
-					result = issue;
-
-					cacheResult(issue);
-				}
-			}
-			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_FETCH_BY_TITLE, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (Issue)result;
-		}
-	}
-
-	/**
-	 * Removes the issue where title = &#63; from the database.
-	 *
-	 * @param title the title
-	 * @return the issue that was removed
-	 */
-	@Override
-	public Issue removeByTitle(String title) throws NoSuchIssueException {
-		Issue issue = findByTitle(title);
-
-		return remove(issue);
-	}
-
-	/**
-	 * Returns the number of issues where title = &#63;.
-	 *
-	 * @param title the title
-	 * @return the number of matching issues
-	 */
-	@Override
-	public int countByTitle(String title) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_TITLE;
-
-		Object[] finderArgs = new Object[] { title };
-
-		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_ISSUE_WHERE);
-
-			boolean bindTitle = false;
-
-			if (title == null) {
-				query.append(_FINDER_COLUMN_TITLE_TITLE_1);
-			}
-			else if (title.equals("")) {
-				query.append(_FINDER_COLUMN_TITLE_TITLE_3);
-			}
-			else {
-				bindTitle = true;
-
-				query.append(_FINDER_COLUMN_TITLE_TITLE_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (bindTitle) {
-					qPos.add(title);
-				}
-
-				count = (Long)q.uniqueResult();
-
-				finderCache.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				finderCache.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_TITLE_TITLE_1 = "issue.title IS NULL";
-	private static final String _FINDER_COLUMN_TITLE_TITLE_2 = "issue.title = ?";
-	private static final String _FINDER_COLUMN_TITLE_TITLE_3 = "(issue.title IS NULL OR issue.title = '')";
 
 	public IssuePersistenceImpl() {
 		setModelClass(Issue.class);
@@ -523,9 +293,6 @@ public class IssuePersistenceImpl extends BasePersistenceImpl<Issue>
 
 		finderCache.putResult(FINDER_PATH_FETCH_BY_ISSUENUMBER,
 			new Object[] { issue.getIssueNumber() }, issue);
-
-		finderCache.putResult(FINDER_PATH_FETCH_BY_TITLE,
-			new Object[] { issue.getTitle() }, issue);
 
 		issue.resetOriginalValues();
 	}
@@ -602,13 +369,6 @@ public class IssuePersistenceImpl extends BasePersistenceImpl<Issue>
 			Long.valueOf(1), false);
 		finderCache.putResult(FINDER_PATH_FETCH_BY_ISSUENUMBER, args,
 			issueModelImpl, false);
-
-		args = new Object[] { issueModelImpl.getTitle() };
-
-		finderCache.putResult(FINDER_PATH_COUNT_BY_TITLE, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(FINDER_PATH_FETCH_BY_TITLE, args, issueModelImpl,
-			false);
 	}
 
 	protected void clearUniqueFindersCache(IssueModelImpl issueModelImpl,
@@ -626,21 +386,6 @@ public class IssuePersistenceImpl extends BasePersistenceImpl<Issue>
 
 			finderCache.removeResult(FINDER_PATH_COUNT_BY_ISSUENUMBER, args);
 			finderCache.removeResult(FINDER_PATH_FETCH_BY_ISSUENUMBER, args);
-		}
-
-		if (clearCurrent) {
-			Object[] args = new Object[] { issueModelImpl.getTitle() };
-
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_TITLE, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_TITLE, args);
-		}
-
-		if ((issueModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_TITLE.getColumnBitmask()) != 0) {
-			Object[] args = new Object[] { issueModelImpl.getOriginalTitle() };
-
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_TITLE, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_TITLE, args);
 		}
 	}
 

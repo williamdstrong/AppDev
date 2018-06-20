@@ -15,14 +15,11 @@
 package com.liferay.training.amf.newsletter.model;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
-
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,8 +56,7 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 
 		attributes.put("issueId", getIssueId());
 		attributes.put("issueNumber", getIssueNumber());
-		attributes.put("title", getTitle());
-		attributes.put("description", getDescription());
+		attributes.put("journalFolderId", getJournalFolderId());
 		attributes.put("issueDate", getIssueDate());
 
 		return attributes;
@@ -80,16 +76,10 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 			setIssueNumber(issueNumber);
 		}
 
-		String title = (String)attributes.get("title");
+		Long journalFolderId = (Long)attributes.get("journalFolderId");
 
-		if (title != null) {
-			setTitle(title);
-		}
-
-		String description = (String)attributes.get("description");
-
-		if (description != null) {
-			setDescription(description);
+		if (journalFolderId != null) {
+			setJournalFolderId(journalFolderId);
 		}
 
 		Date issueDate = (Date)attributes.get("issueDate");
@@ -107,16 +97,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public int compareTo(Issue issue) {
 		return _issue.compareTo(issue);
-	}
-
-	/**
-	* Returns the description of this issue.
-	*
-	* @return the description of this issue
-	*/
-	@Override
-	public String getDescription() {
-		return _issue.getDescription();
 	}
 
 	@Override
@@ -155,6 +135,16 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	}
 
 	/**
+	* Returns the journal folder ID of this issue.
+	*
+	* @return the journal folder ID of this issue
+	*/
+	@Override
+	public long getJournalFolderId() {
+		return _issue.getJournalFolderId();
+	}
+
+	/**
 	* Returns the primary key of this issue.
 	*
 	* @return the primary key of this issue
@@ -167,16 +157,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _issue.getPrimaryKeyObj();
-	}
-
-	/**
-	* Returns the title of this issue.
-	*
-	* @return the title of this issue
-	*/
-	@Override
-	public String getTitle() {
-		return _issue.getTitle();
 	}
 
 	@Override
@@ -207,16 +187,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_issue.setCachedModel(cachedModel);
-	}
-
-	/**
-	* Sets the description of this issue.
-	*
-	* @param description the description of this issue
-	*/
-	@Override
-	public void setDescription(String description) {
-		_issue.setDescription(description);
 	}
 
 	@Override
@@ -265,6 +235,16 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 		_issue.setIssueNumber(issueNumber);
 	}
 
+	/**
+	* Sets the journal folder ID of this issue.
+	*
+	* @param journalFolderId the journal folder ID of this issue
+	*/
+	@Override
+	public void setJournalFolderId(long journalFolderId) {
+		_issue.setJournalFolderId(journalFolderId);
+	}
+
 	@Override
 	public void setNew(boolean n) {
 		_issue.setNew(n);
@@ -283,16 +263,6 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_issue.setPrimaryKeyObj(primaryKeyObj);
-	}
-
-	/**
-	* Sets the title of this issue.
-	*
-	* @param title the title of this issue
-	*/
-	@Override
-	public void setTitle(String title) {
-		_issue.setTitle(title);
 	}
 
 	@Override
@@ -332,11 +302,8 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 
 		IssueWrapper issueWrapper = (IssueWrapper)obj;
 
-		if (Objects.equals(_issue, issueWrapper._issue)) {
-			return true;
-		}
+		return Objects.equals(_issue, issueWrapper._issue);
 
-		return false;
 	}
 
 	@Override

@@ -17,7 +17,6 @@ package com.liferay.training.amf.newsletter.model;
 import aQute.bnd.annotation.ProviderType;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,8 +34,7 @@ public class IssueSoap implements Serializable {
 
 		soapModel.setIssueId(model.getIssueId());
 		soapModel.setIssueNumber(model.getIssueNumber());
-		soapModel.setTitle(model.getTitle());
-		soapModel.setDescription(model.getDescription());
+		soapModel.setJournalFolderId(model.getJournalFolderId());
 		soapModel.setIssueDate(model.getIssueDate());
 
 		return soapModel;
@@ -106,20 +104,12 @@ public class IssueSoap implements Serializable {
 		_issueNumber = issueNumber;
 	}
 
-	public String getTitle() {
-		return _title;
+	public long getJournalFolderId() {
+		return _journalFolderId;
 	}
 
-	public void setTitle(String title) {
-		_title = title;
-	}
-
-	public String getDescription() {
-		return _description;
-	}
-
-	public void setDescription(String description) {
-		_description = description;
+	public void setJournalFolderId(long journalFolderId) {
+		_journalFolderId = journalFolderId;
 	}
 
 	public Date getIssueDate() {
@@ -132,7 +122,6 @@ public class IssueSoap implements Serializable {
 
 	private long _issueId;
 	private int _issueNumber;
-	private String _title;
-	private String _description;
+	private long _journalFolderId;
 	private Date _issueDate;
 }

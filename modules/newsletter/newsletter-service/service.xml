@@ -36,9 +36,6 @@
         <finder name="IssueNumber" return-type="Issue" unique="true">
             <finder-column name="issueNumber" />
         </finder>
-        <finder name="Title" return-type="Issue" unique="true">
-            <finder-column name="title" />
-        </finder>
 
         <reference entity="JournalFolder" package-path="com.liferay.journal" />
     </entity>

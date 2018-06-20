@@ -15,16 +15,12 @@
 package com.liferay.training.amf.newsletter.service.persistence;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
-
 import com.liferay.training.amf.newsletter.model.Issue;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
-
 import org.osgi.util.tracker.ServiceTracker;
 
 import java.util.List;
@@ -163,60 +159,6 @@ public class IssueUtil {
 	*/
 	public static int countByIssueNumber(int issueNumber) {
 		return getPersistence().countByIssueNumber(issueNumber);
-	}
-
-	/**
-	* Returns the issue where title = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
-	*
-	* @param title the title
-	* @return the matching issue
-	* @throws NoSuchIssueException if a matching issue could not be found
-	*/
-	public static Issue findByTitle(String title)
-		throws com.liferay.training.amf.newsletter.exception.NoSuchIssueException {
-		return getPersistence().findByTitle(title);
-	}
-
-	/**
-	* Returns the issue where title = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	*
-	* @param title the title
-	* @return the matching issue, or <code>null</code> if a matching issue could not be found
-	*/
-	public static Issue fetchByTitle(String title) {
-		return getPersistence().fetchByTitle(title);
-	}
-
-	/**
-	* Returns the issue where title = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	*
-	* @param title the title
-	* @param retrieveFromCache whether to retrieve from the finder cache
-	* @return the matching issue, or <code>null</code> if a matching issue could not be found
-	*/
-	public static Issue fetchByTitle(String title, boolean retrieveFromCache) {
-		return getPersistence().fetchByTitle(title, retrieveFromCache);
-	}
-
-	/**
-	* Removes the issue where title = &#63; from the database.
-	*
-	* @param title the title
-	* @return the issue that was removed
-	*/
-	public static Issue removeByTitle(String title)
-		throws com.liferay.training.amf.newsletter.exception.NoSuchIssueException {
-		return getPersistence().removeByTitle(title);
-	}
-
-	/**
-	* Returns the number of issues where title = &#63;.
-	*
-	* @param title the title
-	* @return the number of matching issues
-	*/
-	public static int countByTitle(String title) {
-		return getPersistence().countByTitle(title);
 	}
 
 	/**
