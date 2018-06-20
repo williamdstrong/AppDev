@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!--
+  ~ Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+  ~
+  ~ This library is free software; you can redistribute it and/or modify it under
+  ~ the terms of the GNU Lesser General Public License as published by the Free
+  ~ Software Foundation; either version 2.1 of the License, or (at your option)
+  ~ any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful, but WITHOUT
+  ~ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  ~ FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+  ~ details.
+  -->
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.liferay.training.amf.newsletter.model.ArticleAuthor" />
+	<import class="com.liferay.training.amf.newsletter.model.Author" />
+	<import class="com.liferay.training.amf.newsletter.model.Issue" />
+	<class name="com.liferay.training.amf.newsletter.model.impl.ArticleAuthorImpl" table="AMF_ArticleAuthor">
+		<id name="articleAuthorId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="articlePk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="authorPk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.liferay.training.amf.newsletter.model.impl.AuthorImpl" table="AMF_Author">
+		<id name="authorId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="articleAuthorTable" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.liferay.training.amf.newsletter.model.impl.IssueImpl" table="AMF_Issue">
+		<id name="issueId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="issueNumber" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="issueDate" type="org.hibernate.type.TimestampType" />
+	</class>
+</hibernate-mapping>

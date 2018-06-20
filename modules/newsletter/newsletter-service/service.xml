@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+  ~
+  ~ This library is free software; you can redistribute it and/or modify it under
+  ~ the terms of the GNU Lesser General Public License as published by the Free
+  ~ Software Foundation; either version 2.1 of the License, or (at your option)
+  ~ any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful, but WITHOUT
+  ~ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  ~ FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+  ~ details.
+  -->
+
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.liferay.training.amf.newsletter">
+    <namespace>AMF</namespace>
+    <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+    <entity local-service="true" name="Article" remote-service="false" uuid="false">
+
+        <reference entity="JournalArticle" package-path="com.liferay.journal"/>
+
+    </entity>
+
+    <entity name="Issue" local-service="true" remote-service="false">
+
+        <column name="issueId" type="long" primary="true"/>
+
+        <column name="issueNumber" type="int" />
+        <column name="title" type="String"/>
+        <column name="description" type="String"/>
+        <column name="issueDate" type="Date"/>
+
+        <finder name="IssueNumber" return-type="Issue" unique="true">
+            <finder-column name="issueNumber" />
+        </finder>
+        <finder name="Title" return-type="Issue" unique="true">
+            <finder-column name="title" />
+        </finder>
+    </entity>
+
+    <entity name="Author" local-service="true" remote-service="false">
+        <column name="authorId" type="long" primary="true"/>
+        <column name="name" type="String"/>
+        <column name="articleAuthorTable" type="long"/>
+    </entity>
+
+    <entity name="ArticleAuthor" remote-service="false" local-service="false">
+        <column name="articleAuthorId" primary="true" type="long"/>
+        <column name="articlePk" type="long"/>
+        <column name="authorPk" type="long"/>
+    </entity>
+
+</service-builder>

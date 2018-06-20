@@ -1,0 +1,10 @@
+Bundle-Name: Newsletter Api
+Bundle-SymbolicName: com.liferay.training.amf.newsletter.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.training.amf.newsletter.exception,\
+	com.liferay.training.amf.newsletter.model,\
+	com.liferay.training.amf.newsletter.service,\
+	com.liferay.training.amf.newsletter.service.persistence,\
+	com.liferay.training.amf.newsletter.dto
+-includeresource: META-INF/service.xml=../newsletter-service/service.xml
