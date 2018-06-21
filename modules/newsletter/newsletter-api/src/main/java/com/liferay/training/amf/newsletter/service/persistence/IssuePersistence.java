@@ -40,6 +40,51 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	 */
 
 	/**
+	* Returns the issue where journalFolderId = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the matching issue
+	* @throws NoSuchIssueException if a matching issue could not be found
+	*/
+	Issue findByJournalFolderId(long journalFolderId)
+		throws NoSuchIssueException;
+
+	/**
+	* Returns the issue where journalFolderId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the matching issue, or <code>null</code> if a matching issue could not be found
+	*/
+	Issue fetchByJournalFolderId(long journalFolderId);
+
+	/**
+	* Returns the issue where journalFolderId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param journalFolderId the journal folder ID
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching issue, or <code>null</code> if a matching issue could not be found
+	*/
+	Issue fetchByJournalFolderId(long journalFolderId,
+		boolean retrieveFromCache);
+
+	/**
+	* Removes the issue where journalFolderId = &#63; from the database.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the issue that was removed
+	*/
+	Issue removeByJournalFolderId(long journalFolderId)
+		throws NoSuchIssueException;
+
+	/**
+	* Returns the number of issues where journalFolderId = &#63;.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the number of matching issues
+	*/
+	int countByJournalFolderId(long journalFolderId);
+
+	/**
 	* Returns the issue where issueNumber = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
 	*
 	* @param issueNumber the issue number

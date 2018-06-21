@@ -52,6 +52,12 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		return issue;
 	}
 
+	public boolean folderIsAnIssue(JournalFolder journalFolder) {
+		issuePersistence.findByJournalFolderId(journalFolder.getFolderId());
+
+
+	}
+
 	public Issue getIssue(long issueId) throws PortalException {
 		return issuePersistence.findByPrimaryKey(issueId);
 	}

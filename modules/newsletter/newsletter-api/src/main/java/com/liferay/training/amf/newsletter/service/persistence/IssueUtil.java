@@ -106,6 +106,62 @@ public class IssueUtil {
 	}
 
 	/**
+	* Returns the issue where journalFolderId = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the matching issue
+	* @throws NoSuchIssueException if a matching issue could not be found
+	*/
+	public static Issue findByJournalFolderId(long journalFolderId)
+		throws com.liferay.training.amf.newsletter.exception.NoSuchIssueException {
+		return getPersistence().findByJournalFolderId(journalFolderId);
+	}
+
+	/**
+	* Returns the issue where journalFolderId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the matching issue, or <code>null</code> if a matching issue could not be found
+	*/
+	public static Issue fetchByJournalFolderId(long journalFolderId) {
+		return getPersistence().fetchByJournalFolderId(journalFolderId);
+	}
+
+	/**
+	* Returns the issue where journalFolderId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param journalFolderId the journal folder ID
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching issue, or <code>null</code> if a matching issue could not be found
+	*/
+	public static Issue fetchByJournalFolderId(long journalFolderId,
+		boolean retrieveFromCache) {
+		return getPersistence()
+				   .fetchByJournalFolderId(journalFolderId, retrieveFromCache);
+	}
+
+	/**
+	* Removes the issue where journalFolderId = &#63; from the database.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the issue that was removed
+	*/
+	public static Issue removeByJournalFolderId(long journalFolderId)
+		throws com.liferay.training.amf.newsletter.exception.NoSuchIssueException {
+		return getPersistence().removeByJournalFolderId(journalFolderId);
+	}
+
+	/**
+	* Returns the number of issues where journalFolderId = &#63;.
+	*
+	* @param journalFolderId the journal folder ID
+	* @return the number of matching issues
+	*/
+	public static int countByJournalFolderId(long journalFolderId) {
+		return getPersistence().countByJournalFolderId(journalFolderId);
+	}
+
+	/**
 	* Returns the issue where issueNumber = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
 	*
 	* @param issueNumber the issue number

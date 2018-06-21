@@ -84,6 +84,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 				"value.object.column.bitmask.enabled.com.liferay.training.amf.newsletter.model.Issue"),
 			true);
 	public static final long ISSUENUMBER_COLUMN_BITMASK = 1L;
+	public static final long JOURNALFOLDERID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.training.amf.newsletter.service.util.ServiceProps.get(
 				"lock.expiration.time.com.liferay.training.amf.newsletter.model.Issue"));
 
@@ -194,7 +195,19 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 	@Override
 	public void setJournalFolderId(long journalFolderId) {
+		_columnBitmask |= JOURNALFOLDERID_COLUMN_BITMASK;
+
+		if (!_setOriginalJournalFolderId) {
+			_setOriginalJournalFolderId = true;
+
+			_originalJournalFolderId = _journalFolderId;
+		}
+
 		_journalFolderId = journalFolderId;
+	}
+
+	public long getOriginalJournalFolderId() {
+		return _originalJournalFolderId;
 	}
 
 	public long getColumnBitmask() {
@@ -300,6 +313,10 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 		issueModelImpl._setOriginalIssueNumber = false;
 
+		issueModelImpl._originalJournalFolderId = issueModelImpl._journalFolderId;
+
+		issueModelImpl._setOriginalJournalFolderId = false;
+
 		issueModelImpl._columnBitmask = 0;
 	}
 
@@ -366,6 +383,8 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 	private int _originalIssueNumber;
 	private boolean _setOriginalIssueNumber;
 	private long _journalFolderId;
+	private long _originalJournalFolderId;
+	private boolean _setOriginalJournalFolderId;
 	private long _columnBitmask;
 	private Issue _escapedModel;
 }
