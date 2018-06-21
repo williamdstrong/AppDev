@@ -50,14 +50,17 @@ public class JournalFolderListener extends BaseModelListener<JournalFolder> {
 	 * Newsletter folder. When folders inside newsletter are updated then the
 	 * corresponding issue should be updated as well.
 	 *
-	 *
+	 * Checks whether the folder is in (or going to be in) the Newsletter
+	 * folder, then handles the change in the issue tables.
 	 */
 	@Override
 	public void onBeforeUpdate(JournalFolder journalFolder)
 		throws ModelListenerException {
 
-		if (_isInNewsletterFolder(journalFolder)) {
-
+		if (_isInNewsletterFolder(journalFolder
+			|| _isAnIssue(journalFolder))) {
+			// Updates show the update that will take place.
+			System.out.println(journalFolder);
 		}
 		super.onAfterUpdate(journalFolder);
 	}
@@ -65,9 +68,14 @@ public class JournalFolderListener extends BaseModelListener<JournalFolder> {
 	@Override
 	public void onAfterUpdate(JournalFolder journalFolder) {
 		if (_isInNewsletterFolder(journalFolder)) {
+			System.out.println(journalFolder);
 
 		}
 		super.onAfterUpdate(journalFolder);
+	}
+
+	private boolean _isAnIssue(JournalFolder journalFolder) {
+		_issueLocalService.folderIsAnIssue(journalFolder);
 	}
 
 	private boolean _isInNewsletterFolder(JournalFolder journalFolder) {

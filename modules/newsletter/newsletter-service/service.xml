@@ -36,6 +36,9 @@
             <order-column name="issueNumber" />
         </order>
 
+        <finder name="JournalFolderId" return-type="Issue">
+            <finder-column name="journalFolderId" />
+        </finder>
         <finder name="IssueNumber" return-type="Issue" unique="true">
             <finder-column name="issueNumber" />
         </finder>
