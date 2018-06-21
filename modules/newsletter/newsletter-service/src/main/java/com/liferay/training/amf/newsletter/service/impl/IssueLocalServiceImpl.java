@@ -61,12 +61,6 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		return issuePersistence.remove(issue);
 	}
 
-	public boolean folderIsAnIssue(JournalFolder journalFolder) {
-		Issue issue = issuePersistence.fetchByJournalFolderId(
-			journalFolder.getFolderId());
-		return issue == null;
-	}
-
 	public Issue getIssue(long issueId) throws PortalException {
 		return issuePersistence.findByPrimaryKey(issueId);
 	}
