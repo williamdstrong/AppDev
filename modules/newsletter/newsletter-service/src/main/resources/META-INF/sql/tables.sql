@@ -13,5 +13,6 @@ create table AMF_Author (
 create table AMF_Issue (
 	issueId LONG not null primary key,
 	issueNumber INTEGER,
-	journalFolderId LONG
+	journalFolderId LONG,
+	issueDate VARCHAR(75) null
 );

@@ -1,4 +1,4 @@
-package com.liferay.training.amf.newsletter;
+package com.liferay.training.amf.newsletter.listener;
 
 
 import com.liferay.journal.model.JournalArticle;

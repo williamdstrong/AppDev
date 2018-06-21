@@ -46,6 +46,9 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		// Issues will be ordered starting at 0 and descending in the db.
 		// If a folder is removed then the numbers will be recalculated.
 
+		// TODO change the way this works. The user should manually choose the
+		// issue number. This needs to have validation.
+
 		issue.setIssueNumber(getLastIssueNumber());
 		issue.setJournalFolderId(journalFolder.getFolderId());
 		issuePersistence.update(issue);
@@ -54,10 +57,6 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 
 	@Override
 	public Issue deleteIssue(Issue issue) {
-
-		// Once an issue is removed from the database, the issue numbers need to
-		// be recounted.
-
 		return issuePersistence.remove(issue);
 	}
 

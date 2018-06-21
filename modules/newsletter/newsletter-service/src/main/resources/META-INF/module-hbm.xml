@@ -25,5 +25,6 @@
 		</id>
 		<property name="issueNumber" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="journalFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="issueDate" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

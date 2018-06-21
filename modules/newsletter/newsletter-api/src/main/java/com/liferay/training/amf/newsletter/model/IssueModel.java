@@ -16,6 +16,7 @@ package com.liferay.training.amf.newsletter.model;
 
 import aQute.bnd.annotation.ProviderType;
 import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -98,6 +99,21 @@ public interface IssueModel extends BaseModel<Issue> {
 	 * @param journalFolderId the journal folder ID of this issue
 	 */
 	void setJournalFolderId(long journalFolderId);
+
+	/**
+	 * Returns the issue date of this issue.
+	 *
+	 * @return the issue date of this issue
+	 */
+	@AutoEscape
+	String getIssueDate();
+
+	/**
+	 * Sets the issue date of this issue.
+	 *
+	 * @param issueDate the issue date of this issue
+	 */
+	void setIssueDate(String issueDate);
 
 	@Override
 	boolean isNew();

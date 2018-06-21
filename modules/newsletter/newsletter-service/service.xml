@@ -31,6 +31,7 @@
 
         <column name="issueNumber" type="int" />
         <column name="journalFolderId" type="long" />
+        <column name="issueDate" type="String" />
 
         <order by="desc">
             <order-column name="issueNumber" />

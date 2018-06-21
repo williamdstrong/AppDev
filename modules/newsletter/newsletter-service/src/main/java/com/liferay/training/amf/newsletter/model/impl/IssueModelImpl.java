@@ -57,7 +57,8 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "issueId", Types.BIGINT },
 			{ "issueNumber", Types.INTEGER },
-			{ "journalFolderId", Types.BIGINT }
+			{ "journalFolderId", Types.BIGINT },
+			{ "issueDate", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -65,9 +66,10 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		TABLE_COLUMNS_MAP.put("issueId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("issueNumber", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("journalFolderId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("issueDate", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table AMF_Issue (issueId LONG not null primary key,issueNumber INTEGER,journalFolderId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table AMF_Issue (issueId LONG not null primary key,issueNumber INTEGER,journalFolderId LONG,issueDate VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table AMF_Issue";
 	public static final String ORDER_BY_JPQL = " ORDER BY issue.issueNumber DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY AMF_Issue.issueNumber DESC";
@@ -128,6 +130,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		attributes.put("issueId", getIssueId());
 		attributes.put("issueNumber", getIssueNumber());
 		attributes.put("journalFolderId", getJournalFolderId());
+		attributes.put("issueDate", getIssueDate());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -153,6 +156,12 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 		if (journalFolderId != null) {
 			setJournalFolderId(journalFolderId);
+		}
+
+		String issueDate = (String)attributes.get("issueDate");
+
+		if (issueDate != null) {
+			setIssueDate(issueDate);
 		}
 	}
 
@@ -210,6 +219,21 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		return _originalJournalFolderId;
 	}
 
+	@Override
+	public String getIssueDate() {
+		if (_issueDate == null) {
+			return "";
+		}
+		else {
+			return _issueDate;
+		}
+	}
+
+	@Override
+	public void setIssueDate(String issueDate) {
+		_issueDate = issueDate;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -244,6 +268,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		issueImpl.setIssueId(getIssueId());
 		issueImpl.setIssueNumber(getIssueNumber());
 		issueImpl.setJournalFolderId(getJournalFolderId());
+		issueImpl.setIssueDate(getIssueDate());
 
 		issueImpl.resetOriginalValues();
 
@@ -330,12 +355,20 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 		issueCacheModel.journalFolderId = getJournalFolderId();
 
+		issueCacheModel.issueDate = getIssueDate();
+
+		String issueDate = issueCacheModel.issueDate;
+
+		if ((issueDate != null) && (issueDate.length() == 0)) {
+			issueCacheModel.issueDate = null;
+		}
+
 		return issueCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("{issueId=");
 		sb.append(getIssueId());
@@ -343,6 +376,8 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		sb.append(getIssueNumber());
 		sb.append(", journalFolderId=");
 		sb.append(getJournalFolderId());
+		sb.append(", issueDate=");
+		sb.append(getIssueDate());
 		sb.append("}");
 
 		return sb.toString();
@@ -350,7 +385,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(16);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.training.amf.newsletter.model.Issue");
@@ -367,6 +402,10 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		sb.append(
 			"<column><column-name>journalFolderId</column-name><column-value><![CDATA[");
 		sb.append(getJournalFolderId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>issueDate</column-name><column-value><![CDATA[");
+		sb.append(getIssueDate());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -385,6 +424,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 	private long _journalFolderId;
 	private long _originalJournalFolderId;
 	private boolean _setOriginalJournalFolderId;
+	private String _issueDate;
 	private long _columnBitmask;
 	private Issue _escapedModel;
 }

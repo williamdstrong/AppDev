@@ -34,6 +34,7 @@ public class IssueSoap implements Serializable {
 		soapModel.setIssueId(model.getIssueId());
 		soapModel.setIssueNumber(model.getIssueNumber());
 		soapModel.setJournalFolderId(model.getJournalFolderId());
+		soapModel.setIssueDate(model.getIssueDate());
 
 		return soapModel;
 	}
@@ -110,7 +111,16 @@ public class IssueSoap implements Serializable {
 		_journalFolderId = journalFolderId;
 	}
 
+	public String getIssueDate() {
+		return _issueDate;
+	}
+
+	public void setIssueDate(String issueDate) {
+		_issueDate = issueDate;
+	}
+
 	private long _issueId;
 	private int _issueNumber;
 	private long _journalFolderId;
+	private String _issueDate;
 }

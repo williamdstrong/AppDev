@@ -21,8 +21,12 @@ import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.training.amf.newsletter.dto.NewsletterArticle;
+import com.liferay.training.amf.newsletter.model.Issue;
+import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import com.liferay.training.amf.newsletter.service.base.ArticleLocalServiceBaseImpl;
+import org.osgi.service.component.annotations.Reference;
 
+import java.time.LocalDate;
 import java.util.Locale;
 
 /**
@@ -64,26 +68,63 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 		Document document = SAXReaderUtil.read(
 			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
 
-		NewsletterArticle articleServiceContext =
+		NewsletterArticle newsletterArticle =
 			new NewsletterArticle();
 
 		Node authorNode = document.selectSingleNode(
 			"/root/dynamic-element[@name='author']/dynamic-content");
 		String author = authorNode.getText();
-		articleServiceContext.setAuthor(author);
+		newsletterArticle.setAuthor(author);
 
 		Node orderNode = document.selectSingleNode(
 			"/root/dynamic-element[@name='order']/dynamic-content");
 		String order = orderNode.getText();
-		articleServiceContext.setOrder(Integer.parseInt(order));
+		newsletterArticle.setOrder(Integer.parseInt(order));
 
 		Node contentNode = document.selectSingleNode(
 			"/root/dynamic-element[@name='content']/dynamic-content");
 		String content = contentNode.getText();
-		articleServiceContext.setContent(content);
+		newsletterArticle.setContent(content);
 
-		return articleServiceContext;
+
+		return newsletterArticle;
 	}
 
+	public void addIssueMetaData(JournalArticle journalArticle) throws PortalException, DocumentException {
+		long folderId = journalArticle.getFolderId();
+		Issue issue = _issueLocalService.getIssueByFolderId(folderId);
 
+		int issueNumber = _getIssueNumberFromArticle(journalArticle);
+		LocalDate date = _getIssueDateFromArticle(journalArticle);
+
+		issue.setIssueNumber(issueNumber);
+		issue.setIssueDate(date.toString());
+	}
+
+	private int _getIssueNumberFromArticle(JournalArticle journalArticle) throws DocumentException {
+
+		Document document = SAXReaderUtil.read(
+			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
+
+		Node issueNumberNode = document.selectSingleNode(
+			"/root/dynamic-element[@name='issueNumber']/dynamic-content");
+		String issueNumber = issueNumberNode.getText();
+
+		return Integer.parseInt(issueNumber);
+	}
+
+	private LocalDate _getIssueDateFromArticle(JournalArticle journalArticle) throws DocumentException {
+
+		Document document = SAXReaderUtil.read(
+			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
+
+		Node issueDateNode = document.selectSingleNode(
+			"/root/dynamic-element[@name='issueDate']/dynamic-content");
+		String issueDate = issueDateNode.getText();
+
+		return LocalDate.parse(issueDate);
+	}
+
+	@Reference
+	private IssueLocalService _issueLocalService;
 }

@@ -40,6 +40,13 @@ public class ArticleLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link com.liferay.training.amf.newsletter.service.impl.ArticleLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static void addIssueMetaData(
+		com.liferay.journal.model.JournalArticle journalArticle)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.xml.DocumentException {
+		getService().addIssueMetaData(journalArticle);
+	}
+
 	public static com.liferay.training.amf.newsletter.dto.NewsletterArticle getArticle(
 		long journalId)
 		throws com.liferay.portal.kernel.exception.PortalException,

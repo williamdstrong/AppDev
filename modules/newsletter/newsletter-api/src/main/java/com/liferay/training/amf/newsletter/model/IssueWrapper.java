@@ -56,6 +56,7 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 		attributes.put("issueId", getIssueId());
 		attributes.put("issueNumber", getIssueNumber());
 		attributes.put("journalFolderId", getJournalFolderId());
+		attributes.put("issueDate", getIssueDate());
 
 		return attributes;
 	}
@@ -79,6 +80,12 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 		if (journalFolderId != null) {
 			setJournalFolderId(journalFolderId);
 		}
+
+		String issueDate = (String)attributes.get("issueDate");
+
+		if (issueDate != null) {
+			setIssueDate(issueDate);
+		}
 	}
 
 	@Override
@@ -94,6 +101,16 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return _issue.getExpandoBridge();
+	}
+
+	/**
+	* Returns the issue date of this issue.
+	*
+	* @return the issue date of this issue
+	*/
+	@Override
+	public String getIssueDate() {
+		return _issue.getIssueDate();
 	}
 
 	/**
@@ -185,6 +202,16 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_issue.setExpandoBridgeAttributes(serviceContext);
+	}
+
+	/**
+	* Sets the issue date of this issue.
+	*
+	* @param issueDate the issue date of this issue
+	*/
+	@Override
+	public void setIssueDate(String issueDate) {
+		_issue.setIssueDate(issueDate);
 	}
 
 	/**

@@ -15,6 +15,7 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
+import com.liferay.journal.model.JournalArticle;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.service.BaseLocalService;
@@ -45,6 +46,9 @@ public interface ArticleLocalService extends BaseLocalService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link ArticleLocalServiceUtil} to access the article local service. Add custom service methods to {@link com.liferay.training.amf.newsletter.service.impl.ArticleLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	void addIssueMetaData(JournalArticle journalArticle)
+		throws PortalException, DocumentException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	NewsletterArticle getArticle(long journalId)
 		throws PortalException, DocumentException;

@@ -32,6 +32,14 @@ public class ArticleLocalServiceWrapper implements ArticleLocalService,
 	}
 
 	@Override
+	public void addIssueMetaData(
+		com.liferay.journal.model.JournalArticle journalArticle)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.xml.DocumentException {
+		_articleLocalService.addIssueMetaData(journalArticle);
+	}
+
+	@Override
 	public com.liferay.training.amf.newsletter.dto.NewsletterArticle getArticle(
 		long journalId)
 		throws com.liferay.portal.kernel.exception.PortalException,
