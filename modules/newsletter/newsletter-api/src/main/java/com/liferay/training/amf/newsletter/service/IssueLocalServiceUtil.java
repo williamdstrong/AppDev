@@ -79,6 +79,11 @@ public class IssueLocalServiceUtil {
 		return getService().deleteIssue(issue);
 	}
 
+	public static void deleteIssue(
+		com.liferay.training.amf.newsletter.model.Issue issue) {
+		getService().deleteIssue(issue);
+	}
+
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
 	*
@@ -208,6 +213,12 @@ public class IssueLocalServiceUtil {
 		long issueId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getIssue(issueId);
+	}
+
+	public static com.liferay.training.amf.newsletter.model.Issue getIssueByFolderId(
+		long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getIssueByFolderId(folderId);
 	}
 
 	/**

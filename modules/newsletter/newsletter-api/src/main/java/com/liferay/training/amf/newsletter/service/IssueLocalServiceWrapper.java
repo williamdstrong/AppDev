@@ -73,6 +73,12 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 		return _issueLocalService.deleteIssue(issue);
 	}
 
+	@Override
+	public void deleteIssue(
+		com.liferay.training.amf.newsletter.model.Issue issue) {
+		_issueLocalService.deleteIssue(issue);
+	}
+
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
 	*
@@ -215,6 +221,13 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 		long issueId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _issueLocalService.getIssue(issueId);
+	}
+
+	@Override
+	public com.liferay.training.amf.newsletter.model.Issue getIssueByFolderId(
+		long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _issueLocalService.getIssueByFolderId(folderId);
 	}
 
 	/**

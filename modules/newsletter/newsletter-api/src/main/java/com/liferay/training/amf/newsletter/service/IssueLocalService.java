@@ -89,6 +89,8 @@ public interface IssueLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.DELETE)
 	Issue deleteIssue(Issue issue);
 
+	void deleteIssue(Issue issue);
+
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
 	*
@@ -185,6 +187,9 @@ public interface IssueLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	Issue getIssue(long issueId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	Issue getIssueByFolderId(long folderId) throws PortalException;
 
 	/**
 	* Returns a range of all the issues.
