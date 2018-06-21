@@ -52,8 +52,13 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		return issue;
 	}
 
-	public void deleteIssue(Issue issue) {
+	@Override
+	public Issue deleteIssue(Issue issue) {
 
+		// Once an issue is removed from the database, the issue numbers need to
+		// be recounted.
+
+		return issuePersistence.remove(issue);
 	}
 
 	public boolean folderIsAnIssue(JournalFolder journalFolder) {
