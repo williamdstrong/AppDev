@@ -52,6 +52,10 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		return issue;
 	}
 
+	public void deleteIssue(Issue issue) {
+
+	}
+
 	public boolean folderIsAnIssue(JournalFolder journalFolder) {
 		Issue issue = issuePersistence.fetchByJournalFolderId(
 			journalFolder.getFolderId());
