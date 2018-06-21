@@ -168,8 +168,6 @@ public interface IssueLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	Issue fetchIssue(long issueId);
 
-	boolean folderIsAnIssue(JournalFolder journalFolder);
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	ActionableDynamicQuery getActionableDynamicQuery();
 

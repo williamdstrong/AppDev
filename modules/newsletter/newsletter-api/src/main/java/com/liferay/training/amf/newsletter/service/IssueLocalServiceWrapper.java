@@ -188,12 +188,6 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 	}
 
 	@Override
-	public boolean folderIsAnIssue(
-		com.liferay.journal.model.JournalFolder journalFolder) {
-		return _issueLocalService.folderIsAnIssue(journalFolder);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
 		return _issueLocalService.getActionableDynamicQuery();
 	}

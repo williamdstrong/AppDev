@@ -184,11 +184,6 @@ public class IssueLocalServiceUtil {
 		return getService().fetchIssue(issueId);
 	}
 
-	public static boolean folderIsAnIssue(
-		com.liferay.journal.model.JournalFolder journalFolder) {
-		return getService().folderIsAnIssue(journalFolder);
-	}
-
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
 		return getService().getActionableDynamicQuery();
 	}
