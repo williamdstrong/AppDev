@@ -44,9 +44,9 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 	}
 
 	@Override
-	public com.liferay.training.amf.newsletter.model.Issue createIssue(
+	public com.liferay.training.amf.newsletter.model.Issue addIssue(
 		com.liferay.journal.model.JournalFolder journalFolder) {
-		return _issueLocalService.createIssue(journalFolder);
+		return _issueLocalService.addIssue(journalFolder);
 	}
 
 	/**

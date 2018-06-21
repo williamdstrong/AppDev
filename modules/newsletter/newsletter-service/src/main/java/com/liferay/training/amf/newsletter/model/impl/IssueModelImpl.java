@@ -69,8 +69,8 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 	public static final String TABLE_SQL_CREATE = "create table AMF_Issue (issueId LONG not null primary key,issueNumber INTEGER,journalFolderId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table AMF_Issue";
-	public static final String ORDER_BY_JPQL = " ORDER BY issue.issueId ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY AMF_Issue.issueId ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY issue.issueNumber DESC";
+	public static final String ORDER_BY_SQL = " ORDER BY AMF_Issue.issueNumber DESC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -84,7 +84,6 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 				"value.object.column.bitmask.enabled.com.liferay.training.amf.newsletter.model.Issue"),
 			true);
 	public static final long ISSUENUMBER_COLUMN_BITMASK = 1L;
-	public static final long ISSUEID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.training.amf.newsletter.service.util.ServiceProps.get(
 				"lock.expiration.time.com.liferay.training.amf.newsletter.model.Issue"));
 
@@ -173,7 +172,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 	@Override
 	public void setIssueNumber(int issueNumber) {
-		_columnBitmask |= ISSUENUMBER_COLUMN_BITMASK;
+		_columnBitmask = -1L;
 
 		if (!_setOriginalIssueNumber) {
 			_setOriginalIssueNumber = true;
@@ -240,17 +239,25 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 	@Override
 	public int compareTo(Issue issue) {
-		long primaryKey = issue.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		if (getIssueNumber() < issue.getIssueNumber()) {
+			value = -1;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
+		else if (getIssueNumber() > issue.getIssueNumber()) {
+			value = 1;
 		}
 		else {
-			return 0;
+			value = 0;
 		}
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
+		}
+
+		return 0;
 	}
 
 	@Override

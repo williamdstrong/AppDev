@@ -16,7 +16,6 @@ package com.liferay.training.amf.newsletter.service.impl;
 
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.training.amf.newsletter.dto.NewsletterIssue;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.base.IssueLocalServiceBaseImpl;
 
@@ -39,14 +38,9 @@ import java.util.List;
  */
 public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 
-	public Issue addIssue(JournalFolder journalFolder) {
+	public Issue createIssue(JournalFolder journalFolder) {
 		long issueId = counterLocalService.increment();
 		Issue issue = createIssue(issueId);
-
-		// Issues will be ordered starting at 0 and descending in the db.
-		// If a folder is removed then the numbers will be recalculated.
-
-		issue.setIssueNumber(getLastIssueNumber());
 		issue.setJournalFolderId(journalFolder.getFolderId());
 		issuePersistence.update(issue);
 		return issue;
@@ -68,10 +62,6 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 			newsletterIssues.add(new NewsletterIssue(issue));
 		}
 		return newsletterIssues;
-	}
-
-	private int getLastIssueNumber() {
-		return getIssuesCount();
 	}
 
 	private List<Issue> getIssues() {

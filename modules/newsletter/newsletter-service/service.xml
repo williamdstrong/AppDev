@@ -32,6 +32,10 @@
         <column name="issueNumber" type="int" />
         <column name="journalFolderId" type="long" />
 
+        <order by="desc">
+            <order-column name="issueNumber" />
+        </order>
+
         <finder name="IssueNumber" return-type="Issue" unique="true">
             <finder-column name="issueNumber" />
         </finder>

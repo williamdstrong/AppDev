@@ -52,9 +52,9 @@ public class IssueLocalServiceUtil {
 		return getService().addIssue(issue);
 	}
 
-	public static com.liferay.training.amf.newsletter.model.Issue createIssue(
+	public static com.liferay.training.amf.newsletter.model.Issue addIssue(
 		com.liferay.journal.model.JournalFolder journalFolder) {
-		return getService().createIssue(journalFolder);
+		return getService().addIssue(journalFolder);
 	}
 
 	/**

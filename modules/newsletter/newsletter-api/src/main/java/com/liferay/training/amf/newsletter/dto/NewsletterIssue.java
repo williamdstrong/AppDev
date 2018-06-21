@@ -12,10 +12,7 @@ import java.util.List;
 public class NewsletterIssue {
 
 	public NewsletterIssue(Issue issue) {
-		description = issue.getDescription();
-		date = dateToLocalDate(issue.getIssueDate());
 		number = issue.getIssueNumber();
-		title = issue.getTitle();
 	}
 
 	private static LocalDate dateToLocalDate(Date date) {

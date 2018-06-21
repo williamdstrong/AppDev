@@ -69,7 +69,7 @@ public interface IssueLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	Issue addIssue(Issue issue);
 
-	Issue createIssue(JournalFolder journalFolder);
+	Issue addIssue(JournalFolder journalFolder);
 
 	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.
