@@ -73,12 +73,6 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 		return _issueLocalService.deleteIssue(issue);
 	}
 
-	@Override
-	public void deleteIssue(
-		com.liferay.training.amf.newsletter.model.Issue issue) {
-		_issueLocalService.deleteIssue(issue);
-	}
-
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
 	*

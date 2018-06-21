@@ -89,8 +89,6 @@ public interface IssueLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.DELETE)
 	Issue deleteIssue(Issue issue);
 
-	void deleteIssue(Issue issue);
-
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
 	*

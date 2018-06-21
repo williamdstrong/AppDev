@@ -79,11 +79,6 @@ public class IssueLocalServiceUtil {
 		return getService().deleteIssue(issue);
 	}
 
-	public static void deleteIssue(
-		com.liferay.training.amf.newsletter.model.Issue issue) {
-		getService().deleteIssue(issue);
-	}
-
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
 	*
