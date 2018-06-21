@@ -4,8 +4,12 @@ package com.liferay.training.amf.newsletter;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.service.JournalFolderLocalService;
 import com.liferay.portal.kernel.exception.ModelListenerException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
+import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -57,10 +61,23 @@ public class JournalFolderListener extends BaseModelListener<JournalFolder> {
 	public void onBeforeUpdate(JournalFolder journalFolder)
 		throws ModelListenerException {
 
-		if (_isInNewsletterFolder(journalFolder
-			|| _isAnIssue(journalFolder))) {
-			// Updates show the update that will take place.
-			System.out.println(journalFolder);
+		// Get the original folder. If there is no original folder, then there
+		// is a serious issue.
+
+
+		// The parents of the folders needs to be compared...
+		// Check if the original parent was the Newsletter folder and if it has
+		// moved from there then we need to remove the issue.
+		if (_folderIsMovingFromNewsletterFolder(journalFolder)) {
+			Issue movedIssue = null;
+			try {
+				movedIssue = _issueLocalService.getIssueByFolderId(journalFolder.getFolderId());
+			}
+			catch (PortalException e) {
+				_log.error(e, e);
+				throw new ModelListenerException(e);
+			}
+			_issueLocalService.deleteIssue(movedIssue);
 		}
 		super.onAfterUpdate(journalFolder);
 	}
@@ -74,8 +91,24 @@ public class JournalFolderListener extends BaseModelListener<JournalFolder> {
 		super.onAfterUpdate(journalFolder);
 	}
 
-	private boolean _isAnIssue(JournalFolder journalFolder) {
-		_issueLocalService.folderIsAnIssue(journalFolder);
+	private boolean _folderIsMovingFromNewsletterFolder(JournalFolder newFolder) {
+		JournalFolder originalFolder;
+		try {
+			originalFolder =
+				_journalFolderLocalService.getJournalFolder(newFolder.getFolderId());
+		}
+		catch (PortalException e) {
+			_log.error(e, e);
+			throw new ModelListenerException(e);
+		}
+
+		boolean newIsAnIssue = _isInNewsletterFolder(newFolder);
+		boolean oldIsAnIssue = _isInNewsletterFolder(originalFolder);
+
+		// In this case the folder is moving from the parent to another
+		// location.
+		return (oldIsAnIssue && !newIsAnIssue);
+
 	}
 
 	private boolean _isInNewsletterFolder(JournalFolder journalFolder) {
@@ -93,4 +126,6 @@ public class JournalFolderListener extends BaseModelListener<JournalFolder> {
 
 	@Reference
 	private IssueLocalService _issueLocalService;
+
+	Log _log = LogFactoryUtil.getLog(JournalFolderListener.class);
 }
