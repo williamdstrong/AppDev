@@ -22,9 +22,7 @@ import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.training.amf.newsletter.dto.NewsletterArticle;
 import com.liferay.training.amf.newsletter.model.Issue;
-import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import com.liferay.training.amf.newsletter.service.base.ArticleLocalServiceBaseImpl;
-import org.osgi.service.component.annotations.Reference;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -92,7 +90,7 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 
 	public void addIssueMetaData(JournalArticle journalArticle) throws PortalException, DocumentException {
 		long folderId = journalArticle.getFolderId();
-		Issue issue = _issueLocalService.getIssueByFolderId(folderId);
+		Issue issue = issueLocalService.getIssueByFolderId(folderId);
 
 		int issueNumber = _getIssueNumberFromArticle(journalArticle);
 		LocalDate date = _getIssueDateFromArticle(journalArticle);
@@ -125,6 +123,4 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 		return LocalDate.parse(issueDate);
 	}
 
-	@Reference
-	private IssueLocalService _issueLocalService;
 }
