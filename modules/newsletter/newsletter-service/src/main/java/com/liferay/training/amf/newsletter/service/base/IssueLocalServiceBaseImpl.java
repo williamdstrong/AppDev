@@ -308,25 +308,6 @@ public abstract class IssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
-	 * Returns the article local service.
-	 *
-	 * @return the article local service
-	 */
-	public com.liferay.training.amf.newsletter.service.ArticleLocalService getArticleLocalService() {
-		return articleLocalService;
-	}
-
-	/**
-	 * Sets the article local service.
-	 *
-	 * @param articleLocalService the article local service
-	 */
-	public void setArticleLocalService(
-		com.liferay.training.amf.newsletter.service.ArticleLocalService articleLocalService) {
-		this.articleLocalService = articleLocalService;
-	}
-
-	/**
 	 * Returns the article author persistence.
 	 *
 	 * @return the article author persistence
@@ -621,8 +602,6 @@ public abstract class IssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.training.amf.newsletter.service.ArticleLocalService.class)
-	protected com.liferay.training.amf.newsletter.service.ArticleLocalService articleLocalService;
 	@BeanReference(type = ArticleAuthorPersistence.class)
 	protected ArticleAuthorPersistence articleAuthorPersistence;
 	@BeanReference(type = com.liferay.training.amf.newsletter.service.AuthorLocalService.class)

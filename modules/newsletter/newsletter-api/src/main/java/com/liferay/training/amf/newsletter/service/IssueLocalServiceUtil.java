@@ -58,6 +58,21 @@ public class IssueLocalServiceUtil {
 	}
 
 	/**
+	* Adds the metadata for the issue to the db.
+	*
+	* @param journalArticle a journal article with the issue structure intended
+	for storing issue metadata.
+	* @throws PortalException
+	* @throws DocumentException
+	*/
+	public static void addIssueMetaData(
+		com.liferay.journal.model.JournalArticle journalArticle)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.xml.DocumentException {
+		getService().addIssueMetaData(journalArticle);
+	}
+
+	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.
 	*
 	* @param issueId the primary key for the new issue

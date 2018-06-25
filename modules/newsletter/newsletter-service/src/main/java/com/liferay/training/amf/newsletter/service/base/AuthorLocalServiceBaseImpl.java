@@ -15,7 +15,6 @@
 package com.liferay.training.amf.newsletter.service.base;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -41,18 +40,15 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
-
 import com.liferay.training.amf.newsletter.model.Author;
 import com.liferay.training.amf.newsletter.service.AuthorLocalService;
 import com.liferay.training.amf.newsletter.service.persistence.ArticleAuthorPersistence;
 import com.liferay.training.amf.newsletter.service.persistence.AuthorPersistence;
 import com.liferay.training.amf.newsletter.service.persistence.IssuePersistence;
 
-import java.io.Serializable;
-
-import java.util.List;
-
 import javax.sql.DataSource;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Provides the base implementation for the author local service.
@@ -260,11 +256,9 @@ public abstract class AuthorLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
-	 * @throws PortalException
 	 */
 	@Override
-	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
-		throws PortalException {
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel) {
 		return authorLocalService.deleteAuthor((Author)persistedModel);
 	}
 
@@ -310,25 +304,6 @@ public abstract class AuthorLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Override
 	public Author updateAuthor(Author author) {
 		return authorPersistence.update(author);
-	}
-
-	/**
-	 * Returns the article local service.
-	 *
-	 * @return the article local service
-	 */
-	public com.liferay.training.amf.newsletter.service.ArticleLocalService getArticleLocalService() {
-		return articleLocalService;
-	}
-
-	/**
-	 * Sets the article local service.
-	 *
-	 * @param articleLocalService the article local service
-	 */
-	public void setArticleLocalService(
-		com.liferay.training.amf.newsletter.service.ArticleLocalService articleLocalService) {
-		this.articleLocalService = articleLocalService;
 	}
 
 	/**
@@ -588,8 +563,6 @@ public abstract class AuthorLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
-	@BeanReference(type = com.liferay.training.amf.newsletter.service.ArticleLocalService.class)
-	protected com.liferay.training.amf.newsletter.service.ArticleLocalService articleLocalService;
 	@BeanReference(type = ArticleAuthorPersistence.class)
 	protected ArticleAuthorPersistence articleAuthorPersistence;
 	@BeanReference(type = AuthorLocalService.class)

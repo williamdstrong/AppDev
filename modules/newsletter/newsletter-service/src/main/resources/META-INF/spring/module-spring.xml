@@ -7,7 +7,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 >
-	<bean class="com.liferay.training.amf.newsletter.service.impl.ArticleLocalServiceImpl" id="com.liferay.training.amf.newsletter.service.ArticleLocalService" />
 	<bean class="com.liferay.training.amf.newsletter.service.persistence.impl.ArticleAuthorPersistenceImpl" id="com.liferay.training.amf.newsletter.service.persistence.ArticleAuthorPersistence" parent="basePersistence" />
 	<bean class="com.liferay.training.amf.newsletter.service.impl.AuthorLocalServiceImpl" id="com.liferay.training.amf.newsletter.service.AuthorLocalService" />
 	<bean class="com.liferay.training.amf.newsletter.service.persistence.impl.AuthorPersistenceImpl" id="com.liferay.training.amf.newsletter.service.persistence.AuthorPersistence" parent="basePersistence" />

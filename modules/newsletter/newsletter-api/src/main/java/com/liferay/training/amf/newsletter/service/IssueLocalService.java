@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.training.amf.newsletter.dto.NewsletterIssue;
 import com.liferay.training.amf.newsletter.model.Issue;
 
@@ -70,6 +71,18 @@ public interface IssueLocalService extends BaseLocalService,
 	Issue addIssue(Issue issue);
 
 	Issue addIssue(JournalFolder journalFolder);
+
+	/**
+	* Adds the metadata for the issue to the db.
+	*
+	* @param journalArticle a journal article with the issue structure intended
+	      for storing issue metadata.
+	* @throws PortalException
+	* @throws DocumentException
+	*/
+	void addIssueMetaData(
+		com.liferay.journal.model.JournalArticle journalArticle)
+		throws PortalException, DocumentException;
 
 	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.
