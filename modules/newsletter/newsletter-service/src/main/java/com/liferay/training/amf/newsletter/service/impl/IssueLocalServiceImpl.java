@@ -14,6 +14,7 @@
 
 package com.liferay.training.amf.newsletter.service.impl;
 
+import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.xml.Document;
@@ -70,7 +71,8 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 	 * @throws PortalException
 	 * @throws DocumentException
 	 */
-	public void addIssueMetaData(com.liferay.journal.model.JournalArticle journalArticle) throws PortalException, DocumentException {
+	public void addIssueMetaData(JournalArticle journalArticle)
+		throws PortalException, DocumentException {
 
 		long folderId = journalArticle.getFolderId();
 		Issue issue = issueLocalService.getIssueByFolderId(folderId);

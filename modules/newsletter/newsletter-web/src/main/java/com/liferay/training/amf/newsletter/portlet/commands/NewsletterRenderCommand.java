@@ -14,15 +14,11 @@
 
 package com.liferay.training.amf.newsletter.portlet.commands;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.training.amf.newsletter.constants.NewsletterPortletKeys;
-import com.liferay.training.amf.newsletter.service.ArticleLocalService;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -43,21 +39,9 @@ public class NewsletterRenderCommand implements MVCRenderCommand {
 	@Override
 	public String render(RenderRequest request, RenderResponse response) {
 
-		try {
-			_articleLocalService.getArticle(43885);
-		}
-		catch (PortalException e) {
-			e.printStackTrace();
-		}
-		catch (DocumentException e) {
-			e.printStackTrace();
-		}
-
 		return "/view.jsp";
 	}
 
-	@Reference
-	protected ArticleLocalService _articleLocalService;
 
 	Log _log = LogFactoryUtil.getLog(NewsletterRenderCommand.class);
 }

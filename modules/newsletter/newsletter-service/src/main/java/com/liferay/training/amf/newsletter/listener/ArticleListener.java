@@ -16,7 +16,7 @@ import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.training.amf.newsletter.service.ArticleLocalService;
+import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -77,7 +77,7 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 		try {
 
 			if (_isIssueData(journalArticle)) {
-				_articleLocalService.addIssueMetaData(journalArticle);
+				_issueLocalService.addIssueMetaData(journalArticle);
 			}
 
 			if (_articleIsNewsletterArticle(journalArticle)) {
@@ -160,36 +160,6 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 
 	}
 
-	/**
-	 * TODO
-	 *
-	 * The issue date is considered consistent if the other articles inside the
-	 * folder have a issue date that is the same.
-	 *
-	 * @param journalArticle the journal article that is being created or
-	 *                          updated
-	 *
-	 * @return true if the date is consistent; false otherwise.
-	 */
-	private boolean _issueDateIsConsistent(JournalArticle journalArticle) {
-		return true;
-	}
-
-	/**
-	 * TODO
-	 *
-	 * The issue number is considered consistent if the other articles inside the
-	 * folder have a issue number that is the same.
-	 *
-	 * @param journalArticle the journal article that is being created or
-	 *                          updated
-	 *
-	 * @return true if the number is consistent; false otherwise.
-	 */
-	private boolean _issueNumberIsConsistent(JournalArticle journalArticle) {
-		return true;
-	}
-
 	private boolean _articleIsMovingFromNewsletterFolder(
 		JournalArticle newArticle) {
 
@@ -237,7 +207,7 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 	private JournalArticleLocalService _journalArticleLocalService;
 
 	@Reference
-	private ArticleLocalService _articleLocalService;
+	private IssueLocalService _issueLocalService;
 
-	Log _log = LogFactoryUtil.getLog(ArticleListener.class);
+	private Log _log = LogFactoryUtil.getLog(ArticleListener.class);
 }
