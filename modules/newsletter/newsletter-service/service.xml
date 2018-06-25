@@ -19,11 +19,6 @@
 <service-builder package-path="com.liferay.training.amf.newsletter">
     <namespace>AMF</namespace>
     <!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
-    <entity local-service="true" name="Article" remote-service="false" uuid="false">
-
-        <reference entity="JournalArticle" package-path="com.liferay.journal"/>
-
-    </entity>
 
     <entity name="Issue" local-service="true" remote-service="false">
 

@@ -20,10 +20,8 @@ import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.training.amf.newsletter.dto.JournalArticle;
-import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.base.ArticleLocalServiceBaseImpl;
 
-import java.time.LocalDate;
 import java.util.Locale;
 
 /**
@@ -86,50 +84,4 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 
 		return newsletterArticle;
 	}
-
-	/**
-	 * Adds the metadata for the issue to the db.
-	 *
-	 * @param journalArticle a journal article with the issue structure intended
-	 *                       for storing issue metadata.
-	 * @throws PortalException
-	 * @throws DocumentException
-	 */
-	public void addIssueMetaData(com.liferay.journal.model.JournalArticle journalArticle) throws PortalException, DocumentException {
-		long folderId = journalArticle.getFolderId();
-		Issue issue = issueLocalService.getIssueByFolderId(folderId);
-
-		int issueNumber = _getIssueNumberFromArticle(journalArticle);
-		LocalDate date = _getIssueDateFromArticle(journalArticle);
-
-		issue.setIssueNumber(issueNumber);
-		issue.setIssueDate(date.toString());
-
-		issueLocalService.updateIssue(issue);
-	}
-
-	private int _getIssueNumberFromArticle(com.liferay.journal.model.JournalArticle journalArticle) throws DocumentException {
-
-		Document document = SAXReaderUtil.read(
-			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
-
-		Node issueNumberNode = document.selectSingleNode(
-			"/root/dynamic-element[@name='issueNumber']/dynamic-content");
-		String issueNumber = issueNumberNode.getText();
-
-		return Integer.parseInt(issueNumber);
-	}
-
-	private LocalDate _getIssueDateFromArticle(com.liferay.journal.model.JournalArticle journalArticle) throws DocumentException {
-
-		Document document = SAXReaderUtil.read(
-			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
-
-		Node issueDateNode = document.selectSingleNode(
-			"/root/dynamic-element[@name='issueDate']/dynamic-content");
-		String issueDate = issueDateNode.getText();
-
-		return LocalDate.parse(issueDate);
-	}
-
 }

@@ -1,7 +1,6 @@
 package com.liferay.training.amf.newsletter.listener;
 
 
-import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.service.JournalArticleLocalService;
 import com.liferay.journal.service.JournalFolderLocalService;
@@ -96,12 +95,9 @@ public class FolderListener extends BaseModelListener<JournalFolder> {
 		
 		// The new folder resides with in the newsletter folder and
 		// should be treated like a newsletter issue.
-		_issueLocalService.addIssue(newFolder);
+		_issueLocalService.addIssue(journalFolder);
 
-
-		JournalArticle journalArticle;
-
-		_journalArticleLocalService.addJournalArticle(journalArticle);
+		// TODO
 	}
 
 	private boolean _folderIsMovingFromNewsletterFolder(JournalFolder newFolder) {

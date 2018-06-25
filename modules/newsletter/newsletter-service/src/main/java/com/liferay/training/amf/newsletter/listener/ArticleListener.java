@@ -74,16 +74,13 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 	public void onAfterCreate(JournalArticle journalArticle)
 		throws ModelListenerException {
 
-
-
-
 		try {
 
 			if (_isIssueData(journalArticle)) {
 				_articleLocalService.addIssueMetaData(journalArticle);
 			}
 
-			if (_articleIsValid(journalArticle)) {
+			if (_articleIsNewsletterArticle(journalArticle)) {
 
 			}
 		}
@@ -114,6 +111,13 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 	}
 
 	private boolean _isIssueData(JournalArticle journalArticle) {
+		return _hasDDMStructure(
+			journalArticle, ListenerConstants.ISSUE_DATA_STRUCTURE_NAME);
+	}
+
+	private boolean _hasDDMStructure(
+		JournalArticle journalArticle, String structureName) {
+
 		DDMStructure structure;
 		try {
 			structure = journalArticle.getDDMStructure();
@@ -137,10 +141,10 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 			"/root/Name");
 		name = nameNode.getText();
 
-		return (name.equals(ListenerConstants.ISSUE_STRUCTURE));
+		return (name.equals(structureName));
 	}
 
-	private boolean _articleIsValid(JournalArticle journalArticle) {
+	private boolean _articleIsNewsletterArticle(JournalArticle journalArticle) {
 
 		JournalFolder journalFolder;
 
@@ -151,9 +155,9 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 			_log.error(e, e);
 			throw new ModelListenerException(e);
 		}
-		return _isInNewsletterFolder(journalFolder) &&
-			   _issueDateIsConsistent(journalArticle) &&
-			   _issueNumberIsConsistent(journalArticle);
+		return _isInNewsletterFolder(journalFolder) && _hasDDMStructure(
+			journalArticle, ListenerConstants.ISSUE_ARTICLE_STRUCTURE_NAME);
+
 	}
 
 	/**
