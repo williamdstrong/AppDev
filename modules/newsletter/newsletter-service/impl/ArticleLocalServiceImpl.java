@@ -41,7 +41,7 @@ import java.util.Locale;
  * </p>
  *
  * The service retrieves articles from the JournalArticle app and puts the
- * information from them in an NewsletterArticle object which contains
+ * information from them in an JournalArticle object which contains
  * the article data.
  *
  * @author William Strong

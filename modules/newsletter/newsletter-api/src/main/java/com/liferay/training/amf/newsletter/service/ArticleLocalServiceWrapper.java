@@ -16,6 +16,7 @@ package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.service.ServiceWrapper;
+import com.liferay.training.amf.newsletter.dto.JournalArticle;
 
 /**
  * Provides a wrapper for {@link ArticleLocalService}.
@@ -40,7 +41,7 @@ public class ArticleLocalServiceWrapper implements ArticleLocalService,
 	}
 
 	@Override
-	public com.liferay.training.amf.newsletter.dto.NewsletterArticle getArticle(
+	public JournalArticle getArticle(
 		long journalId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.xml.DocumentException {

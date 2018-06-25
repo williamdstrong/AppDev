@@ -14,13 +14,12 @@
 
 package com.liferay.training.amf.newsletter.service.impl;
 
-import com.liferay.journal.model.JournalArticle;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.training.amf.newsletter.dto.NewsletterArticle;
+import com.liferay.training.amf.newsletter.dto.JournalArticle;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.base.ArticleLocalServiceBaseImpl;
 
@@ -43,7 +42,7 @@ import java.util.Locale;
  * </p>
  *
  * The service retrieves articles from the JournalArticle app and puts the
- * information from them in an NewsletterArticle object which contains
+ * information from them in an JournalArticle object which contains
  * the article data.
  *
  * @author William Strong
@@ -52,22 +51,22 @@ import java.util.Locale;
  */
 public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 
-	public NewsletterArticle getArticle(long journalId)
+	public JournalArticle getArticle(long journalId)
 		throws PortalException, DocumentException {
-		JournalArticle journalArticle1 =
+		com.liferay.journal.model.JournalArticle journalArticle1 =
 			journalArticleLocalService.getLatestArticle(journalId);
 		return _createNewsletterArticle(journalArticle1);
 	}
 
-	private NewsletterArticle _createNewsletterArticle(
-		JournalArticle journalArticle)
+	private JournalArticle _createNewsletterArticle(
+		com.liferay.journal.model.JournalArticle journalArticle)
 		throws DocumentException {
 
 		Document document = SAXReaderUtil.read(
 			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
 
-		NewsletterArticle newsletterArticle =
-			new NewsletterArticle();
+		JournalArticle newsletterArticle =
+			new JournalArticle();
 
 		Node authorNode = document.selectSingleNode(
 			"/root/dynamic-element[@name='author']/dynamic-content");
@@ -88,7 +87,15 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 		return newsletterArticle;
 	}
 
-	public void addIssueMetaData(JournalArticle journalArticle) throws PortalException, DocumentException {
+	/**
+	 * Adds the metadata for the issue to the db.
+	 *
+	 * @param journalArticle a journal article with the issue structure intended
+	 *                       for storing issue metadata.
+	 * @throws PortalException
+	 * @throws DocumentException
+	 */
+	public void addIssueMetaData(com.liferay.journal.model.JournalArticle journalArticle) throws PortalException, DocumentException {
 		long folderId = journalArticle.getFolderId();
 		Issue issue = issueLocalService.getIssueByFolderId(folderId);
 
@@ -97,9 +104,11 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 
 		issue.setIssueNumber(issueNumber);
 		issue.setIssueDate(date.toString());
+
+		issueLocalService.updateIssue(issue);
 	}
 
-	private int _getIssueNumberFromArticle(JournalArticle journalArticle) throws DocumentException {
+	private int _getIssueNumberFromArticle(com.liferay.journal.model.JournalArticle journalArticle) throws DocumentException {
 
 		Document document = SAXReaderUtil.read(
 			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));
@@ -111,7 +120,7 @@ public class ArticleLocalServiceImpl extends ArticleLocalServiceBaseImpl {
 		return Integer.parseInt(issueNumber);
 	}
 
-	private LocalDate _getIssueDateFromArticle(JournalArticle journalArticle) throws DocumentException {
+	private LocalDate _getIssueDateFromArticle(com.liferay.journal.model.JournalArticle journalArticle) throws DocumentException {
 
 		Document document = SAXReaderUtil.read(
 			journalArticle.getContentByLocale(Locale.ENGLISH.toString()));

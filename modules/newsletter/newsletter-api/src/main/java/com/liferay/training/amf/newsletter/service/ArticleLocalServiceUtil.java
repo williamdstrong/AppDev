@@ -15,6 +15,7 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
+import com.liferay.training.amf.newsletter.dto.JournalArticle;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
@@ -47,7 +48,7 @@ public class ArticleLocalServiceUtil {
 		getService().addIssueMetaData(journalArticle);
 	}
 
-	public static com.liferay.training.amf.newsletter.dto.NewsletterArticle getArticle(
+	public static JournalArticle getArticle(
 		long journalId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.xml.DocumentException {

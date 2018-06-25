@@ -1,5 +1,11 @@
 package com.liferay.training.amf.newsletter.dto;
 
+import com.liferay.journal.model.JournalFolder;
+import com.liferay.journal.service.JournalArticleLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.training.amf.newsletter.model.Author;
 import com.liferay.training.amf.newsletter.model.Issue;
 
@@ -10,6 +16,24 @@ import java.util.Date;
 import java.util.List;
 
 public class NewsletterIssue {
+
+	public NewsletterIssue(JournalFolder journalFolder) {
+		long folderId = journalFolder.getFolderId();
+		List<JournalArticle> allArticles =
+			JournalArticleLocalServiceUtil.dynamicQuery(
+				articleByFolderId(folderId));
+
+		title = journalFolder.getName();
+		description = journalFolder.getDescription();
+	}
+
+	private DynamicQuery articleByFolderId(long folderId) {
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			com.liferay.journal.model.JournalArticle.class, PortalClassLoaderUtil.getClassLoader());
+
+		return dynamicQuery.add(
+			PropertyFactoryUtil.forName("folderId").eq(folderId));
+	}
 
 	public NewsletterIssue(Issue issue) {
 		number = issue.getIssueNumber();
@@ -52,16 +76,13 @@ public class NewsletterIssue {
 		this.authors = authors;
 	}
 
-	public List<NewsletterArticle> getArticles() {
+	public List<JournalArticle> getArticles() {
 		return articles;
 	}
 
-	public void setArticles(List<NewsletterArticle> articles) {
+	public void setArticles(List<JournalArticle> articles) {
 		this.articles = articles;
 	}
-
-	private String title;
-	private String description;
 
 	public int getNumber() {
 		return number;
@@ -71,8 +92,10 @@ public class NewsletterIssue {
 		this.number = number;
 	}
 
+	private String title;
+	private String description;
 	private int number;
 	private LocalDate date;
 	private List<Author> authors;
-	private List<NewsletterArticle> articles;
+	private List<JournalArticle> articles;
 }
