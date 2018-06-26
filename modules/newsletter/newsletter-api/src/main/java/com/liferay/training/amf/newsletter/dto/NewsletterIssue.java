@@ -1,5 +1,6 @@
 package com.liferay.training.amf.newsletter.dto;
 
+import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.service.JournalArticleLocalServiceUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
@@ -18,6 +19,7 @@ import java.util.List;
 public class NewsletterIssue {
 
 	public NewsletterIssue(JournalFolder journalFolder) {
+
 		long folderId = journalFolder.getFolderId();
 		List<JournalArticle> allArticles =
 			JournalArticleLocalServiceUtil.dynamicQuery(

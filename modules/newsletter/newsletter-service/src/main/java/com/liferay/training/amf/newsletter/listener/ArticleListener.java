@@ -76,18 +76,26 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 
 		try {
 
-			if (_isIssueData(journalArticle)) {
+			if (_articleIsIssueData(journalArticle)) {
 				_issueLocalService.addIssueMetaData(journalArticle);
 			}
+			else if (!_articleIsNewsletterArticle(journalArticle)) {
 
-			if (_articleIsNewsletterArticle(journalArticle)) {
+				// If the article is a newsletter it is valid and the
+				// the super function can be called. Otherwise throw and
+				// exception.
 
+				_log.error("Wrong DDMStructure.");
+
+				_journalArticleLocalService.deleteArticle(journalArticle);
+				return;
 			}
 		}
 		catch (PortalException | DocumentException e) {
 			_log.error(e, e);
 			throw new ModelListenerException(e);
 		}
+
 		super.onAfterCreate(journalArticle);
 	}
 
@@ -107,10 +115,21 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 	public void onAfterUpdate(JournalArticle journalArticle)
 		throws ModelListenerException {
 
+		if (_articleIsMovingFromNewsletterFolder(journalArticle)) {
+			if (_articleIsIssueData(journalArticle)) {
+
+				// The Issue data should not be removed from the folder. The
+				// user should be warned.
+
+
+			}
+//			else if ()
+		}
+
 		super.onAfterUpdate(journalArticle);
 	}
 
-	private boolean _isIssueData(JournalArticle journalArticle) {
+	private boolean _articleIsIssueData(JournalArticle journalArticle) {
 		return _hasDDMStructure(
 			journalArticle, ListenerConstants.ISSUE_DATA_STRUCTURE_NAME);
 	}

@@ -35,9 +35,11 @@ public class FolderListener extends BaseModelListener<JournalFolder> {
 		throws ModelListenerException {
 
 		if (_isInNewsletterFolder(newFolder)) {
+
 			// The creation of a new issue should also create a new
 			// article of the Newsletter Issue type which holds
 			// metadata for the issue.
+
 			_addIssue(newFolder);
 		}
 		super.onAfterCreate(newFolder);

@@ -53,10 +53,6 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		// Issues will be ordered starting at 0 and descending in the db.
 		// If a folder is removed then the numbers will be recalculated.
 
-		// TODO change the way this works. The user should manually choose the
-		// issue number. This needs to have validation.
-
-		issue.setIssueNumber(getLastIssueNumber());
 		issue.setJournalFolderId(journalFolder.getFolderId());
 		issuePersistence.update(issue);
 		return issue;
@@ -110,10 +106,6 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 			newsletterIssues.add(new NewsletterIssue(issue));
 		}
 		return newsletterIssues;
-	}
-
-	private int getLastIssueNumber() {
-		return getIssuesCount();
 	}
 
 	private List<Issue> getIssues() {
