@@ -18,7 +18,6 @@ import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
@@ -30,6 +29,7 @@ import com.liferay.training.amf.newsletter.service.base.IssueLocalServiceBaseImp
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,11 +51,12 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 
 	public List<Issue> getIssuesByYear() {
 		DynamicQuery yearQuery = DynamicQueryFactoryUtil.forClass(Issue.class);
-		yearQuery.add(RestrictionsFactoryUtil.)
+//		yearQuery.add(RestrictionsFactoryUtil.eq())
+		return new LinkedList<>();
 	}
 
 	public List<Issue> getIssuesByMonth() {
-
+		return new LinkedList<>();
 	}
 
 	public Issue addIssue(JournalFolder journalFolder) {
@@ -69,7 +70,6 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		issuePersistence.update(issue);
 		return issue;
 	}
-
 
 	/**
 	 * Adds the metadata for the issue to the db.
@@ -90,7 +90,7 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		Date date = _localDateToDate(localDate);
 
 		issue.setIssueNumber(issueNumber);
-		issue.setIssueDate(date.toString());
+		issue.setIssueDate(date);
 
 		issueLocalService.updateIssue(issue);
 	}
@@ -118,7 +118,7 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 	}
 
 
-	private List<Issue> getIssues() {
+	public List<Issue> getIssues() {
 		return issuePersistence.findAll();
 	}
 
