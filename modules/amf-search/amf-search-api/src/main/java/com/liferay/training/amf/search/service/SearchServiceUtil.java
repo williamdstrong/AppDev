@@ -16,7 +16,8 @@ package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -43,15 +44,10 @@ public class SearchServiceUtil {
 	 */
 
 	/**
-	* Returns the OSGi service identifier.
+	* NOTE FOR DEVELOPERS:
 	*
-	* @return the OSGi service identifier
-	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
-		return getService().getOSGiServiceIdentifier();
-	}
-
-	/**
+	* Never reference this class directly. Always use {@link SearchServiceUtil} to access the search remote service.
+	*
 	* @param groupId
 	* @param zip
 	* @param start
@@ -62,9 +58,18 @@ public class SearchServiceUtil {
 	* @throws PortalException
 	*/
 	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		long groupId, java.lang.String zip, int start, int end)
+		long groupId, String zip, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().findByZip(groupId, zip, start, end);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static long getSize()
@@ -76,5 +81,16 @@ public class SearchServiceUtil {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<SearchService, SearchService> _serviceTracker = ServiceTrackerFactory.open(SearchService.class);
+	private static ServiceTracker<SearchService, SearchService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(SearchService.class);
+
+		ServiceTracker<SearchService, SearchService> serviceTracker = new ServiceTracker<SearchService, SearchService>(bundle.getBundleContext(),
+				SearchService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

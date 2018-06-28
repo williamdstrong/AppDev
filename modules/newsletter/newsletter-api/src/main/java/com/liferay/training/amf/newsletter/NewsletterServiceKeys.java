@@ -1,6 +1,6 @@
-package com.liferay.training.amf.newsletter.listener;
+package com.liferay.training.amf.newsletter;
 
-public class ListenerConstants {
+public class NewsletterServiceKeys {
 
 	public static final String PARENT_FOLDER = "Newsletter";
 	public static final long GROUP_ID = 20142;

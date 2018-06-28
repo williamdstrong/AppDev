@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
+import com.liferay.training.amf.newsletter.NewsletterServiceKeys;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -65,7 +66,7 @@ public class FolderListener extends BaseModelListener<JournalFolder> {
 		// Check if the original parent was the Newsletter folder and if it has
 		// moved from there then we need to remove the issue.
 		if (_folderIsMovingFromNewsletterFolder(journalFolder)) {
-			Issue movedIssue = null;
+			Issue movedIssue;
 			try {
 				movedIssue = _issueLocalService.getIssueByFolderId(journalFolder.getFolderId());
 			}
@@ -124,7 +125,7 @@ public class FolderListener extends BaseModelListener<JournalFolder> {
 
 	private boolean _isInNewsletterFolder(JournalFolder journalFolder){
 		JournalFolder newsletterFolder = _journalFolderLocalService.fetchFolder(
-			ListenerConstants.GROUP_ID, ListenerConstants.PARENT_FOLDER);
+			NewsletterServiceKeys.GROUP_ID, NewsletterServiceKeys.PARENT_FOLDER);
 		long newsletterFolderId = newsletterFolder.getFolderId();
 
 		long journalFolderParentId = journalFolder.getParentFolderId();

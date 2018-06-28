@@ -57,13 +57,10 @@ public interface SearchService extends BaseService {
 	 */
 
 	/**
-	* Returns the OSGi service identifier.
+	* NOTE FOR DEVELOPERS:
 	*
-	* @return the OSGi service identifier
-	*/
-	public java.lang.String getOSGiServiceIdentifier();
-
-	/**
+	* Never reference this class directly. Always use {@link SearchServiceUtil} to access the search remote service.
+	*
 	* @param groupId
 	* @param zip
 	* @param start
@@ -73,8 +70,15 @@ public interface SearchService extends BaseService {
 	* @throws PrincipalException thrown when the user does not have permission to access the user data requested.
 	* @throws PortalException
 	*/
-	public List<SearchData> findByZip(long groupId, java.lang.String zip,
-		int start, int end) throws PortalException;
+	public List<SearchData> findByZip(long groupId, String zip, int start,
+		int end) throws PortalException;
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getSize() throws NoSearchQueryException;

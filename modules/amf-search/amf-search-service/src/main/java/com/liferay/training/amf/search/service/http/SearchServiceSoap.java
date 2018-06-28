@@ -55,6 +55,10 @@ import java.rmi.RemoteException;
 @ProviderType
 public class SearchServiceSoap {
 	/**
+	* NOTE FOR DEVELOPERS:
+	*
+	* Never reference this class directly. Always use {@link SearchServiceUtil} to access the search remote service.
+	*
 	* @param groupId
 	* @param zip
 	* @param start
@@ -65,8 +69,7 @@ public class SearchServiceSoap {
 	* @throws PortalException
 	*/
 	public static com.liferay.training.amf.search.dto.SearchData[] findByZip(
-		long groupId, java.lang.String zip, int start, int end)
-		throws RemoteException {
+		long groupId, String zip, int start, int end) throws RemoteException {
 		try {
 			java.util.List<com.liferay.training.amf.search.dto.SearchData> returnValue =
 				SearchServiceUtil.findByZip(groupId, zip, start, end);

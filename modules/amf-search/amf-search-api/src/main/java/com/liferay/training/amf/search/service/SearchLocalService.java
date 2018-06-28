@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -15,12 +15,14 @@
 package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
 import com.liferay.training.amf.search.dto.SearchData;
 import com.liferay.training.amf.search.exception.NoSearchQueryException;
 
@@ -49,15 +51,20 @@ public interface SearchLocalService extends BaseLocalService {
 	 */
 
 	/**
+	* NOTE FOR DEVELOPERS:
+	* <p>
+	* Never reference this class directly. Always use {@link SearchLocalServiceUtil} to access the search local service.
+	*/
+	public List<SearchData> findByZip(String zip, int start, int end)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long get_size() throws NoSearchQueryException;
+
+	/**
 	* Returns the OSGi service identifier.
 	*
 	* @return the OSGi service identifier
 	*/
-	java.lang.String getOSGiServiceIdentifier();
-
-	List<SearchData> findByZip(java.lang.String zip, int start, int end)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	long get_size() throws NoSearchQueryException;
+	public String getOSGiServiceIdentifier();
 }

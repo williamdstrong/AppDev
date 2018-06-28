@@ -12,8 +12,14 @@
   ~ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
   ~ FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
   ~ details.
-  --%>
+--%>
 
-<p>
-    <b><liferay-ui:message key="newsletter.caption"/></b>
-</p>
+<c:forEach items="${yearList}" var="monthList">
+<c:forEach items="${monthList}" var="articleList">
+<c:forEach items="${articleList}" var="article">
+	<liferay-ui:journal-article articleId=${article.articleId}> </liferay-ui:journal-article>
+</c:forEach>
+</c:forEach>
+</c:forEach>
+
+

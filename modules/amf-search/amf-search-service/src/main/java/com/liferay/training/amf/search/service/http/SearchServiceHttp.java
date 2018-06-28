@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -15,12 +15,14 @@
 package com.liferay.training.amf.search.service.http;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
 import com.liferay.portal.kernel.service.http.TunnelUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
+
 import com.liferay.training.amf.search.service.SearchServiceUtil;
 
 /**
@@ -54,9 +56,8 @@ import com.liferay.training.amf.search.service.SearchServiceUtil;
 @ProviderType
 public class SearchServiceHttp {
 	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		HttpPrincipal httpPrincipal, long groupId, java.lang.String zip,
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		HttpPrincipal httpPrincipal, long groupId, String zip, int start,
+		int end) throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
 					"findByZip", _findByZipParameterTypes0);
@@ -90,7 +91,7 @@ public class SearchServiceHttp {
 		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
 		try {
 			MethodKey methodKey = new MethodKey(SearchServiceUtil.class,
-				"get_size", _getSizeParameterTypes1);
+					"getSize", _getSizeParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -118,7 +119,7 @@ public class SearchServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(SearchServiceHttp.class);
 	private static final Class<?>[] _findByZipParameterTypes0 = new Class[] {
-			long.class, java.lang.String.class, int.class, int.class
+			long.class, String.class, int.class, int.class
 		};
 	private static final Class<?>[] _getSizeParameterTypes1 = new Class[] {  };
 }

@@ -16,7 +16,8 @@ package com.liferay.training.amf.search.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import org.osgi.util.tracker.ServiceTracker;
 
@@ -43,29 +44,44 @@ public class SearchLocalServiceUtil {
 	 */
 
 	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
+	* NOTE FOR DEVELOPERS:
+	* <p>
+	* Never reference this class directly. Always use {@link SearchLocalServiceUtil} to access the search local service.
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
-		return getService().getOSGiServiceIdentifier();
-	}
-
 	public static java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		java.lang.String zip, int start, int end)
+		String zip, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().findByZip(zip, start, end);
 	}
 
-	public static long getSize()
+	public static long get_size()
 		throws com.liferay.training.amf.search.exception.NoSearchQueryException {
-		return getService().getSize();
+		return getService().get_size();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	public static SearchLocalService getService() {
 		return _serviceTracker.getService();
 	}
 
-	private static ServiceTracker<SearchLocalService, SearchLocalService> _serviceTracker =
-		ServiceTrackerFactory.open(SearchLocalService.class);
+	private static ServiceTracker<SearchLocalService, SearchLocalService> _serviceTracker;
+
+	static {
+		Bundle bundle = FrameworkUtil.getBundle(SearchLocalService.class);
+
+		ServiceTracker<SearchLocalService, SearchLocalService> serviceTracker = new ServiceTracker<SearchLocalService, SearchLocalService>(bundle.getBundleContext(),
+				SearchLocalService.class, null);
+
+		serviceTracker.open();
+
+		_serviceTracker = serviceTracker;
+	}
 }

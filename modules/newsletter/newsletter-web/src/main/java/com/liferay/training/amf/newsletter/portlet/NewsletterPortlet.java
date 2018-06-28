@@ -28,7 +28,7 @@ import javax.portlet.Portlet;
 	property = {
 		"com.liferay.portlet.display-category=category.sample",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=newsletter Portlet",
+		"javax.portlet.display-name=Newsletter Portlet",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + NewsletterPortletKeys.Newsletter,

@@ -33,16 +33,10 @@ public class SearchServiceWrapper implements SearchService,
 	}
 
 	/**
-	* Returns the OSGi service identifier.
+	* NOTE FOR DEVELOPERS:
 	*
-	* @return the OSGi service identifier
-	*/
-	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
-		return _searchService.getOSGiServiceIdentifier();
-	}
-
-	/**
+	* Never reference this class directly. Always use {@link SearchServiceUtil} to access the search remote service.
+	*
 	* @param groupId
 	* @param zip
 	* @param start
@@ -54,9 +48,19 @@ public class SearchServiceWrapper implements SearchService,
 	*/
 	@Override
 	public java.util.List<com.liferay.training.amf.search.dto.SearchData> findByZip(
-		long groupId, java.lang.String zip, int start, int end)
+		long groupId, String zip, int start, int end)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _searchService.findByZip(groupId, zip, start, end);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public String getOSGiServiceIdentifier() {
+		return _searchService.getOSGiServiceIdentifier();
 	}
 
 	@Override

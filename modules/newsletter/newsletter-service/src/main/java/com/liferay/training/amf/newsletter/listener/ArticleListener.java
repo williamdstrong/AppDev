@@ -1,9 +1,7 @@
 package com.liferay.training.amf.newsletter.listener;
 
 
-import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.journal.model.JournalArticle;
-import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.service.JournalArticleLocalService;
 import com.liferay.journal.service.JournalFolderLocalService;
 import com.liferay.portal.kernel.exception.ModelListenerException;
@@ -12,10 +10,9 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
 import com.liferay.portal.kernel.model.ModelListener;
-import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
-import com.liferay.portal.kernel.xml.Node;
-import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.training.amf.newsletter.ArticleChecks;
+import com.liferay.training.amf.newsletter.NewsletterServiceKeys;
 import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -74,27 +71,7 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 	public void onAfterCreate(JournalArticle journalArticle)
 		throws ModelListenerException {
 
-		try {
-
-			if (_articleIsIssueData(journalArticle)) {
-				_issueLocalService.addIssueMetaData(journalArticle);
-			}
-			else if (!_articleIsNewsletterArticle(journalArticle)) {
-
-				// If the article is a newsletter it is valid and the
-				// the super function can be called. Otherwise throw and
-				// exception.
-
-				_log.error("Wrong DDMStructure.");
-
-				_journalArticleLocalService.deleteArticle(journalArticle);
-				return;
-			}
-		}
-		catch (PortalException | DocumentException e) {
-			_log.error(e, e);
-			throw new ModelListenerException(e);
-		}
+		_addArticleToIssue(journalArticle);
 
 		super.onAfterCreate(journalArticle);
 	}
@@ -112,111 +89,42 @@ public class ArticleListener extends BaseModelListener<JournalArticle> {
 	 *
 	 */
 	@Override
-	public void onAfterUpdate(JournalArticle journalArticle)
-		throws ModelListenerException {
+	public void onBeforeUpdate(JournalArticle journalArticle) {
 
-		if (_articleIsMovingFromNewsletterFolder(journalArticle)) {
+		try {
 			if (_articleIsIssueData(journalArticle)) {
 
-				// The Issue data should not be removed from the folder. The
-				// user should be warned.
+				_addArticleToIssue(journalArticle);
 
-
+				super.onBeforeUpdate(journalArticle);
 			}
-//			else if ()
-		}
-
-		super.onAfterUpdate(journalArticle);
-	}
-
-	private boolean _articleIsIssueData(JournalArticle journalArticle) {
-		return _hasDDMStructure(
-			journalArticle, ListenerConstants.ISSUE_DATA_STRUCTURE_NAME);
-	}
-
-	private boolean _hasDDMStructure(
-		JournalArticle journalArticle, String structureName) {
-
-		DDMStructure structure;
-		try {
-			structure = journalArticle.getDDMStructure();
-		}
-		catch (PortalException e) {
-			_log.error(e, e);
-			throw new ModelListenerException(e);
-		}
-		String name = structure.getName();
-
-		Document document;
-		try {
-			document = SAXReaderUtil.read(name);
 		}
 		catch (DocumentException e) {
 			_log.error(e, e);
 			throw new ModelListenerException(e);
 		}
-
-		Node nameNode = document.selectSingleNode(
-			"/root/Name");
-		name = nameNode.getText();
-
-		return (name.equals(structureName));
+		catch (PortalException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private boolean _articleIsNewsletterArticle(JournalArticle journalArticle) {
-
-		JournalFolder journalFolder;
-
+	private void _addArticleToIssue(JournalArticle journalArticle) throws ModelListenerException {
 		try {
-			journalFolder = journalArticle.getFolder();
+			if (_articleIsIssueData(journalArticle)) {
+				_issueLocalService.addIssueMetaData(journalArticle);
+			}
 		}
-		catch (PortalException e) {
+		catch (PortalException | DocumentException e) {
 			_log.error(e, e);
 			throw new ModelListenerException(e);
 		}
-		return _isInNewsletterFolder(journalFolder) && _hasDDMStructure(
-			journalArticle, ListenerConstants.ISSUE_ARTICLE_STRUCTURE_NAME);
-
 	}
 
-	private boolean _articleIsMovingFromNewsletterFolder(
-		JournalArticle newArticle) {
-
-		JournalArticle originalArticle;
-		JournalFolder newArticleFolder;
-		JournalFolder originalArticleFolder;
-
-		try {
-			originalArticle =
-				_journalArticleLocalService.getArticle(newArticle.getId());
-
-			originalArticleFolder = originalArticle.getFolder();
-			newArticleFolder = newArticle.getFolder();
-		}
-		catch (PortalException e) {
-			_log.error(e, e);
-			throw new ModelListenerException(e);
-		}
-
-
-		boolean newIsAnIssue = _isInNewsletterFolder(newArticleFolder);
-		boolean oldIsAnIssue = _isInNewsletterFolder(originalArticleFolder);
-
-		// In this case the folder is moving from the parent to another
-		// parent.
-		return (oldIsAnIssue && !newIsAnIssue);
-
+	private boolean _articleIsIssueData(JournalArticle journalArticle) throws DocumentException, PortalException {
+		return ArticleChecks.hasDDMStructure(
+			journalArticle, NewsletterServiceKeys.ISSUE_DATA_STRUCTURE_NAME);
 	}
 
-	private boolean _isInNewsletterFolder(JournalFolder journalFolder){
-		JournalFolder newsletterFolder = _journalFolderLocalService.fetchFolder(
-			ListenerConstants.GROUP_ID, ListenerConstants.PARENT_FOLDER);
-		long newsletterFolderId = newsletterFolder.getFolderId();
-
-		long journalFolderParentId = journalFolder.getParentFolderId();
-
-		return journalFolderParentId == newsletterFolderId;
-	}
 
 
 	@Reference
