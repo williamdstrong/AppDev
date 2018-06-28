@@ -17,9 +17,8 @@ package com.liferay.training.amf.newsletter.portlet.commands;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.training.amf.newsletter.constants.NewsletterPortletKeys;
-import com.liferay.training.amf.newsletter.dto.NewsletterArticle;
 import com.liferay.training.amf.newsletter.NewsletterIssue;
+import com.liferay.training.amf.newsletter.constants.NewsletterPortletKeys;
 import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -46,8 +45,6 @@ public class NewsletterRenderCommand implements MVCRenderCommand {
 	public String render(RenderRequest request, RenderResponse response) {
 
 		List<NewsletterIssue> newsletterIssues;
-		List<newsletterIssues> monthOfNewsletterIssues;
-		List<monthOfNewsletterIssues> yearOfNewsletterIssues;
 
 		// Get issues by year and populate NewsletterIssue object. A
 		// forEach loop in the jsp will iterate through each of these

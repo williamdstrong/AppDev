@@ -226,6 +226,10 @@ public class IssueLocalServiceUtil {
 		return getService().getIssueByFolderId(folderId);
 	}
 
+	public static java.util.List<com.liferay.training.amf.newsletter.model.Issue> getIssues() {
+		return getService().getIssues();
+	}
+
 	/**
 	* Returns a range of all the issues.
 	*

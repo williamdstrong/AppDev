@@ -234,6 +234,11 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 		return _issueLocalService.getIssueByFolderId(folderId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.training.amf.newsletter.model.Issue> getIssues() {
+		return _issueLocalService.getIssues();
+	}
+
 	/**
 	* Returns a range of all the issues.
 	*
