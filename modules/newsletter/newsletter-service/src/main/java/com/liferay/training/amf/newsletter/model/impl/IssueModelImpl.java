@@ -15,10 +15,8 @@
 package com.liferay.training.amf.newsletter.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
@@ -27,14 +25,12 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.model.IssueModel;
 
 import java.io.Serializable;
-
 import java.sql.Types;
-
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +59,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 			{ "issueId", Types.BIGINT },
 			{ "issueNumber", Types.INTEGER },
 			{ "journalFolderId", Types.BIGINT },
-			{ "issueDate", Types.VARCHAR }
+			{ "issueDate", Types.TIMESTAMP }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -71,10 +67,10 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 		TABLE_COLUMNS_MAP.put("issueId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("issueNumber", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("journalFolderId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("issueDate", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("issueDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table AMF_Issue (issueId LONG not null primary key,issueNumber INTEGER,journalFolderId LONG,issueDate VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table AMF_Issue (issueId LONG not null primary key,issueNumber INTEGER,journalFolderId LONG,issueDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table AMF_Issue";
 	public static final String ORDER_BY_JPQL = " ORDER BY issue.issueNumber DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY AMF_Issue.issueNumber DESC";
@@ -163,7 +159,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 			setJournalFolderId(journalFolderId);
 		}
 
-		String issueDate = (String)attributes.get("issueDate");
+		Date issueDate = (Date)attributes.get("issueDate");
 
 		if (issueDate != null) {
 			setIssueDate(issueDate);
@@ -225,17 +221,12 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 	}
 
 	@Override
-	public String getIssueDate() {
-		if (_issueDate == null) {
-			return "";
-		}
-		else {
-			return _issueDate;
-		}
+	public Date getIssueDate() {
+		return _issueDate;
 	}
 
 	@Override
-	public void setIssueDate(String issueDate) {
+	public void setIssueDate(Date issueDate) {
 		_issueDate = issueDate;
 	}
 
@@ -317,12 +308,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 		long primaryKey = issue.getPrimaryKey();
 
-		if (getPrimaryKey() == primaryKey) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return getPrimaryKey() == primaryKey;
 	}
 
 	@Override
@@ -365,12 +351,13 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 		issueCacheModel.journalFolderId = getJournalFolderId();
 
-		issueCacheModel.issueDate = getIssueDate();
+		Date issueDate = getIssueDate();
 
-		String issueDate = issueCacheModel.issueDate;
-
-		if ((issueDate != null) && (issueDate.length() == 0)) {
-			issueCacheModel.issueDate = null;
+		if (issueDate != null) {
+			issueCacheModel.issueDate = issueDate.getTime();
+		}
+		else {
+			issueCacheModel.issueDate = Long.MIN_VALUE;
 		}
 
 		return issueCacheModel;
@@ -434,7 +421,7 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 	private long _journalFolderId;
 	private long _originalJournalFolderId;
 	private boolean _setOriginalJournalFolderId;
-	private String _issueDate;
+	private Date _issueDate;
 	private long _columnBitmask;
 	private Issue _escapedModel;
 }

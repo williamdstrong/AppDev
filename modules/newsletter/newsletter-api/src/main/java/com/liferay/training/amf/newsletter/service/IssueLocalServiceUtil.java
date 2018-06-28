@@ -15,10 +15,8 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
-
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -242,6 +240,14 @@ public class IssueLocalServiceUtil {
 	public static java.util.List<com.liferay.training.amf.newsletter.model.Issue> getIssues(
 		int start, int end) {
 		return getService().getIssues(start, end);
+	}
+
+	public static java.util.List<com.liferay.training.amf.newsletter.model.Issue> getIssuesByMonth() {
+		return getService().getIssuesByMonth();
+	}
+
+	public static java.util.List<com.liferay.training.amf.newsletter.model.Issue> getIssuesByYear() {
+		return getService().getIssuesByYear();
 	}
 
 	/**

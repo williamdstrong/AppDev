@@ -15,17 +15,16 @@
 package com.liferay.training.amf.newsletter.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
-
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-
 import com.liferay.training.amf.newsletter.model.Issue;
 
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.Date;
 
 /**
  * The cache model class for representing Issue in entity cache.
@@ -48,11 +47,8 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 
 		IssueCacheModel issueCacheModel = (IssueCacheModel)obj;
 
-		if (issueId == issueCacheModel.issueId) {
-			return true;
-		}
+		return issueId == issueCacheModel.issueId;
 
-		return false;
 	}
 
 	@Override
@@ -85,11 +81,11 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		issueImpl.setIssueNumber(issueNumber);
 		issueImpl.setJournalFolderId(journalFolderId);
 
-		if (issueDate == null) {
-			issueImpl.setIssueDate("");
+		if (issueDate == Long.MIN_VALUE) {
+			issueImpl.setIssueDate(null);
 		}
 		else {
-			issueImpl.setIssueDate(issueDate);
+			issueImpl.setIssueDate(new Date(issueDate));
 		}
 
 		issueImpl.resetOriginalValues();
@@ -104,7 +100,7 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		issueNumber = objectInput.readInt();
 
 		journalFolderId = objectInput.readLong();
-		issueDate = objectInput.readUTF();
+		issueDate = objectInput.readLong();
 	}
 
 	@Override
@@ -115,17 +111,11 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 		objectOutput.writeInt(issueNumber);
 
 		objectOutput.writeLong(journalFolderId);
-
-		if (issueDate == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(issueDate);
-		}
+		objectOutput.writeLong(issueDate);
 	}
 
 	public long issueId;
 	public int issueNumber;
 	public long journalFolderId;
-	public String issueDate;
+	public long issueDate;
 }
