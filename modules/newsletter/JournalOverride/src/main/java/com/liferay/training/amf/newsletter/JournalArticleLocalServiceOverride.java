@@ -1,5 +1,6 @@
 package com.liferay.training.amf.newsletter;
 
+import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.journal.exception.InvalidDDMStructureException;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
@@ -12,9 +13,11 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceWrapper;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
+import com.liferay.portal.kernel.xml.Node;
+import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -38,10 +41,8 @@ public class JournalArticleLocalServiceOverride extends JournalArticleLocalServi
 		long groupId, String articleId, long newFolderId, ServiceContext serviceContext)
 		throws PortalException {
 
-		long count = UserLocalServiceUtil.getUsersCount();
-
 		JournalArticle journalArticle =
-			getArticle(Long.parseLong(articleId));
+			getArticle(groupId, articleId);
 
 
 		try {
@@ -65,11 +66,6 @@ public class JournalArticleLocalServiceOverride extends JournalArticleLocalServi
 		}
 	}
 
-	@Override
-	public JournalArticle getArticle(long articleId) throws PortalException {
-		return super.getArticle(articleId);
-	}
-
 	private String _buildErrorMessage(JournalArticle journalArticle) {
 		try {
 			StringBundler s = new StringBundler();
@@ -87,6 +83,10 @@ public class JournalArticleLocalServiceOverride extends JournalArticleLocalServi
 	}
 
 	private boolean _isInNewsletterFolder(JournalFolder journalFolder){
+		if (journalFolder == null) {
+			return false;
+		}
+
 		JournalFolder newsletterFolder = _journalFolderLocalService.fetchFolder(
 			NewsletterServiceKeys.GROUP_ID,
 			NewsletterServiceKeys.PARENT_FOLDER);
@@ -100,21 +100,48 @@ public class JournalArticleLocalServiceOverride extends JournalArticleLocalServi
 	private boolean _articleIsIssueData(JournalArticle journalArticle)
 		throws DocumentException, PortalException {
 
-		return ArticleChecks.hasDDMStructure(
+		return hasDDMStructure(
 			journalArticle, NewsletterServiceKeys.ISSUE_DATA_STRUCTURE_NAME);
 	}
 
+	private static boolean hasDDMStructure(
+		JournalArticle journalArticle, String structureName)
+		throws PortalException, DocumentException {
 
+		String name = _getDDMStructureName(journalArticle);
+
+		return (name.equals(structureName));
+	}
+
+	private static String _getDDMStructureName(JournalArticle journalArticle) throws PortalException, DocumentException {
+
+		DDMStructure structure;
+		structure = journalArticle.getDDMStructure();
+
+		String name = structure.getName();
+
+		Document document = SAXReaderUtil.read(name);
+
+		Node nameNode = document.selectSingleNode(
+			"/root/Name");
+		
+		return nameNode.getText();
+	}
 
 	private boolean _articleIsMovingFromNewsletterFolder(
-		JournalArticle newArticle, long newFolderId) throws PortalException {
+		JournalArticle article, long newFolderId) throws PortalException {
 
 		JournalFolder newArticleFolder;
 		JournalFolder originalArticleFolder;
 
 		try {
-			originalArticleFolder =_journalFolderLocalService.getFolder(newFolderId);
-			newArticleFolder = newArticle.getFolder();
+			if (!(newFolderId == 0)) {
+				newArticleFolder = _journalFolderLocalService.getFolder(newFolderId);
+			}
+			else {
+				newArticleFolder = null;
+			}
+			originalArticleFolder = article.getFolder();
 		}
 		catch (PortalException e) {
 			_log.error(e);
@@ -126,9 +153,15 @@ public class JournalArticleLocalServiceOverride extends JournalArticleLocalServi
 
 		// In this case the folder is moving from the parent to another
 		// parent.
-		return (oldIsAnIssue && !newIsAnIssue);
 
+		if (!oldIsAnIssue) {
+			return false;
+		}
+		else {
+			return (!newIsAnIssue);
+		}
 	}
+
 
 	@Reference
 	private JournalFolderLocalService _journalFolderLocalService;
