@@ -15,6 +15,7 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
@@ -259,18 +260,6 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 	@Override
 	public int getIssuesCount() {
 		return _issueLocalService.getIssuesCount();
-	}
-
-	@Override
-	public com.liferay.training.amf.newsletter.dto.NewsletterIssue getNewsletterIssue(
-		int issueNumber)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _issueLocalService.getNewsletterIssue(issueNumber);
-	}
-
-	@Override
-	public java.util.List<com.liferay.training.amf.newsletter.dto.NewsletterIssue> getNewsletterIssues() {
-		return _issueLocalService.getNewsletterIssues();
 	}
 
 	/**

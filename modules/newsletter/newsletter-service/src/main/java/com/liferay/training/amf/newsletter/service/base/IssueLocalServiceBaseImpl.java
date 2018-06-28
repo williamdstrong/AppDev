@@ -15,7 +15,9 @@
 package com.liferay.training.amf.newsletter.service.base;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.journal.service.persistence.JournalFolderPersistence;
+
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
@@ -41,15 +43,18 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.IssueLocalService;
 import com.liferay.training.amf.newsletter.service.persistence.ArticleAuthorPersistence;
 import com.liferay.training.amf.newsletter.service.persistence.AuthorPersistence;
 import com.liferay.training.amf.newsletter.service.persistence.IssuePersistence;
 
-import javax.sql.DataSource;
 import java.io.Serializable;
+
 import java.util.List;
+
+import javax.sql.DataSource;
 
 /**
  * Provides the base implementation for the issue local service.
@@ -257,9 +262,11 @@ public abstract class IssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * @throws PortalException
 	 */
 	@Override
-	public PersistedModel deletePersistedModel(PersistedModel persistedModel) {
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException {
 		return issueLocalService.deleteIssue((Issue)persistedModel);
 	}
 

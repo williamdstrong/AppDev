@@ -15,7 +15,9 @@
 package com.liferay.training.amf.newsletter.service.persistence;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
+
 import com.liferay.training.amf.newsletter.exception.NoSuchIssueException;
 import com.liferay.training.amf.newsletter.model.Issue;
 
@@ -46,7 +48,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @return the matching issue
 	* @throws NoSuchIssueException if a matching issue could not be found
 	*/
-	Issue findByJournalFolderId(long journalFolderId)
+	public Issue findByJournalFolderId(long journalFolderId)
 		throws NoSuchIssueException;
 
 	/**
@@ -55,7 +57,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param journalFolderId the journal folder ID
 	* @return the matching issue, or <code>null</code> if a matching issue could not be found
 	*/
-	Issue fetchByJournalFolderId(long journalFolderId);
+	public Issue fetchByJournalFolderId(long journalFolderId);
 
 	/**
 	* Returns the issue where journalFolderId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -64,7 +66,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching issue, or <code>null</code> if a matching issue could not be found
 	*/
-	Issue fetchByJournalFolderId(long journalFolderId,
+	public Issue fetchByJournalFolderId(long journalFolderId,
 		boolean retrieveFromCache);
 
 	/**
@@ -73,7 +75,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param journalFolderId the journal folder ID
 	* @return the issue that was removed
 	*/
-	Issue removeByJournalFolderId(long journalFolderId)
+	public Issue removeByJournalFolderId(long journalFolderId)
 		throws NoSuchIssueException;
 
 	/**
@@ -82,7 +84,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param journalFolderId the journal folder ID
 	* @return the number of matching issues
 	*/
-	int countByJournalFolderId(long journalFolderId);
+	public int countByJournalFolderId(long journalFolderId);
 
 	/**
 	* Returns the issue where issueNumber = &#63; or throws a {@link NoSuchIssueException} if it could not be found.
@@ -91,7 +93,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @return the matching issue
 	* @throws NoSuchIssueException if a matching issue could not be found
 	*/
-	Issue findByIssueNumber(int issueNumber) throws NoSuchIssueException;
+	public Issue findByIssueNumber(int issueNumber) throws NoSuchIssueException;
 
 	/**
 	* Returns the issue where issueNumber = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
@@ -99,7 +101,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param issueNumber the issue number
 	* @return the matching issue, or <code>null</code> if a matching issue could not be found
 	*/
-	Issue fetchByIssueNumber(int issueNumber);
+	public Issue fetchByIssueNumber(int issueNumber);
 
 	/**
 	* Returns the issue where issueNumber = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -108,7 +110,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching issue, or <code>null</code> if a matching issue could not be found
 	*/
-	Issue fetchByIssueNumber(int issueNumber, boolean retrieveFromCache);
+	public Issue fetchByIssueNumber(int issueNumber, boolean retrieveFromCache);
 
 	/**
 	* Removes the issue where issueNumber = &#63; from the database.
@@ -116,7 +118,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param issueNumber the issue number
 	* @return the issue that was removed
 	*/
-	Issue removeByIssueNumber(int issueNumber)
+	public Issue removeByIssueNumber(int issueNumber)
 		throws NoSuchIssueException;
 
 	/**
@@ -125,21 +127,21 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param issueNumber the issue number
 	* @return the number of matching issues
 	*/
-	int countByIssueNumber(int issueNumber);
+	public int countByIssueNumber(int issueNumber);
 
 	/**
 	* Caches the issue in the entity cache if it is enabled.
 	*
 	* @param issue the issue
 	*/
-	void cacheResult(Issue issue);
+	public void cacheResult(Issue issue);
 
 	/**
 	* Caches the issues in the entity cache if it is enabled.
 	*
 	* @param issues the issues
 	*/
-	void cacheResult(java.util.List<Issue> issues);
+	public void cacheResult(java.util.List<Issue> issues);
 
 	/**
 	* Creates a new issue with the primary key. Does not add the issue to the database.
@@ -147,7 +149,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param issueId the primary key for the new issue
 	* @return the new issue
 	*/
-	Issue create(long issueId);
+	public Issue create(long issueId);
 
 	/**
 	* Removes the issue with the primary key from the database. Also notifies the appropriate model listeners.
@@ -156,9 +158,9 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @return the issue that was removed
 	* @throws NoSuchIssueException if a issue with the primary key could not be found
 	*/
-	Issue remove(long issueId) throws NoSuchIssueException;
+	public Issue remove(long issueId) throws NoSuchIssueException;
 
-	Issue updateImpl(Issue issue);
+	public Issue updateImpl(Issue issue);
 
 	/**
 	* Returns the issue with the primary key or throws a {@link NoSuchIssueException} if it could not be found.
@@ -167,7 +169,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @return the issue
 	* @throws NoSuchIssueException if a issue with the primary key could not be found
 	*/
-	Issue findByPrimaryKey(long issueId) throws NoSuchIssueException;
+	public Issue findByPrimaryKey(long issueId) throws NoSuchIssueException;
 
 	/**
 	* Returns the issue with the primary key or returns <code>null</code> if it could not be found.
@@ -175,10 +177,10 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param issueId the primary key of the issue
 	* @return the issue, or <code>null</code> if a issue with the primary key could not be found
 	*/
-	Issue fetchByPrimaryKey(long issueId);
+	public Issue fetchByPrimaryKey(long issueId);
 
 	@Override
-	java.util.Map<java.io.Serializable, Issue> fetchByPrimaryKeys(
+	public java.util.Map<java.io.Serializable, Issue> fetchByPrimaryKeys(
 		java.util.Set<java.io.Serializable> primaryKeys);
 
 	/**
@@ -186,7 +188,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	*
 	* @return the issues
 	*/
-	java.util.List<Issue> findAll();
+	public java.util.List<Issue> findAll();
 
 	/**
 	* Returns a range of all the issues.
@@ -199,7 +201,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param end the upper bound of the range of issues (not inclusive)
 	* @return the range of issues
 	*/
-	java.util.List<Issue> findAll(int start, int end);
+	public java.util.List<Issue> findAll(int start, int end);
 
 	/**
 	* Returns an ordered range of all the issues.
@@ -213,7 +215,7 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of issues
 	*/
-	java.util.List<Issue> findAll(int start, int end,
+	public java.util.List<Issue> findAll(int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Issue> orderByComparator);
 
 	/**
@@ -229,19 +231,19 @@ public interface IssuePersistence extends BasePersistence<Issue> {
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the ordered range of issues
 	*/
-	java.util.List<Issue> findAll(int start, int end,
+	public java.util.List<Issue> findAll(int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator<Issue> orderByComparator,
 		boolean retrieveFromCache);
 
 	/**
 	* Removes all the issues from the database.
 	*/
-	void removeAll();
+	public void removeAll();
 
 	/**
 	* Returns the number of issues.
 	*
 	* @return the number of issues
 	*/
-	int countAll();
+	public int countAll();
 }

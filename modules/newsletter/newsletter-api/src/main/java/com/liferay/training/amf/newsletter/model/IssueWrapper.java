@@ -15,11 +15,14 @@
 package com.liferay.training.amf.newsletter.model;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.expando.kernel.model.ExpandoBridge;
+
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -301,8 +304,11 @@ public class IssueWrapper implements Issue, ModelWrapper<Issue> {
 
 		IssueWrapper issueWrapper = (IssueWrapper)obj;
 
-		return Objects.equals(_issue, issueWrapper._issue);
+		if (Objects.equals(_issue, issueWrapper._issue)) {
+			return true;
+		}
 
+		return false;
 	}
 
 	@Override

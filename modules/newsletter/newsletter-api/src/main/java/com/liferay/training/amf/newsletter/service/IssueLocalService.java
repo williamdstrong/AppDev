@@ -15,7 +15,10 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
+
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
@@ -32,10 +35,11 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.xml.DocumentException;
-import com.liferay.training.amf.newsletter.dto.NewsletterIssue;
+
 import com.liferay.training.amf.newsletter.model.Issue;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 /**
@@ -68,9 +72,9 @@ public interface IssueLocalService extends BaseLocalService,
 	* @return the issue that was added
 	*/
 	@Indexable(type = IndexableType.REINDEX)
-	Issue addIssue(Issue issue);
+	public Issue addIssue(Issue issue);
 
-	Issue addIssue(JournalFolder journalFolder);
+	public Issue addIssue(JournalFolder journalFolder);
 
 	/**
 	* Adds the metadata for the issue to the db.
@@ -80,8 +84,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @throws PortalException
 	* @throws DocumentException
 	*/
-	void addIssueMetaData(
-		com.liferay.journal.model.JournalArticle journalArticle)
+	public void addIssueMetaData(JournalArticle journalArticle)
 		throws PortalException, DocumentException;
 
 	/**
@@ -91,7 +94,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @return the new issue
 	*/
 	@Transactional(enabled = false)
-	Issue createIssue(long issueId);
+	public Issue createIssue(long issueId);
 
 	/**
 	* Deletes the issue from the database. Also notifies the appropriate model listeners.
@@ -100,7 +103,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @return the issue that was removed
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	Issue deleteIssue(Issue issue);
+	public Issue deleteIssue(Issue issue);
 
 	/**
 	* Deletes the issue with the primary key from the database. Also notifies the appropriate model listeners.
@@ -110,16 +113,16 @@ public interface IssueLocalService extends BaseLocalService,
 	* @throws PortalException if a issue with the primary key could not be found
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	Issue deleteIssue(long issueId) throws PortalException;
+	public Issue deleteIssue(long issueId) throws PortalException;
 
 	/**
 	* @throws PortalException
 	*/
 	@Override
-	PersistedModel deletePersistedModel(PersistedModel persistedModel)
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException;
 
-	DynamicQuery dynamicQuery();
+	public DynamicQuery dynamicQuery();
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -127,7 +130,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	<T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery);
 
 	/**
 	* Performs a dynamic query on the database and returns a range of the matching rows.
@@ -141,7 +144,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	<T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end);
 
 	/**
@@ -157,7 +160,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	<T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end, OrderByComparator<T> orderByComparator);
 
 	/**
@@ -166,7 +169,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows matching the dynamic query
 	*/
-	long dynamicQueryCount(DynamicQuery dynamicQuery);
+	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
 	* Returns the number of rows matching the dynamic query.
@@ -175,17 +178,17 @@ public interface IssueLocalService extends BaseLocalService,
 	* @param projection the projection to apply to the query
 	* @return the number of rows matching the dynamic query
 	*/
-	long dynamicQueryCount(DynamicQuery dynamicQuery,
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
 		Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	Issue fetchIssue(long issueId);
+	public Issue fetchIssue(long issueId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	ActionableDynamicQuery getActionableDynamicQuery();
+	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
 	* Returns the issue with the primary key.
@@ -195,10 +198,10 @@ public interface IssueLocalService extends BaseLocalService,
 	* @throws PortalException if a issue with the primary key could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	Issue getIssue(long issueId) throws PortalException;
+	public Issue getIssue(long issueId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	Issue getIssueByFolderId(long folderId) throws PortalException;
+	public Issue getIssueByFolderId(long folderId) throws PortalException;
 
 	/**
 	* Returns a range of all the issues.
@@ -212,7 +215,7 @@ public interface IssueLocalService extends BaseLocalService,
 	* @return the range of issues
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	List<Issue> getIssues(int start, int end);
+	public List<Issue> getIssues(int start, int end);
 
 	/**
 	* Returns the number of issues.
@@ -220,25 +223,18 @@ public interface IssueLocalService extends BaseLocalService,
 	* @return the number of issues
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	int getIssuesCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	NewsletterIssue getNewsletterIssue(int issueNumber)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	List<NewsletterIssue> getNewsletterIssues();
+	public int getIssuesCount();
 
 	/**
 	* Returns the OSGi service identifier.
 	*
 	* @return the OSGi service identifier
 	*/
-	String getOSGiServiceIdentifier();
+	public String getOSGiServiceIdentifier();
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	PersistedModel getPersistedModel(Serializable primaryKeyObj)
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
 	/**
@@ -248,5 +244,5 @@ public interface IssueLocalService extends BaseLocalService,
 	* @return the issue that was updated
 	*/
 	@Indexable(type = IndexableType.REINDEX)
-	Issue updateIssue(Issue issue);
+	public Issue updateIssue(Issue issue);
 }

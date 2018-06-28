@@ -15,8 +15,10 @@
 package com.liferay.training.amf.newsletter.service;
 
 import aQute.bnd.annotation.ProviderType;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
 import org.osgi.util.tracker.ServiceTracker;
 
 /**
@@ -249,16 +251,6 @@ public class IssueLocalServiceUtil {
 	*/
 	public static int getIssuesCount() {
 		return getService().getIssuesCount();
-	}
-
-	public static com.liferay.training.amf.newsletter.dto.NewsletterIssue getNewsletterIssue(
-		int issueNumber)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getNewsletterIssue(issueNumber);
-	}
-
-	public static java.util.List<com.liferay.training.amf.newsletter.dto.NewsletterIssue> getNewsletterIssues() {
-		return getService().getNewsletterIssues();
 	}
 
 	/**

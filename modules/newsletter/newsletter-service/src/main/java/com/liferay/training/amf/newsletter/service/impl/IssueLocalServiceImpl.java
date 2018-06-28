@@ -21,12 +21,10 @@ import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.training.amf.newsletter.dto.NewsletterIssue;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.base.IssueLocalServiceBaseImpl;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -94,19 +92,7 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 	public Issue getIssueByFolderId(long folderId) throws PortalException {
 		return issuePersistence.findByJournalFolderId(folderId);
 	}
-	public NewsletterIssue getNewsletterIssue(int issueNumber) throws
-		PortalException {
-		Issue issue = getIssue(issueNumber);
-		return new NewsletterIssue(issue);
-	}
 
-	public List<NewsletterIssue> getNewsletterIssues() {
-		List<NewsletterIssue> newsletterIssues = new LinkedList<>();
-		for (Issue issue : getIssues())	{
-			newsletterIssues.add(new NewsletterIssue(issue));
-		}
-		return newsletterIssues;
-	}
 
 	private List<Issue> getIssues() {
 		return issuePersistence.findAll();

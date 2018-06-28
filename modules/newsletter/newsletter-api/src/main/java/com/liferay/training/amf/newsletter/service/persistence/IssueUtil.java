@@ -15,12 +15,16 @@
 package com.liferay.training.amf.newsletter.service.persistence;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
+
 import com.liferay.training.amf.newsletter.model.Issue;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
 import org.osgi.util.tracker.ServiceTracker;
 
 import java.util.List;

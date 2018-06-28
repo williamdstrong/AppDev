@@ -15,6 +15,7 @@
 package com.liferay.training.amf.newsletter.service.persistence.impl;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
 import com.liferay.portal.kernel.dao.orm.FinderPath;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+
 import com.liferay.training.amf.newsletter.exception.NoSuchIssueException;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.model.impl.IssueImpl;
@@ -37,7 +39,9 @@ import com.liferay.training.amf.newsletter.model.impl.IssueModelImpl;
 import com.liferay.training.amf.newsletter.service.persistence.IssuePersistence;
 
 import java.io.Serializable;
+
 import java.lang.reflect.InvocationHandler;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
