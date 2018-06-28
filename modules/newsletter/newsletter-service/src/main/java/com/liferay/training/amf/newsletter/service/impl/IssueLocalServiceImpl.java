@@ -16,6 +16,9 @@ package com.liferay.training.amf.newsletter.service.impl;
 
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
@@ -25,6 +28,8 @@ import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.base.IssueLocalServiceBaseImpl;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,6 +48,15 @@ import java.util.Locale;
  * @see com.liferay.training.amf.newsletter.service.IssueLocalServiceUtil
  */
 public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
+
+	public List<Issue> getIssuesByYear() {
+		DynamicQuery yearQuery = DynamicQueryFactoryUtil.forClass(Issue.class);
+		yearQuery.add(RestrictionsFactoryUtil.)
+	}
+
+	public List<Issue> getIssuesByMonth() {
+
+	}
 
 	public Issue addIssue(JournalFolder journalFolder) {
 		long issueId = counterLocalService.increment();
@@ -72,12 +86,22 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		Issue issue = issueLocalService.getIssueByFolderId(folderId);
 
 		int issueNumber = _getIssueNumberFromArticle(journalArticle);
-		LocalDate date = _getIssueDateFromArticle(journalArticle);
+		LocalDate localDate = _getIssueDateFromArticle(journalArticle);
+		Date date = _localDateToDate(localDate);
 
 		issue.setIssueNumber(issueNumber);
 		issue.setIssueDate(date.toString());
 
 		issueLocalService.updateIssue(issue);
+	}
+
+	private static Date _localDateToDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	private static LocalDate _dateToLocalDate(Date date) {
+
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
 	@Override
