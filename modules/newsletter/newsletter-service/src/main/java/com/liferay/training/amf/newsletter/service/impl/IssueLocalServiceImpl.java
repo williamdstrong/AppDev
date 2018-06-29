@@ -82,7 +82,7 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 	private List<JournalArticle> _getIssueArticlesByF_D(
 		long folderId, String ddmStructureKey) {
 
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(JournalArticle.class);
+		DynamicQuery dynamicQuery = journalArticleLocalService.dynamicQuery();
 
 		dynamicQuery.add(
 			PropertyFactoryUtil.forName("folderId").eq(folderId));
@@ -90,7 +90,7 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		dynamicQuery.add(PropertyFactoryUtil.forName(
 			"DDMStructureKey").eq(ddmStructureKey));
 
-		return dynamicQuery(dynamicQuery);
+		return journalArticleLocalService.dynamicQuery(dynamicQuery);
 	}
 
 	/**

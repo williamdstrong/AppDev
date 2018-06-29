@@ -40,6 +40,7 @@
         </finder>
 
         <reference entity="JournalFolder" package-path="com.liferay.journal" />
+        <reference entity="JournalArticle" package-path="com.liferay.journal" />
     </entity>
 
     <entity name="Author" local-service="true" remote-service="false">
