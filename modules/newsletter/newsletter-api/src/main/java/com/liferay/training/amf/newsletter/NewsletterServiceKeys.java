@@ -6,4 +6,5 @@ public class NewsletterServiceKeys {
 	public static final long GROUP_ID = 20142;
 	public static final String ISSUE_DATA_STRUCTURE_NAME = "Newsletter Issue";
 	public static final String ISSUE_ARTICLE_STRUCTURE_NAME = "Newsletter Article";
+	public static final String ISSUE_DATA_STRUCTURE_KEY = "48976";
 }

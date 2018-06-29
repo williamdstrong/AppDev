@@ -6,5 +6,5 @@ Export-Package:\
 	com.liferay.training.amf.newsletter.model,\
 	com.liferay.training.amf.newsletter.service,\
 	com.liferay.training.amf.newsletter.service.persistence,\
-	com.liferay.training.amf.newsletter.dto
+	com.liferay.training.amf.newsletter
 -includeresource: META-INF/service.xml=../newsletter-service/service.xml
