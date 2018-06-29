@@ -2,44 +2,56 @@ package com.liferay.training.amf.newsletter;
 
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
-import com.liferay.journal.service.JournalArticleLocalServiceUtil;
-import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
-import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
-import com.liferay.training.amf.newsletter.model.Author;
+import com.liferay.journal.service.JournalFolderLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.xml.Document;
+import com.liferay.portal.kernel.xml.DocumentException;
+import com.liferay.portal.kernel.xml.Node;
+import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.training.amf.newsletter.model.Issue;
+import com.liferay.training.amf.newsletter.service.IssueLocalServiceUtil;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+
 
 public class NewsletterIssue {
 
-	public NewsletterIssue(JournalFolder journalFolder) {
 
-		long folderId = journalFolder.getFolderId();
-		List<JournalArticle> allArticles =
-			JournalArticleLocalServiceUtil.dynamicQuery(
-				articleByFolderId(folderId));
+	public NewsletterIssue(Issue issue) throws PortalException, DocumentException {
 
-		title = journalFolder.getName();
-		description = journalFolder.getDescription();
-	}
-
-	private DynamicQuery articleByFolderId(long folderId) {
-		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-			com.liferay.journal.model.JournalArticle.class, PortalClassLoaderUtil.getClassLoader());
-
-		return dynamicQuery.add(
-			PropertyFactoryUtil.forName("folderId").eq(folderId));
-	}
-
-	public NewsletterIssue(Issue issue) {
 		number = issue.getIssueNumber();
+		date = dateToLocalDate(issue.getIssueDate());
+
+		long folderId = issue.getJournalFolderId();
+		JournalFolder journalFolder = JournalFolderLocalServiceUtil.getJournalFolder(folderId);
+		description = journalFolder.getDescription();
+		title = journalFolder.getName();
+
+		articles = IssueLocalServiceUtil.getIssueArticlesByIssue(issue);
+
+		authors = _getAuthorsFromArticle();
 	}
+
+	private List<String> _getAuthorsFromArticle() throws DocumentException {
+
+		List<String> authorList = new LinkedList<>();
+		for (JournalArticle article : articles) {
+			Document document = SAXReaderUtil.read(
+				article.getContentByLocale(Locale.ENGLISH.toString()));
+
+			Node issueNumberNode = document.selectSingleNode(
+				"/root/dynamic-element[@name='author']/dynamic-content");
+			authorList.add(issueNumberNode.getText());
+		}
+		return authorList;
+	}
+
 
 	private static LocalDate dateToLocalDate(Date date) {
 		Instant instant =date.toInstant();
@@ -70,11 +82,11 @@ public class NewsletterIssue {
 		this.date = date;
 	}
 
-	public List<Author> getAuthors() {
+	public List<String> getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(List<Author> authors) {
+	public void setAuthors(List<String> authors) {
 		this.authors = authors;
 	}
 
@@ -98,6 +110,6 @@ public class NewsletterIssue {
 	private String description;
 	private int number;
 	private LocalDate date;
-	private List<Author> authors;
+	private List<String> authors;
 	private List<JournalArticle> articles;
 }

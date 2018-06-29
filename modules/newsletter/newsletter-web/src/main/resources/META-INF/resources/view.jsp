@@ -14,12 +14,16 @@
   ~ details.
 --%>
 
-<c:forEach items="${yearList}" var="monthList">
-<c:forEach items="${monthList}" var="articleList">
-<c:forEach items="${articleList}" var="article">
-	<liferay-ui:journal-article articleId=${article.articleId}> </liferay-ui:journal-article>
+<c:forEach items="${allNewsletterIssues}" var="yearOfIssues">
+    <liferay-ui:message key="${yearOfIssues.getFirst().getFirst().getDate().getYear()}" /><br/>
+    <c:forEach items="${yearOfIssues}" var="monthOfIssues">
+        <liferay-ui:message key="${monthOfIssues.getFirst().getDate().getMonth().toString().toLowerCase()}" /><br/>
+        <c:forEach items="${monthOfIssues}" var="issue">
+            <b>${issue.title}</b><br/>
+            <p>${issue.description}</p><br/>
+            <c:forEach items="${issue.articles}" var="article">
+                <em>${article.articleId}</em><br/>
+            </c:forEach>
+        </c:forEach>
+    </c:forEach>
 </c:forEach>
-</c:forEach>
-</c:forEach>
-
-
