@@ -197,6 +197,12 @@ public interface IssueLocalService extends BaseLocalService,
 	Issue getIssue(long issueId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	List<JournalArticle> getIssueArticlesByFolderId(long folderId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	List<JournalArticle> getIssueArticlesByIssue(Issue issue);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	Issue getIssueByFolderId(long folderId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

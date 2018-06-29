@@ -228,6 +228,18 @@ public class IssueLocalServiceWrapper implements IssueLocalService,
 	}
 
 	@Override
+	public java.util.List<com.liferay.journal.model.JournalArticle> getIssueArticlesByFolderId(
+		long folderId) {
+		return _issueLocalService.getIssueArticlesByFolderId(folderId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.journal.model.JournalArticle> getIssueArticlesByIssue(
+		com.liferay.training.amf.newsletter.model.Issue issue) {
+		return _issueLocalService.getIssueArticlesByIssue(issue);
+	}
+
+	@Override
 	public com.liferay.training.amf.newsletter.model.Issue getIssueByFolderId(
 		long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException {

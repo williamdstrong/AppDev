@@ -220,6 +220,16 @@ public class IssueLocalServiceUtil {
 		return getService().getIssue(issueId);
 	}
 
+	public static java.util.List<com.liferay.journal.model.JournalArticle> getIssueArticlesByFolderId(
+		long folderId) {
+		return getService().getIssueArticlesByFolderId(folderId);
+	}
+
+	public static java.util.List<com.liferay.journal.model.JournalArticle> getIssueArticlesByIssue(
+		com.liferay.training.amf.newsletter.model.Issue issue) {
+		return getService().getIssueArticlesByIssue(issue);
+	}
+
 	public static com.liferay.training.amf.newsletter.model.Issue getIssueByFolderId(
 		long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
