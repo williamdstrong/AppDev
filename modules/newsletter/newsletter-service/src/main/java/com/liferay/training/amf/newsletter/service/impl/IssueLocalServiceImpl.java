@@ -18,11 +18,13 @@ import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Node;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
+import com.liferay.training.amf.newsletter.NewsletterServiceKeys;
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.service.base.IssueLocalServiceBaseImpl;
 
@@ -64,11 +66,31 @@ public class IssueLocalServiceImpl extends IssueLocalServiceBaseImpl {
 		Issue issue = createIssue(issueId);
 
 		// Issues will be ordered starting at 0 and descending in the db.
-		// If a folder is removed then the numbers will be recalculated.
 
 		issue.setJournalFolderId(journalFolder.getFolderId());
 		issuePersistence.update(issue);
 		return issue;
+	}
+
+	public List<JournalArticle> getIssueArticlesByFolderId(long folderId) {
+		return _getIssueArticlesByF_D(folderId, NewsletterServiceKeys.ISSUE_DATA_STRUCTURE_KEY);
+	}
+	public List<JournalArticle> getIssueArticlesByIssue(Issue issue) {
+		return _getIssueArticlesByF_D(issue.getJournalFolderId(), NewsletterServiceKeys.ISSUE_DATA_STRUCTURE_KEY);
+	}
+
+	private List<JournalArticle> _getIssueArticlesByF_D(
+		long folderId, String ddmStructureKey) {
+
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(JournalArticle.class);
+
+		dynamicQuery.add(
+			PropertyFactoryUtil.forName("folderId").eq(folderId));
+
+		dynamicQuery.add(PropertyFactoryUtil.forName(
+			"DDMStructureKey").eq(ddmStructureKey));
+
+		return dynamicQuery(dynamicQuery);
 	}
 
 	/**
