@@ -15,15 +15,18 @@
 package com.liferay.training.amf.newsletter.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+
 import com.liferay.training.amf.newsletter.model.Issue;
 
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+
 import java.util.Date;
 
 /**
@@ -47,8 +50,11 @@ public class IssueCacheModel implements CacheModel<Issue>, Externalizable {
 
 		IssueCacheModel issueCacheModel = (IssueCacheModel)obj;
 
-		return issueId == issueCacheModel.issueId;
+		if (issueId == issueCacheModel.issueId) {
+			return true;
+		}
 
+		return false;
 	}
 
 	@Override

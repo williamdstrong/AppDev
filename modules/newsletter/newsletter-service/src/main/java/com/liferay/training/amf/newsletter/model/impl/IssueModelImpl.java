@@ -15,8 +15,10 @@
 package com.liferay.training.amf.newsletter.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
@@ -25,11 +27,14 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+
 import com.liferay.training.amf.newsletter.model.Issue;
 import com.liferay.training.amf.newsletter.model.IssueModel;
 
 import java.io.Serializable;
+
 import java.sql.Types;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -308,7 +313,12 @@ public class IssueModelImpl extends BaseModelImpl<Issue> implements IssueModel {
 
 		long primaryKey = issue.getPrimaryKey();
 
-		return getPrimaryKey() == primaryKey;
+		if (getPrimaryKey() == primaryKey) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override

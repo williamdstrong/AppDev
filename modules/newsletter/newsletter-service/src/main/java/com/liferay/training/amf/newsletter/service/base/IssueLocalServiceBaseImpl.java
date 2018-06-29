@@ -16,6 +16,7 @@ package com.liferay.training.amf.newsletter.service.base;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.journal.service.persistence.JournalArticlePersistence;
 import com.liferay.journal.service.persistence.JournalFolderPersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -426,6 +427,44 @@ public abstract class IssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the journal article local service.
+	 *
+	 * @return the journal article local service
+	 */
+	public com.liferay.journal.service.JournalArticleLocalService getJournalArticleLocalService() {
+		return journalArticleLocalService;
+	}
+
+	/**
+	 * Sets the journal article local service.
+	 *
+	 * @param journalArticleLocalService the journal article local service
+	 */
+	public void setJournalArticleLocalService(
+		com.liferay.journal.service.JournalArticleLocalService journalArticleLocalService) {
+		this.journalArticleLocalService = journalArticleLocalService;
+	}
+
+	/**
+	 * Returns the journal article persistence.
+	 *
+	 * @return the journal article persistence
+	 */
+	public JournalArticlePersistence getJournalArticlePersistence() {
+		return journalArticlePersistence;
+	}
+
+	/**
+	 * Sets the journal article persistence.
+	 *
+	 * @param journalArticlePersistence the journal article persistence
+	 */
+	public void setJournalArticlePersistence(
+		JournalArticlePersistence journalArticlePersistence) {
+		this.journalArticlePersistence = journalArticlePersistence;
+	}
+
+	/**
 	 * Returns the journal folder local service.
 	 *
 	 * @return the journal folder local service
@@ -621,6 +660,10 @@ public abstract class IssueLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected IssuePersistence issuePersistence;
 	@ServiceReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
+	@ServiceReference(type = com.liferay.journal.service.JournalArticleLocalService.class)
+	protected com.liferay.journal.service.JournalArticleLocalService journalArticleLocalService;
+	@ServiceReference(type = JournalArticlePersistence.class)
+	protected JournalArticlePersistence journalArticlePersistence;
 	@ServiceReference(type = com.liferay.journal.service.JournalFolderLocalService.class)
 	protected com.liferay.journal.service.JournalFolderLocalService journalFolderLocalService;
 	@ServiceReference(type = JournalFolderPersistence.class)

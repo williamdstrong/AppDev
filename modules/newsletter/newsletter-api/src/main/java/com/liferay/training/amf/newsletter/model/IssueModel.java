@@ -15,12 +15,15 @@
 package com.liferay.training.amf.newsletter.model;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.expando.kernel.model.ExpandoBridge;
+
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 /**
@@ -49,125 +52,125 @@ public interface IssueModel extends BaseModel<Issue> {
 	 *
 	 * @return the primary key of this issue
 	 */
-	long getPrimaryKey();
+	public long getPrimaryKey();
 
 	/**
 	 * Sets the primary key of this issue.
 	 *
 	 * @param primaryKey the primary key of this issue
 	 */
-	void setPrimaryKey(long primaryKey);
+	public void setPrimaryKey(long primaryKey);
 
 	/**
 	 * Returns the issue ID of this issue.
 	 *
 	 * @return the issue ID of this issue
 	 */
-	long getIssueId();
+	public long getIssueId();
 
 	/**
 	 * Sets the issue ID of this issue.
 	 *
 	 * @param issueId the issue ID of this issue
 	 */
-	void setIssueId(long issueId);
+	public void setIssueId(long issueId);
 
 	/**
 	 * Returns the issue number of this issue.
 	 *
 	 * @return the issue number of this issue
 	 */
-	int getIssueNumber();
+	public int getIssueNumber();
 
 	/**
 	 * Sets the issue number of this issue.
 	 *
 	 * @param issueNumber the issue number of this issue
 	 */
-	void setIssueNumber(int issueNumber);
+	public void setIssueNumber(int issueNumber);
 
 	/**
 	 * Returns the journal folder ID of this issue.
 	 *
 	 * @return the journal folder ID of this issue
 	 */
-	long getJournalFolderId();
+	public long getJournalFolderId();
 
 	/**
 	 * Sets the journal folder ID of this issue.
 	 *
 	 * @param journalFolderId the journal folder ID of this issue
 	 */
-	void setJournalFolderId(long journalFolderId);
+	public void setJournalFolderId(long journalFolderId);
 
 	/**
 	 * Returns the issue date of this issue.
 	 *
 	 * @return the issue date of this issue
 	 */
-	Date getIssueDate();
+	public Date getIssueDate();
 
 	/**
 	 * Sets the issue date of this issue.
 	 *
 	 * @param issueDate the issue date of this issue
 	 */
-	void setIssueDate(Date issueDate);
+	public void setIssueDate(Date issueDate);
 
 	@Override
-	boolean isNew();
+	public boolean isNew();
 
 	@Override
-	void setNew(boolean n);
+	public void setNew(boolean n);
 
 	@Override
-	boolean isCachedModel();
+	public boolean isCachedModel();
 
 	@Override
-	void setCachedModel(boolean cachedModel);
+	public void setCachedModel(boolean cachedModel);
 
 	@Override
-	boolean isEscapedModel();
+	public boolean isEscapedModel();
 
 	@Override
-	Serializable getPrimaryKeyObj();
+	public Serializable getPrimaryKeyObj();
 
 	@Override
-	void setPrimaryKeyObj(Serializable primaryKeyObj);
+	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
 	@Override
-	ExpandoBridge getExpandoBridge();
+	public ExpandoBridge getExpandoBridge();
 
 	@Override
-	void setExpandoBridgeAttributes(BaseModel<?> baseModel);
+	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
 	@Override
-	void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
 	@Override
-	void setExpandoBridgeAttributes(ServiceContext serviceContext);
+	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
 	@Override
-	Object clone();
+	public Object clone();
 
 	@Override
-	int compareTo(Issue issue);
+	public int compareTo(Issue issue);
 
 	@Override
-	int hashCode();
+	public int hashCode();
 
 	@Override
-	CacheModel<Issue> toCacheModel();
+	public CacheModel<Issue> toCacheModel();
 
 	@Override
-	Issue toEscapedModel();
+	public Issue toEscapedModel();
 
 	@Override
-	Issue toUnescapedModel();
+	public Issue toUnescapedModel();
 
 	@Override
-	String toString();
+	public String toString();
 
 	@Override
-	String toXmlString();
+	public String toXmlString();
 }
