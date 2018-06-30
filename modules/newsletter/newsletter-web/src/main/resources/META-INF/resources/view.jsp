@@ -14,6 +14,8 @@
   ~ details.
 --%>
 
+
+
 <c:forEach items="${allNewsletterIssues}" var="yearOfIssues">
     <liferay-ui:message key="${yearOfIssues.getFirst().getFirst().getDate().getYear()}" /><br/>
     <c:forEach items="${yearOfIssues}" var="monthOfIssues">
@@ -22,7 +24,13 @@
             <b>${issue.title}</b><br/>
             <p>${issue.description}</p><br/>
             <c:forEach items="${issue.articles}" var="article">
-                <em>${article.articleId}</em><br/>
+                <c:set var="articleId" value="${article.id}" />
+                <portlet:renderURL var="articleURL" copyCurrentRenderParameters="true">
+                    <portlet:param name="mvcRenderCommandName" value="article" />
+                </portlet:renderURL>
+                <a href="${articleURL}">
+                    <liferay-ui:message key="${article.title}" />
+                <a/>
             </c:forEach>
         </c:forEach>
     </c:forEach>

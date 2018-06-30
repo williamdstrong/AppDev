@@ -33,7 +33,13 @@ public class NewsletterIssue {
 		description = journalFolder.getDescription();
 		title = journalFolder.getName();
 
-		articles = IssueLocalServiceUtil.getIssueArticlesByIssue(issue);
+		journalArticles = IssueLocalServiceUtil.getIssueArticlesByIssue(issue);
+
+		articles = new LinkedList<>();
+		for (JournalArticle journalArticle : journalArticles) {
+			Article article = new Article(journalArticle);
+			articles.add(article);
+		}
 
 		authors = _getAuthorsFromArticle();
 	}
@@ -41,7 +47,7 @@ public class NewsletterIssue {
 	private List<String> _getAuthorsFromArticle() throws DocumentException {
 
 		List<String> authorList = new LinkedList<>();
-		for (JournalArticle article : articles) {
+		for (JournalArticle article : journalArticles) {
 			Document document = SAXReaderUtil.read(
 				article.getContentByLocale(Locale.ENGLISH.toString()));
 
@@ -56,6 +62,10 @@ public class NewsletterIssue {
 	private static LocalDate dateToLocalDate(Date date) {
 		Instant instant =date.toInstant();
 		return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
+	public List<Article> getArticles() {
+		return articles;
 	}
 
 	public String getTitle() {
@@ -90,12 +100,12 @@ public class NewsletterIssue {
 		this.authors = authors;
 	}
 
-	public List<JournalArticle> getArticles() {
-		return articles;
+	public List<JournalArticle> getJournalArticles() {
+		return journalArticles;
 	}
 
-	public void setArticles(List<JournalArticle> articles) {
-		this.articles = articles;
+	public void setJournalArticles(List<JournalArticle> journalArticles) {
+		this.journalArticles = journalArticles;
 	}
 
 	public int getNumber() {
@@ -111,5 +121,6 @@ public class NewsletterIssue {
 	private int number;
 	private LocalDate date;
 	private List<String> authors;
-	private List<JournalArticle> articles;
+	private List<Article> articles;
+	private List<JournalArticle> journalArticles;
 }
